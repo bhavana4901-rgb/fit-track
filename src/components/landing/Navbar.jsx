@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Menu, X, Moon, Sun } from 'lucide-react'
 import { useTheme } from '../../hooks/useTheme'
 import Button from '../ui/Button'
+import MobileMenu from './MobileMenu'
 
 /**
  * Premium sticky Navbar component with scroll animations
@@ -117,35 +118,7 @@ export default function Navbar({ onMobileMenuToggle }) {
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-neutral-200 dark:border-neutral-800 animate-in fade-in slide-in-from-top-2 duration-300">
-            <div className="space-y-3 pt-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="block px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 rounded-lg transition-all duration-200"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </a>
-              ))}
-
-              <div className="px-4 pt-3 border-t border-neutral-200 dark:border-neutral-800 flex flex-col gap-2">
-                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button variant="outline" size="sm" className="w-full">
-                    Login
-                  </Button>
-                </Link>
-                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button variant="primary" size="sm" className="w-full">
-                    Get Started
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
+        <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
       </div>
     </nav>
   )
