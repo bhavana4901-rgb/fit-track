@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { motion } from 'framer-motion'
-import { DashboardLayout } from '../components/dashboard'
+import { DashboardLayout, DashboardHeader } from '../components/dashboard'
 import { AuthContext } from '../contexts/AuthContext'
 
 export default function Dashboard() {
@@ -34,15 +34,8 @@ export default function Dashboard() {
         animate="visible"
         variants={containerVariants}
       >
-        {/* Welcome Section */}
-        <motion.div variants={itemVariants}>
-          <h2 className="text-3xl font-bold text-neutral-900 dark:text-white">
-            Welcome, {user?.name}! 🎉
-          </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 mt-2">
-            Here's your fitness overview for today
-          </p>
-        </motion.div>
+        {/* Dashboard Header with Greeting and User Info */}
+        <DashboardHeader />
 
         {/* Stats Cards */}
         <motion.div
