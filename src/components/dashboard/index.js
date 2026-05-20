@@ -1,0 +1,7 @@
+// Export all dashboard components
+export { default as DashboardLayout } from './DashboardLayout'
+export { default as DashboardHeader } from './DashboardHeader'
+export { default as StatsCard } from './StatsCard'
+export { default as TodaysWorkout } from './TodaysWorkout'
+export { default as WeeklyActivityChart } from './WeeklyActivityChart'
+export { default as QuickActions } from './QuickActions'
