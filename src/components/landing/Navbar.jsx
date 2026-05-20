@@ -41,8 +41,8 @@ export default function Navbar({ onMobileMenuToggle }) {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ease-out ${
         isScrolled
-          ? 'bg-white dark:bg-neutral-950 shadow-lg shadow-neutral-200/50 dark:shadow-neutral-900/50'
-          : 'bg-transparent'
+          ? 'bg-white/95 dark:bg-neutral-950/95 backdrop-blur-lg shadow-lg shadow-neutral-200/50 dark:shadow-neutral-900/50 border-b border-neutral-200/50 dark:border-neutral-800/50'
+          : 'bg-transparent border-b border-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

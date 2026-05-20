@@ -107,8 +107,21 @@ const featureVariants = {
 
 export default function Pricing() {
   return (
-    <section className="py-20 md:py-32 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-20 md:py-32 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-neutral-50/60 via-cyan-50/40 to-white dark:from-neutral-900/60 dark:via-cyan-950/20 dark:to-neutral-950 relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <motion.div 
+          animate={{ y: [0, 40, 0], x: [0, -20, 0] }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute top-1/4 -left-32 w-80 h-80 bg-gradient-to-br from-cyan-200/20 to-primary-200/10 rounded-full blur-3xl dark:from-cyan-900/10 dark:to-primary-900/5"
+        />
+        <motion.div 
+          animate={{ y: [0, -40, 0], x: [0, 20, 0] }}
+          transition={{ duration: 12, repeat: Infinity }}
+          className="absolute bottom-1/4 -right-32 w-80 h-80 bg-gradient-to-tl from-blue-200/20 to-secondary-200/10 rounded-full blur-3xl dark:from-blue-900/10 dark:to-secondary-900/5"
+        />
+      </div>
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-20"

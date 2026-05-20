@@ -25,7 +25,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-white dark:from-neutral-950 to-neutral-50 dark:to-neutral-900 pt-32 md:pt-40 pb-20 md:pb-32">
+    <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20 dark:from-neutral-950 dark:via-blue-950/20 dark:to-purple-950/10 pt-32 md:pt-40 pb-20 md:pb-32">
       {/* Animated Background Blobs */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         {/* Blob 1 - Top Left */}
@@ -33,6 +33,7 @@ export default function Hero() {
           initial={{ opacity: 0.5 }}
           animate={{ 
             y: [0, 40, 0],
+            x: [0, 20, 0],
             opacity: [0.3, 0.6, 0.3]
           }}
           transition={{ 
@@ -48,6 +49,7 @@ export default function Hero() {
           initial={{ opacity: 0.5 }}
           animate={{ 
             y: [40, 0, 40],
+            x: [0, -20, 0],
             opacity: [0.6, 0.3, 0.6]
           }}
           transition={{ 
@@ -63,6 +65,7 @@ export default function Hero() {
           initial={{ opacity: 0.4 }}
           animate={{ 
             y: [-40, 40, -40],
+            scale: [1, 1.1, 1],
             opacity: [0.4, 0.5, 0.4]
           }}
           transition={{ 

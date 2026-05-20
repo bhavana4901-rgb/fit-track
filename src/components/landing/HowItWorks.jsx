@@ -72,8 +72,21 @@ export default function HowItWorks() {
   }
 
   return (
-    <section className="w-full py-16 md:py-24 bg-gradient-to-b from-white dark:from-neutral-950 to-neutral-50 dark:to-neutral-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full py-16 md:py-24 bg-gradient-to-b from-neutral-50/80 via-purple-50/30 to-neutral-50/50 dark:from-neutral-900/50 dark:via-purple-950/20 dark:to-neutral-900/30 relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <motion.div 
+          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute top-1/4 -left-40 w-96 h-96 bg-gradient-to-r from-purple-300/20 to-secondary-300/10 rounded-full blur-3xl dark:from-purple-900/10 dark:to-secondary-900/5"
+        />
+        <motion.div 
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.5, 0.3, 0.5] }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute top-1/3 -right-40 w-96 h-96 bg-gradient-to-l from-accent-300/20 to-primary-300/10 rounded-full blur-3xl dark:from-accent-900/10 dark:to-primary-900/5"
+        />
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

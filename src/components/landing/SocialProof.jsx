@@ -89,8 +89,21 @@ export default function SocialProof() {
   }
 
   return (
-    <section className="w-full py-16 md:py-24 bg-gradient-to-b from-neutral-50 dark:from-neutral-900 to-white dark:to-neutral-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full py-16 md:py-24 bg-gradient-to-b from-neutral-50/50 via-blue-50/30 to-white dark:from-neutral-900/50 dark:via-blue-950/20 dark:to-neutral-950 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <motion.div 
+          animate={{ x: [0, 20, 0], y: [0, 10, 0] }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-200/20 to-primary-200/10 rounded-full blur-3xl dark:from-blue-900/10 dark:to-primary-900/5"
+        />
+        <motion.div 
+          animate={{ x: [0, -20, 0], y: [0, -10, 0] }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-secondary-200/20 to-accent-200/10 rounded-full blur-3xl dark:from-secondary-900/10 dark:to-accent-900/5"
+        />
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"

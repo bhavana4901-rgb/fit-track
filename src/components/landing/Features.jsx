@@ -70,8 +70,13 @@ export default function Features() {
   }
 
   return (
-    <section id="features" className="w-full py-16 md:py-24 bg-white dark:bg-neutral-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="features" className="w-full py-16 md:py-24 bg-gradient-to-b from-white to-primary-50/20 dark:from-neutral-950 dark:to-neutral-900/50 relative overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-primary-200/10 to-secondary-200/10 rounded-full blur-3xl dark:from-primary-900/5 dark:to-secondary-900/5" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-gradient-to-tr from-accent-200/10 to-primary-200/10 rounded-full blur-3xl dark:from-accent-900/5 dark:to-primary-900/5" />
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

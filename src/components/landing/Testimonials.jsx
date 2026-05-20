@@ -96,8 +96,21 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="py-20 md:py-32 px-4 md:px-8 lg:px-16">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-20 md:py-32 px-4 md:px-8 lg:px-16 relative bg-gradient-to-b from-white via-pink-50/30 to-neutral-50/80 dark:from-neutral-950 dark:via-pink-950/20 dark:to-neutral-900/40 overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <motion.div 
+          animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
+          transition={{ duration: 12, repeat: Infinity }}
+          className="absolute top-20 left-1/3 w-96 h-96 bg-gradient-to-br from-pink-200/20 to-primary-200/10 rounded-full blur-3xl dark:from-pink-900/10 dark:to-primary-900/5"
+        />
+        <motion.div 
+          animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
+          transition={{ duration: 14, repeat: Infinity }}
+          className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-tl from-secondary-200/20 to-accent-200/10 rounded-full blur-3xl dark:from-secondary-900/10 dark:to-accent-900/5"
+        />
+      </div>
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-16"
