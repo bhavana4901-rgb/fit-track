@@ -111,7 +111,13 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
-  const [passwordStrength, setPasswordStrength] = useState({ score: 0, percentage: 0 })
+  const [passwordStrength, setPasswordStrength] = useState({ 
+    score: 0, 
+    percentage: 0, 
+    feedback: [],
+    label: 'No password',
+    color: 'bg-neutral-200'
+  })
 
   const {
     register,

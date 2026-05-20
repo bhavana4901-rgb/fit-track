@@ -18,6 +18,20 @@ export const useRegisterForm = () => {
     email: '',
     password: '',
     confirmPassword: '',
+    dateOfBirth: '',
+    gender: '',
+    height: 170,
+    heightUnit: 'cm',
+    weight: 70,
+    weightUnit: 'kg',
+    goals: [],
+    activityLevel: '',
+    avatar: null,
+    username: '',
+    bio: '',
+    emailNotifications: true,
+    pushNotifications: false,
+    weeklyDigest: true,
   })
   const [stepErrors, setStepErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -30,7 +44,7 @@ export const useRegisterForm = () => {
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData)
-        setFormData(parsedData)
+        setFormData((prev) => ({ ...prev, ...parsedData }))
       } catch (error) {
         console.error('Failed to parse saved registration data:', error)
       }

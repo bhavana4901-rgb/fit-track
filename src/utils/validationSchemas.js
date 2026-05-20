@@ -73,10 +73,10 @@ export const registerStep5Schema = z.object({
 
 // Complete Registration Schema (all steps combined)
 export const completeRegistrationSchema = registerStep1Schema
-  .merge(registerStep2Schema)
-  .merge(registerStep3Schema)
-  .merge(registerStep4Schema)
-  .merge(registerStep5Schema)
+  .and(registerStep2Schema)
+  .and(registerStep3Schema)
+  .and(registerStep4Schema)
+  .and(registerStep5Schema)
 
 // Schema validation utilities
 export const validateStep = (step, data) => {
