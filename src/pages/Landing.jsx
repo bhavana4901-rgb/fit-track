@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Navbar, Hero, SocialProof, Features } from '../components/landing'
+import { Navbar, Hero, SocialProof, Features, HowItWorks, Testimonials } from '../components/landing'
 
 export default function Landing() {
   return (
@@ -8,6 +8,8 @@ export default function Landing() {
       <Hero />
       <SocialProof />
       <Features />
+      <HowItWorks />
+      <Testimonials />
     </div>
   )
 }
