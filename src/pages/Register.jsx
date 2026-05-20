@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import { StepIndicator, RegisterStep1, RegisterStep2, RegisterStep3, RegisterStep4 } from '../components/auth'
+import { StepIndicator, RegisterStep1, RegisterStep2, RegisterStep3, RegisterStep4, RegisterStep5 } from '../components/auth'
 import { motion } from 'framer-motion'
 
 export default function Register() {
@@ -103,30 +103,12 @@ export default function Register() {
         )}
 
         {step === 5 && (
-          <div className="min-h-screen flex items-center justify-center px-4 py-12">
-            <div className="max-w-2xl w-full text-center">
-              <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">
-                Profile Setup
-              </h1>
-              <p className="text-neutral-600 dark:text-neutral-400 mb-8">
-                Step 5 content coming in next commit
-              </p>
-              <div className="flex gap-4">
-                <button
-                  onClick={handlePrevious}
-                  className="flex-1 py-3 border-2 border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-900 font-medium transition"
-                >
-                  Back
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className="flex-1 py-3 bg-success-600 text-white rounded-lg hover:bg-success-700 font-medium transition"
-                >
-                  Complete Registration
-                </button>
-              </div>
-            </div>
-          </div>
+          <RegisterStep5
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            initialData={formData}
+            onSkip={() => handleNext({})}
+          />
         )}
       </motion.div>
     </div>
