@@ -20,8 +20,11 @@ export default function DashboardLayout({ children }) {
   const location = useLocation()
 
   const handleLogout = () => {
-    logout()
-    navigate('/')
+    const confirmed = window.confirm('Are you sure you want to logout?')
+    if (confirmed) {
+      logout()
+      navigate('/login')
+    }
   }
 
   const isActive = (href) => location.pathname === href
