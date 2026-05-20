@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { motion } from 'framer-motion'
-import { DashboardLayout, DashboardHeader, StatsCard, TodaysWorkout } from '../components/dashboard'
+import { DashboardLayout, DashboardHeader, StatsCard, TodaysWorkout, WeeklyActivityChart } from '../components/dashboard'
 import { AuthContext } from '../contexts/AuthContext'
 
 export default function Dashboard() {
@@ -84,6 +84,11 @@ export default function Dashboard() {
         {/* Today's Workout Card */}
         <motion.div variants={itemVariants}>
           <TodaysWorkout />
+        </motion.div>
+
+        {/* Weekly Activity Chart */}
+        <motion.div variants={itemVariants}>
+          <WeeklyActivityChart />
         </motion.div>
 
         {/* Coming Soon Section */}
