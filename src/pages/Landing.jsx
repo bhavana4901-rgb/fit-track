@@ -1,21 +1,12 @@
 import { Link } from 'react-router-dom'
+import { Navbar } from '../components/landing'
 
 export default function Landing() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-neutral-950 dark:to-neutral-900">
-      <nav className="flex justify-between items-center p-6 max-w-7xl mx-auto">
-        <h1 className="text-2xl font-bold text-primary-600">FitTrack</h1>
-        <div className="flex gap-4">
-          <Link to="/login" className="px-6 py-2 text-neutral-700 dark:text-neutral-300 hover:text-primary-600">
-            Login
-          </Link>
-          <Link to="/register" className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
-            Get Started
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
-      <main className="max-w-7xl mx-auto px-6 py-20 text-center">
+      <main className="max-w-7xl mx-auto px-6 py-20 pt-24 md:pt-28 text-center">
         <h2 className="text-5xl font-bold mb-6 text-neutral-900 dark:text-white">
           Your Premium Fitness Companion
         </h2>
