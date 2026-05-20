@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import { StepIndicator } from '../components/auth'
+import { StepIndicator, RegisterStep1 } from '../components/auth'
+import { motion } from 'framer-motion'
 
 export default function Register() {
   const [step, setStep] = useState(1)
@@ -14,12 +15,9 @@ export default function Register() {
   const navigate = useNavigate()
   const { login } = useAuth()
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleNext = () => {
+  const handleNext = (stepData) => {
+    // Merge step data with existing formData
+    setFormData((prev) => ({ ...prev, ...stepData }))
     if (step < 5) {
       setStep(step + 1)
     } else {
@@ -27,7 +25,7 @@ export default function Register() {
     }
   }
 
-  const handleBack = () => {
+  const handlePrevious = () => {
     if (step > 1) {
       setStep(step - 1)
     }
@@ -41,106 +39,153 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-gray-50 dark:from-neutral-950 dark:to-neutral-900 px-4 py-8">
-      <div className="w-full max-w-md">
-        <StepIndicator currentStep={step} totalSteps={5} />
-
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
-            {step === 1 && 'Create Your Account'}
-            {step === 2 && 'Personal Details'}
-            {step === 3 && 'Fitness Goals'}
-            {step === 4 && 'Activity Level'}
-            {step === 5 && 'Profile Setup'}
-          </h1>
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20 dark:from-neutral-950 dark:via-neutral-900 dark:to-purple-950/20 relative overflow-hidden">
+      {/* Step Indicator Header */}
+      <motion.div
+        className="sticky top-0 z-40 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-lg border-b border-neutral-200/50 dark:border-neutral-800/50 py-6 px-4 sm:px-6 lg:px-8"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <StepIndicator
+            currentStep={step}
+            totalSteps={5}
+            steps={[
+              { label: 'Account', description: 'Create your account' },
+              { label: 'Details', description: 'Personal information' },
+              { label: 'Goals', description: 'Fitness goals' },
+              { label: 'Activity', description: 'Activity level' },
+              { label: 'Profile', description: 'Complete profile' },
+            ]}
+          />
         </div>
+      </motion.div>
 
-        {/* Step 1: Basic Info */}
+      {/* Step Content */}
+      <motion.div
+        key={step}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         {step === 1 && (
-          <form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Full Name</label>
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 rounded-lg focus:border-primary-600 focus:outline-none"
-                placeholder="John Doe"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 rounded-lg focus:border-primary-600 focus:outline-none"
-                placeholder="john@example.com"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 rounded-lg focus:border-primary-600 focus:outline-none"
-                placeholder="••••••••"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Confirm Password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 rounded-lg focus:border-primary-600 focus:outline-none"
-                placeholder="••••••••"
-                required
-              />
-            </div>
-          </form>
+          <RegisterStep1
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            initialData={formData}
+          />
         )}
 
-        {/* Steps 2-5: Placeholder */}
-        {step > 1 && (
-          <div className="py-12 text-center">
-            <p className="text-neutral-600 dark:text-neutral-400">Step {step} content coming in future commits</p>
+        {step === 2 && (
+          <div className="min-h-screen flex items-center justify-center px-4 py-12">
+            <div className="max-w-2xl w-full text-center">
+              <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                Personal Details
+              </h1>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-8">
+                Step 2 content coming in next commit
+              </p>
+              <div className="flex gap-4">
+                <button
+                  onClick={handlePrevious}
+                  className="flex-1 py-3 border-2 border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-900 font-medium transition"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={() => handleNext({})}
+                  className="flex-1 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium transition"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Navigation */}
-        <div className="flex gap-4 mt-8">
-          {step > 1 && (
-            <button
-              onClick={handleBack}
-              className="flex-1 py-3 border-2 border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 font-medium transition"
-            >
-              Back
-            </button>
-          )}
-          <button
-            onClick={handleNext}
-            className="flex-1 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium transition"
-          >
-            {step === 5 ? 'Complete' : 'Continue'}
-          </button>
-        </div>
+        {step === 3 && (
+          <div className="min-h-screen flex items-center justify-center px-4 py-12">
+            <div className="max-w-2xl w-full text-center">
+              <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                Fitness Goals
+              </h1>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-8">
+                Step 3 content coming in next commit
+              </p>
+              <div className="flex gap-4">
+                <button
+                  onClick={handlePrevious}
+                  className="flex-1 py-3 border-2 border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-900 font-medium transition"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={() => handleNext({})}
+                  className="flex-1 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium transition"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
-        <p className="text-center text-neutral-600 dark:text-neutral-400 mt-6">
-          Already have an account?{' '}
-          <Link to="/login" className="text-primary-600 hover:text-primary-700 font-medium">
-            Sign in
-          </Link>
-        </p>
-      </div>
+        {step === 4 && (
+          <div className="min-h-screen flex items-center justify-center px-4 py-12">
+            <div className="max-w-2xl w-full text-center">
+              <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                Activity Level
+              </h1>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-8">
+                Step 4 content coming in next commit
+              </p>
+              <div className="flex gap-4">
+                <button
+                  onClick={handlePrevious}
+                  className="flex-1 py-3 border-2 border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-900 font-medium transition"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={() => handleNext({})}
+                  className="flex-1 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium transition"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {step === 5 && (
+          <div className="min-h-screen flex items-center justify-center px-4 py-12">
+            <div className="max-w-2xl w-full text-center">
+              <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                Profile Setup
+              </h1>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-8">
+                Step 5 content coming in next commit
+              </p>
+              <div className="flex gap-4">
+                <button
+                  onClick={handlePrevious}
+                  className="flex-1 py-3 border-2 border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-900 font-medium transition"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  className="flex-1 py-3 bg-success-600 text-white rounded-lg hover:bg-success-700 font-medium transition"
+                >
+                  Complete Registration
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </motion.div>
     </div>
   )
 }

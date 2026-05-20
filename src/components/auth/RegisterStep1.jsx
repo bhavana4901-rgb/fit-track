@@ -200,7 +200,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20 dark:from-neutral-950 dark:via-neutral-900 dark:to-purple-950/20 relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20 dark:from-neutral-950 dark:via-neutral-900 dark:to-purple-950/20 relative overflow-hidden">
       {/* Animated background blobs */}
       <motion.div
         className="absolute top-10 right-5 w-48 h-48 bg-gradient-to-br from-primary-400/20 to-secondary-400/20 dark:from-primary-600/10 dark:to-secondary-600/10 rounded-full blur-3xl pointer-events-none"
@@ -215,23 +215,218 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
       />
 
-      {/* Main container */}
-      <div className="w-full max-w-2xl mx-auto relative z-10">
+      {/* Split screen container */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen relative z-10">
+        {/* Left side - Illustration (hidden on mobile) */}
         <motion.div
-          className="space-y-8"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
+          className="hidden lg:flex items-center justify-center p-8 relative overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
         >
-          {/* Header */}
-          <motion.div className="space-y-2 text-center" variants={itemVariants}>
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent">
-              Create Your Account
-            </h1>
-            <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
-              Start your fitness journey with FitTrack
-            </p>
-          </motion.div>
+          <div className="relative w-full max-w-md h-96">
+            {/* Illustration: Person with account creation theme */}
+            <svg viewBox="0 0 300 400" className="w-full h-full">
+              {/* Background circle glow */}
+              <circle
+                cx="150"
+                cy="200"
+                r="180"
+                fill="url(#glow)"
+                opacity="0.15"
+              />
+
+              {/* Define gradients */}
+              <defs>
+                <linearGradient
+                  id="glow"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#3B82F6" />
+                  <stop offset="100%" stopColor="#EC4899" />
+                </linearGradient>
+                <linearGradient
+                  id="headGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#60A5FA" />
+                  <stop offset="100%" stopColor="#A78BFA" />
+                </linearGradient>
+                <linearGradient
+                  id="bodyGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#06B6D4" />
+                  <stop offset="100%" stopColor="#3B82F6" />
+                </linearGradient>
+                <linearGradient
+                  id="legsGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#10B981" />
+                  <stop offset="100%" stopColor="#06B6D4" />
+                </linearGradient>
+                <linearGradient
+                  id="formGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#F59E0B" />
+                  <stop offset="100%" stopColor="#EF4444" />
+                </linearGradient>
+              </defs>
+
+              {/* Head */}
+              <circle cx="150" cy="80" r="35" fill="url(#headGrad)" />
+
+              {/* Body */}
+              <rect
+                x="120"
+                y="130"
+                width="60"
+                height="80"
+                rx="8"
+                fill="url(#bodyGrad)"
+              />
+
+              {/* Arms */}
+              <rect
+                x="80"
+                y="145"
+                width="40"
+                height="20"
+                rx="10"
+                fill="url(#bodyGrad)"
+              />
+              <rect
+                x="180"
+                y="145"
+                width="40"
+                height="20"
+                rx="10"
+                fill="url(#bodyGrad)"
+              />
+
+              {/* Legs */}
+              <rect
+                x="125"
+                y="215"
+                width="15"
+                height="60"
+                rx="8"
+                fill="url(#legsGrad)"
+              />
+              <rect
+                x="160"
+                y="215"
+                width="15"
+                height="60"
+                rx="8"
+                fill="url(#legsGrad)"
+              />
+
+              {/* Form/Clipboard (representing account creation) */}
+              <g transform="translate(100, 160)">
+                <rect
+                  width="50"
+                  height="70"
+                  rx="4"
+                  fill="url(#formGrad)"
+                  opacity="0.8"
+                />
+                <line
+                  x1="8"
+                  y1="15"
+                  x2="42"
+                  y2="15"
+                  stroke="white"
+                  strokeWidth="2"
+                />
+                <line
+                  x1="8"
+                  y1="25"
+                  x2="42"
+                  y2="25"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  opacity="0.8"
+                />
+                <line
+                  x1="8"
+                  y1="32"
+                  x2="42"
+                  y2="32"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  opacity="0.8"
+                />
+                <line
+                  x1="8"
+                  y1="39"
+                  x2="42"
+                  y2="39"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  opacity="0.8"
+                />
+                <line
+                  x1="8"
+                  y1="46"
+                  x2="35"
+                  y2="46"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  opacity="0.8"
+                />
+              </g>
+
+              {/* Checkmark (account verified) */}
+              <g transform="translate(180, 80)">
+                <circle cx="0" cy="0" r="18" fill="#10B981" opacity="0.9" />
+                <path
+                  d="M -5 0 L 2 7 L 8 -3"
+                  stroke="white"
+                  strokeWidth="2.5"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </g>
+            </svg>
+          </div>
+        </motion.div>
+
+        {/* Right side - Form */}
+        <div className="w-full max-w-2xl mx-auto relative z-10 flex items-center justify-center p-4 sm:p-6 lg:p-8 min-h-screen lg:min-h-auto">
+          <motion.div
+            className="space-y-8 w-full"
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+          >
+            {/* Header */}
+            <motion.div className="space-y-2" variants={itemVariants}>
+              <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent">
+                Create Your Account
+              </h1>
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
+                Start your fitness journey with FitTrack
+              </p>
+            </motion.div>
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -472,6 +667,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
             </ul>
           </motion.div>
         </motion.div>
+        </div>
       </div>
     </div>
   )
