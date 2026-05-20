@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { motion } from 'framer-motion'
-import { DashboardLayout, DashboardHeader } from '../components/dashboard'
+import { DashboardLayout, DashboardHeader, StatsCard } from '../components/dashboard'
 import { AuthContext } from '../contexts/AuthContext'
 
 export default function Dashboard() {
@@ -40,46 +40,45 @@ export default function Dashboard() {
         {/* Stats Cards */}
         <motion.div
           variants={itemVariants}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-4 gap-4"
         >
-          <div className="p-6 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">Workouts</p>
-                <p className="text-3xl font-bold text-primary-600 dark:text-primary-400 mt-2">0</p>
-                <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-2">This week</p>
-              </div>
-              <div className="w-12 h-12 bg-primary-100 dark:bg-primary-950/30 rounded-lg flex items-center justify-center">
-                <span className="text-xl">💪</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-6 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">Calories Burned</p>
-                <p className="text-3xl font-bold text-secondary-600 dark:text-secondary-400 mt-2">0</p>
-                <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-2">kcal today</p>
-              </div>
-              <div className="w-12 h-12 bg-secondary-100 dark:bg-secondary-950/30 rounded-lg flex items-center justify-center">
-                <span className="text-xl">🔥</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-6 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">Streak</p>
-                <p className="text-3xl font-bold text-accent-600 dark:text-accent-400 mt-2">0</p>
-                <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-2">days active</p>
-              </div>
-              <div className="w-12 h-12 bg-accent-100 dark:bg-accent-950/30 rounded-lg flex items-center justify-center">
-                <span className="text-xl">🔥</span>
-              </div>
-            </div>
-          </div>
+          <StatsCard
+            value={0}
+            label="Workouts"
+            subtitle="This week"
+            icon="💪"
+            color="primary"
+            trend={null}
+            delay={0}
+          />
+          <StatsCard
+            value={0}
+            label="Calories Burned"
+            subtitle="kcal today"
+            icon="🔥"
+            color="secondary"
+            trend={null}
+            delay={0.1}
+          />
+          <StatsCard
+            value={0}
+            label="Streak"
+            subtitle="days active"
+            icon="🔥"
+            color="accent"
+            trend={null}
+            delay={0.2}
+          />
+          <StatsCard
+            value={0}
+            label="Goal Progress"
+            subtitle="% complete"
+            icon="🎯"
+            color="success"
+            trend={true}
+            unit="%"
+            delay={0.3}
+          />
         </motion.div>
 
         {/* Coming Soon Section */}
