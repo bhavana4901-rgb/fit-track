@@ -58,11 +58,11 @@ function PricingCard({ tier, index }) {
       {...fadeUpProps(index * 0.04)}
       whileHover={{ y: isFeatured ? -4 : -2 }}
       className={`relative flex flex-col h-full ${
-        isFeatured ? 'md:-mt-4 md:mb-4 z-10' : ''
+        isFeatured ? 'md:-mt-4 md:mb-4 z-0' : ''
       }`}
     >
       {tier.badge && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-[1]">
           <span className={`px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r ${tier.gradient}`}>
             {tier.badge}
           </span>

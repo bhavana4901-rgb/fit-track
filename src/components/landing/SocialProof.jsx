@@ -230,7 +230,7 @@ export default function SocialProof() {
         <div className="absolute bottom-0 -left-24 w-48 sm:w-[360px] h-48 sm:h-[360px] rounded-full bg-secondary-400/10 dark:bg-secondary-600/5 blur-3xl" />
       </div>
 
-      <div className={`${ls.container} relative z-10`}>
+      <div className={ls.container}>
         <motion.div
           {...fadeUpProps(0)}
           onViewportEnter={() => setInView(true)}
@@ -301,7 +301,7 @@ export default function SocialProof() {
       </div>
 
       {/* Trust footer — horizontal flow */}
-      <div className={`${ls.container} relative z-10 pt-10 md:pt-12`}>
+      <div className={`${ls.container} pt-10 md:pt-12`}>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
           <div className="flex flex-wrap items-center justify-center gap-8">
             {TRUST_BADGES.map((badge) => {

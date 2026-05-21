@@ -1,6 +1,6 @@
 /** Shared class strings for consistent professional landing sections */
 export const section = 'py-14 sm:py-20 md:py-24 relative overflow-hidden'
-export const container = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full'
+export const container = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-0 w-full'
 export const eyebrow =
   'inline-block px-3 py-1 mb-3 sm:mb-4 text-xs font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-950/50 rounded-md border border-primary-100 dark:border-primary-900'
 export const heading =

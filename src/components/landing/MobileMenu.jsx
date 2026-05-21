@@ -1,13 +1,12 @@
+import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Button from '../ui/Button'
 
 /**
- * Premium mobile menu drawer with Framer Motion animations
- * - Smooth slide-in animation
- * - Backdrop overlay with blur
- * - Navigation links and auth buttons
- * - Mobile-only component
+ * Mobile menu drawer — portaled to document.body so it stacks above
+ * all landing sections (features cards, pricing badges, etc.)
  */
 export default function MobileMenu({ isOpen, onClose }) {
   const navLinks = [
@@ -16,11 +15,20 @@ export default function MobileMenu({ isOpen, onClose }) {
     { label: 'Pricing', href: '#pricing' },
   ]
 
-  return (
+  useEffect(() => {
+    if (!isOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [isOpen])
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <>
-          {/* Backdrop Overlay */}
+        <div className="fixed inset-0 z-[200] md:hidden" role="dialog" aria-modal="true" aria-label="Navigation menu">
+          {/* Backdrop */}
           <motion.div
             key="backdrop"
             initial={{ opacity: 0 }}
@@ -28,28 +36,23 @@ export default function MobileMenu({ isOpen, onClose }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           />
 
-          {/* Menu Drawer */}
+          {/* Drawer */}
           <motion.div
             key="menu"
             initial={{ x: '100%', opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: '100%', opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed right-0 top-0 h-full w-full max-w-[min(100%,20rem)] sm:w-72 bg-white dark:bg-neutral-950 z-50 md:hidden border-l border-neutral-200 dark:border-neutral-800 shadow-sm"
+            className="absolute right-0 top-0 h-full w-full max-w-[min(100%,20rem)] sm:w-72 bg-white dark:bg-neutral-950 border-l border-neutral-200 dark:border-neutral-800 shadow-xl"
           >
-            {/* Menu Content */}
             <div className="h-full flex flex-col">
-              {/* Header */}
               <div className="px-6 py-6 border-b border-neutral-200 dark:border-neutral-800">
-                <h2 className="text-lg font-bold text-neutral-900 dark:text-white">
-                  Menu
-                </h2>
+                <h2 className="text-lg font-bold text-neutral-900 dark:text-white">Menu</h2>
               </div>
 
-              {/* Navigation Links */}
               <div className="flex-1 overflow-y-auto px-6 py-4">
                 <nav className="space-y-1">
                   {navLinks.map((link, index) => (
@@ -68,7 +71,6 @@ export default function MobileMenu({ isOpen, onClose }) {
                 </nav>
               </div>
 
-              {/* Auth Buttons */}
               <div className="border-t border-neutral-200 dark:border-neutral-800 px-6 py-4 space-y-3">
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -96,8 +98,9 @@ export default function MobileMenu({ isOpen, onClose }) {
               </div>
             </div>
           </motion.div>
-        </>
+        </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }

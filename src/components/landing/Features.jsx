@@ -109,7 +109,7 @@ function FeatureCard({ feature }) {
       <motion.article variants={cardVariants} whileHover={{ y: -8 }} className="group relative pt-8">
         <motion.div
           whileHover={{ scale: 1.1, rotate: -8 }}
-          className={`absolute -top-2 left-6 z-20 p-3.5 rounded-xl bg-gradient-to-br ${feature.gradient}`}
+          className={`absolute -top-2 left-6 z-[1] p-3.5 rounded-xl bg-gradient-to-br ${feature.gradient}`}
         >
           <Icon className="w-7 h-7 text-white" />
         </motion.div>
@@ -137,14 +137,14 @@ function FeatureCard({ feature }) {
           <span className="absolute top-3 right-4 text-5xl font-bold text-accent-200/70 dark:text-accent-900/50 leading-none select-none">
             {num}
           </span>
-          <div className="flex items-center gap-3 mb-3 relative z-10">
+          <div className="flex items-center gap-3 mb-3 relative z-[1]">
             <div className={`p-2.5 rounded-lg bg-gradient-to-br ${feature.gradient}`}>
               <Icon className="w-5 h-5 text-white" />
             </div>
           </div>
-          <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-2 relative z-10">{feature.title}</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 relative z-10">{feature.description}</p>
-          <p className={`mt-4 text-sm font-bold bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent relative z-10`}>
+          <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-2 relative z-[1]">{feature.title}</h3>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 relative z-[1]">{feature.description}</p>
+          <p className={`mt-4 text-sm font-bold bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent relative z-[1]`}>
             {feature.stat}
           </p>
           <svg className="absolute bottom-4 right-4 w-20 h-10 opacity-30 group-hover:opacity-60 transition-opacity" viewBox="0 0 80 40" aria-hidden="true">

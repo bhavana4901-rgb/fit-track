@@ -39,7 +39,7 @@ export default function Navbar({ onMobileMenuToggle }) {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ease-out ${
+      className={`fixed top-0 w-full z-[100] transition-all duration-300 ease-out ${
         isScrolled
           ? 'bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 shadow-sm'
           : 'bg-transparent border-b border-transparent'

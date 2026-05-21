@@ -9,7 +9,7 @@ export default function Hero() {
     <section className="relative isolate w-full overflow-hidden bg-white dark:bg-neutral-950 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-24 min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)]">
       <HeroAnimatedBackground />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center min-h-[inherit] py-6 sm:py-8">
+      <div className="relative z-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center min-h-[inherit] py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
