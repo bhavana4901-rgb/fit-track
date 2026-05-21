@@ -206,24 +206,38 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 {/* Slider */}
                 <div className="relative">
                   <Ruler className="absolute left-0 top-0 w-5 h-5 text-success-600 dark:text-success-400 pointer-events-none" />
-                  <input
-                    type="range"
-                    min={heightUnit === 'cm' ? 100 : 40}
-                    max={heightUnit === 'cm' ? 250 : 98}
-                    step="1"
-                    {...register('height', { valueAsNumber: true })}
-                    className="w-full h-2 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-success-600 dark:accent-success-400"
+                  <Controller
+                    name="height"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        type="range"
+                        min={heightUnit === 'cm' ? 100 : 40}
+                        max={heightUnit === 'cm' ? 250 : 98}
+                        step="1"
+                        value={field.value}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        className="w-full h-2 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-success-600 dark:accent-success-400"
+                      />
+                    )}
                   />
                 </div>
 
                 {/* Number Input & Display */}
                 <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    {...register('height', { valueAsNumber: true })}
-                    className="flex-1 px-4 py-3 border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white rounded-lg focus:border-success-600 dark:focus:border-success-400 focus:ring-2 focus:ring-success-500/50 focus:outline-none transition-all duration-200"
-                    min={heightUnit === 'cm' ? 100 : 40}
-                    max={heightUnit === 'cm' ? 250 : 98}
+                  <Controller
+                    name="height"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        type="number"
+                        value={field.value}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        className="flex-1 px-4 py-3 border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white rounded-lg focus:border-success-600 dark:focus:border-success-400 focus:ring-2 focus:ring-success-500/50 focus:outline-none transition-all duration-200"
+                        min={heightUnit === 'cm' ? 100 : 40}
+                        max={heightUnit === 'cm' ? 250 : 98}
+                      />
+                    )}
                   />
                   <span className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 whitespace-nowrap">
                     {heightUnit}
@@ -265,24 +279,38 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 {/* Slider */}
                 <div className="relative">
                   <Weight className="absolute left-0 top-0 w-5 h-5 text-accent-600 dark:text-accent-400 pointer-events-none" />
-                  <input
-                    type="range"
-                    min={weightUnit === 'kg' ? 30 : 66}
-                    max={weightUnit === 'kg' ? 300 : 660}
-                    step="1"
-                    {...register('weight', { valueAsNumber: true })}
-                    className="w-full h-2 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-accent-600 dark:accent-accent-400"
+                  <Controller
+                    name="weight"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        type="range"
+                        min={weightUnit === 'kg' ? 30 : 66}
+                        max={weightUnit === 'kg' ? 300 : 660}
+                        step="1"
+                        value={field.value}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        className="w-full h-2 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-accent-600 dark:accent-accent-400"
+                      />
+                    )}
                   />
                 </div>
 
                 {/* Number Input & Display */}
                 <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    {...register('weight', { valueAsNumber: true })}
-                    className="flex-1 px-4 py-3 border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white rounded-lg focus:border-accent-600 dark:focus:border-accent-400 focus:ring-2 focus:ring-accent-500/50 focus:outline-none transition-all duration-200"
-                    min={weightUnit === 'kg' ? 30 : 66}
-                    max={weightUnit === 'kg' ? 300 : 660}
+                  <Controller
+                    name="weight"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        type="number"
+                        value={field.value}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        className="flex-1 px-4 py-3 border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white rounded-lg focus:border-accent-600 dark:focus:border-accent-400 focus:ring-2 focus:ring-accent-500/50 focus:outline-none transition-all duration-200"
+                        min={weightUnit === 'kg' ? 30 : 66}
+                        max={weightUnit === 'kg' ? 300 : 660}
+                      />
+                    )}
                   />
                   <span className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 whitespace-nowrap">
                     {weightUnit}

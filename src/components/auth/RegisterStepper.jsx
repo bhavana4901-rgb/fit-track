@@ -13,22 +13,22 @@ export default function RegisterStepper({ currentStep = 1, steps = [] }) {
 
   return (
     <nav aria-label="Registration progress" className="w-full">
-      {/* Overall Progress Bar */}
+      {/* Horizontal Progress Bar */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-400">
-            Overall Progress
+          <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+            Step {currentStep} of {total}
           </span>
-          <span className="text-xs font-bold text-primary-600 dark:text-primary-400">
+          <span className="text-sm font-bold text-primary-600 dark:text-primary-400">
             {progressPercentage}%
           </span>
         </div>
-        <div className="w-full h-2.5 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
+        <div className="relative w-full h-2 bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full"
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progressPercentage}%` }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
           />
         </div>
       </div>

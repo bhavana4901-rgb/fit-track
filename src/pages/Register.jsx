@@ -27,7 +27,7 @@ export default function Register() {
         <RegisterStep3 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />
       )}
       {step === 4 && (
-        <RegisterStep4 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />
+        <RegisterStep4 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} onSkip={handleSkip} />
       )}
       {step === 5 && (
         <RegisterStep5

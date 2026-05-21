@@ -1,40 +1,14 @@
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff, Mail, Lock, User, CheckCircle, AlertCircle } from 'lucide-react'
 import { Input, ErrorDisplay } from '../ui'
 import { Button } from '../ui'
-
-// Validation schema for step 1
-const registerStep1Schema = z
-  .object({
-    fullName: z
-      .string()
-      .min(1, 'Full name is required')
-      .min(2, 'Full name must be at least 2 characters')
-      .max(50, 'Full name must be less than 50 characters')
-      .regex(/^[a-zA-Z\s-']+$/, 'Full name can only contain letters, spaces, hyphens, and apostrophes'),
-    email: z
-      .string()
-      .email('Please enter a valid email address')
-      .min(1, 'Email is required'),
-    password: z
-      .string()
-      .min(1, 'Password is required')
-      .min(8, 'Password must be at least 8 characters'),
-    confirmPassword: z
-      .string()
-      .min(1, 'Please confirm your password'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  })
+import { registerStep1Schema } from '../../utils/validationSchemas'
 
 /**
- * Calculate password strength
+ * Calculate password strength based on actual validation requirements
  * @param {string} password - Password string
  * @returns {Object} Strength object with score (0-4) and label
  */
@@ -46,44 +20,50 @@ const calculatePasswordStrength = (password) => {
     return { score: 0, label: 'No password', color: 'bg-neutral-200', percentage: 0, feedback }
   }
 
-  // Length check
-  if (password.length >= 8) strength++
-  if (password.length >= 12) strength++
+  // Length check (required: min 8)
+  if (password.length >= 8) {
+    strength++
+  } else {
+    feedback.push('At least 8 characters required')
+  }
 
-  // Lowercase letters
+  // Lowercase letters (required)
   if (/[a-z]/.test(password)) {
     strength++
   } else {
     feedback.push('Add lowercase letters')
   }
 
-  // Uppercase letters
+  // Uppercase letters (required)
   if (/[A-Z]/.test(password)) {
     strength++
   } else {
     feedback.push('Add uppercase letters')
   }
 
-  // Numbers
-  if (/\d/.test(password)) {
+  // Numbers (required)
+  if (/[0-9]/.test(password)) {
     strength++
   } else {
     feedback.push('Add numbers')
   }
 
-  // Special characters
-  if (/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
+  // Special characters (required)
+  if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
     strength++
   } else {
-    feedback.push('Add special characters')
+    feedback.push('Add special characters (!@#$%^&*...)')
   }
 
-  // Determine strength level (0-4)
+  // Bonus for extra length
+  if (password.length >= 12) strength++
+
+  // Determine strength level (0-5, but cap at 4 for display)
   let level = 0
-  if (strength >= 4) level = 4 // Strong
-  else if (strength >= 3) level = 3 // Good
-  else if (strength >= 2) level = 2 // Fair
-  else if (strength >= 1) level = 1 // Weak
+  if (strength >= 5) level = 4 // Strong (all requirements + length bonus)
+  else if (strength >= 4) level = 3 // Good (all requirements met)
+  else if (strength >= 3) level = 2 // Fair
+  else if (strength >= 2) level = 1 // Weak
   else level = 0 // Very weak
 
   const strengthLevels = {
@@ -445,9 +425,11 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
               Password Requirements:
             </p>
             <ul className="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
-              <li>• At least 8 characters</li>
-              <li>• Include uppercase and lowercase letters</li>
-              <li>• Include numbers and special characters for extra strength</li>
+              <li>• At least 8 characters long</li>
+              <li>• At least one uppercase letter (A-Z)</li>
+              <li>• At least one lowercase letter (a-z)</li>
+              <li>• At least one number (0-9)</li>
+              <li>• At least one special character (!@#$%^&*...)</li>
             </ul>
           </motion.div>
     </motion.div>

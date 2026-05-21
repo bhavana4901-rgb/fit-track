@@ -97,10 +97,13 @@ export const validateStep = (step, data) => {
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors = {}
-      error.errors.forEach((err) => {
-        const path = err.path.join('.')
-        errors[path] = err.message
-      })
+      // Safely handle errors array
+      if (error.errors && Array.isArray(error.errors)) {
+        error.errors.forEach((err) => {
+          const path = err.path.join('.')
+          errors[path] = err.message
+        })
+      }
       return { valid: false, errors }
     }
     return { valid: false, errors: { general: 'Validation failed' } }
