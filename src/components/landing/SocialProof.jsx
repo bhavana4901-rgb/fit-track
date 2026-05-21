@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Star, Users } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { PARTNER_LOGOS, TRUST_BADGES } from './PartnerLogos'
 
 /**
  * Premium Social Proof section with animated counters
@@ -43,16 +44,6 @@ export default function SocialProof() {
       clearInterval(ratingInterval)
     }
   }, [])
-
-  // Partner companies (using initials/names as logos)
-  const partners = [
-    { name: 'TechFlow', initials: 'TF', color: 'from-primary-600 to-primary-400' },
-    { name: 'FitnessHub', initials: 'FH', color: 'from-secondary-600 to-secondary-400' },
-    { name: 'WellnessX', initials: 'WX', color: 'from-accent-600 to-accent-400' },
-    { name: 'ActiveLife', initials: 'AL', color: 'from-success-600 to-success-400' },
-    { name: 'TrackPro', initials: 'TP', color: 'from-warning-600 to-warning-400' },
-    { name: 'HealthSync', initials: 'HS', color: 'from-primary-500 to-secondary-500' },
-  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -193,22 +184,54 @@ export default function SocialProof() {
               viewport={{ once: true, margin: '-100px' }}
               className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6"
             >
-              {partners.map((partner, index) => (
-                <motion.div
-                  key={index}
-                  variants={logoVariants}
-                  whileHover="hover"
-                  className="h-24 md:h-28 flex items-center justify-center"
-                >
-                  <div
-                    className={`w-20 h-20 md:w-24 md:h-24 rounded-xl bg-gradient-to-br ${partner.color} shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center cursor-pointer group`}
+              {PARTNER_LOGOS.map((partner) => {
+                const Logo = partner.Logo
+                return (
+                  <motion.div
+                    key={partner.name}
+                    variants={logoVariants}
+                    whileHover="hover"
+                    className="h-20 md:h-24 flex items-center justify-center"
                   >
-                    <span className="text-white font-bold text-lg md:text-xl group-hover:scale-110 transition-transform duration-300">
-                      {partner.initials}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
+                    <div
+                      className="w-full max-w-[140px] h-14 md:h-16 px-4 py-3 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center grayscale hover:grayscale-0 opacity-80 hover:opacity-100"
+                      title={partner.name}
+                      aria-label={`${partner.name} logo`}
+                    >
+                      <Logo className={`h-8 md:h-9 ${partner.color}`} />
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </motion.div>
+
+            {/* App & review trust badges */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-50px' }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto pt-4"
+            >
+              {TRUST_BADGES.map((badge) => {
+                const Logo = badge.Logo
+                return (
+                  <motion.div
+                    key={badge.name}
+                    variants={logoVariants}
+                    whileHover="hover"
+                    className="flex items-center justify-center"
+                  >
+                    <div
+                      className="w-full h-14 px-4 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white"
+                      title={badge.name}
+                      aria-label={`${badge.name} badge`}
+                    >
+                      <Logo className="h-10 w-full max-w-[160px]" />
+                    </div>
+                  </motion.div>
+                )
+              })}
             </motion.div>
           </motion.div>
 
