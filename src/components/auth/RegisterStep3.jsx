@@ -118,47 +118,21 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
     },
   }
 
-  const blobVariants = {
-    animate: {
-      y: [0, -15, 0],
-      x: [0, 8, 0],
-      opacity: [0.3, 0.5, 0.3],
-    },
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-orange-50/30 to-red-50/20 dark:from-neutral-950 dark:via-neutral-900 dark:to-red-950/20 relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-      {/* Animated background blobs */}
-      <motion.div
-        className="absolute top-10 right-5 w-48 h-48 bg-gradient-to-br from-warning-400/20 to-error-400/20 dark:from-warning-600/10 dark:to-error-600/10 rounded-full blur-3xl pointer-events-none"
-        variants={blobVariants}
-        animate="animate"
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-10 left-5 w-64 h-64 bg-gradient-to-br from-primary-400/20 to-warning-400/20 dark:from-primary-600/10 dark:to-warning-600/10 rounded-full blur-3xl pointer-events-none"
-        variants={blobVariants}
-        animate="animate"
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-      />
-
-      {/* Main container */}
-      <div className="w-full max-w-4xl mx-auto relative z-10">
-        <motion.div
-          className="space-y-8"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-        >
-          {/* Header */}
-          <motion.div className="space-y-2" variants={itemVariants}>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-warning-600 via-primary-600 to-accent-600 dark:from-warning-400 dark:via-primary-400 dark:to-accent-400 bg-clip-text text-transparent">
-              What Are Your Goals?
-            </h1>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400">
-              Select 1 to 3 fitness goals to personalize your experience
-            </p>
-          </motion.div>
+    <motion.div
+      className="space-y-6"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.div className="space-y-2" variants={itemVariants}>
+        <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-warning-600 via-primary-600 to-accent-600 dark:from-warning-400 dark:via-primary-400 dark:to-accent-400 bg-clip-text text-transparent">
+          What are your goals?
+        </h1>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          Select 1 to 3 fitness goals to personalize your experience
+        </p>
+      </motion.div>
 
           {/* Goal selection counter */}
           <motion.div
@@ -179,7 +153,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
               name="goals"
               control={control}
               render={({ field }) => (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {goalOptions.map((goal, index) => {
                     const isSelected = field.value.includes(goal.id)
                     const Icon = goal.icon
@@ -349,9 +323,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                 )}
               </Button>
             </motion.div>
-          </motion.form>
-        </motion.div>
-      </div>
-    </div>
+      </motion.form>
+    </motion.div>
   )
 }

@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Check, Play, Flame } from 'lucide-react'
+import { dashboardCard, dashboardCardPadding, dashboardSectionTitle } from './dashboardStyles'
+import { dashboardItem } from './dashboardMotion'
 
 export default function TodaysWorkout() {
   // Sample exercises data
@@ -38,15 +40,6 @@ export default function TodaysWorkout() {
     setWorkoutStarted(true)
   }
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: 'easeOut' },
-    },
-  }
-
   const itemVariants = {
     hidden: { opacity: 0, x: -10 },
     visible: {
@@ -67,22 +60,23 @@ export default function TodaysWorkout() {
 
   return (
     <motion.div
-      variants={containerVariants}
+      variants={dashboardItem}
       initial="hidden"
       animate="visible"
-      className="p-6 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-shadow"
+      className={`${dashboardCard} ${dashboardCardPadding} overflow-hidden relative`}
     >
-      {/* Header */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-error-500 via-primary-500 to-secondary-500 opacity-80" />
+
       <motion.div variants={itemVariants} className="mb-6">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <Flame className="w-5 h-5 text-error-600 dark:text-error-400" />
-            <h3 className="text-xl font-bold text-neutral-900 dark:text-white">
-              Today's Workout
-            </h3>
+            <span className="inline-flex p-2 rounded-lg bg-error-100 dark:bg-error-950/40">
+              <Flame className="w-5 h-5 text-error-600 dark:text-error-400" />
+            </span>
+            <h3 className={dashboardSectionTitle}>Today's Workout</h3>
           </div>
           <motion.span
-            className="px-3 py-1 bg-primary-100 dark:bg-primary-950/30 text-primary-700 dark:text-primary-300 text-sm font-semibold rounded-full"
+            className="px-3 py-1 bg-primary-100 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 text-sm font-semibold rounded-full border border-primary-200/60 dark:border-primary-800/60"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ type: 'spring', stiffness: 300 }}
@@ -98,10 +92,10 @@ export default function TodaysWorkout() {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-label="Workout completion progress"
-          className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2 overflow-hidden"
+          className="w-full bg-neutral-200/80 dark:bg-neutral-700/80 rounded-full h-2.5 overflow-hidden"
         >
           <motion.div
-            className="h-full bg-gradient-to-r from-primary-500 to-secondary-500"
+            className="h-full bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progressPercentage}%` }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -128,10 +122,10 @@ export default function TodaysWorkout() {
               onClick={() => toggleExercise(exercise.id)}
               aria-label={`${exercise.name}: ${exercise.sets}x${exercise.reps}${exercise.completed ? ' - Completed' : ''}`}
               aria-pressed={exercise.completed}
-              className={`w-full flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-950 ${
+              className={`w-full flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-950 ${
                 exercise.completed
-                  ? 'bg-success-50 dark:bg-success-950/20'
-                  : 'bg-neutral-50 dark:bg-neutral-700/50 hover:bg-neutral-100 dark:hover:bg-neutral-700'
+                  ? 'bg-success-50/80 dark:bg-success-950/25 border-success-200/60 dark:border-success-900/40'
+                  : 'bg-neutral-50/80 dark:bg-neutral-800/50 border-neutral-200/60 dark:border-neutral-700/60 hover:border-primary-200 dark:hover:border-primary-800 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80'
               }`}
               whileHover={{ x: 4 }}
               whileTap={{ scale: 0.98 }}
@@ -196,10 +190,10 @@ export default function TodaysWorkout() {
         variants={itemVariants}
         onClick={handleStartWorkout}
         aria-label={progressPercentage === 100 ? 'Workout complete' : 'Start workout'}
-        className={`w-full py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-neutral-950 ${
+        className={`w-full py-3.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-neutral-950 ${
           progressPercentage === 100
-            ? 'bg-success-600 hover:bg-success-700 dark:bg-success-600 dark:hover:bg-success-700 text-white focus:ring-success-500'
-            : 'bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 text-white focus:ring-primary-500'
+            ? 'bg-gradient-to-r from-success-600 to-success-500 hover:from-success-700 hover:to-success-600 text-white focus:ring-success-500'
+            : 'bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white focus:ring-primary-500'
         }`}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}

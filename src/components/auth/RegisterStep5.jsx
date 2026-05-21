@@ -129,52 +129,22 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
     },
   }
 
-  const blobVariants = {
-    animate: {
-      y: [0, -20, 0],
-      opacity: [0.3, 0.2, 0.3],
-    },
-  }
-
   return (
-    <motion.div
-      className="min-h-screen bg-gradient-to-br from-white via-accent-50/30 to-secondary-50/20 dark:from-neutral-950 dark:via-neutral-900 dark:to-secondary-950/20 pt-24 pb-12"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+    <motion.form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-6"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
     >
-      {/* Animated Background Blobs */}
-      <motion.div
-        className="fixed top-20 left-10 w-72 h-72 bg-gradient-to-r from-accent-400 to-secondary-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10 pointer-events-none"
-        variants={blobVariants}
-        animate="animate"
-        transition={{ duration: 8, repeat: Infinity }}
-      />
-      <motion.div
-        className="fixed bottom-20 right-10 w-72 h-72 bg-gradient-to-r from-secondary-400 to-primary-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10 pointer-events-none"
-        variants={blobVariants}
-        animate="animate"
-        transition={{ duration: 10, repeat: Infinity, delay: 0.5 }}
-      />
-
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl z-10">
-        <motion.form
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Heading */}
-          <motion.div variants={itemVariants} className="text-center space-y-2">
-            <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-accent-600 via-secondary-600 to-primary-600 bg-clip-text text-transparent">
-              Complete Your Profile
-            </div>
-            <p className="text-neutral-600 dark:text-neutral-400 text-lg">
-              Add your avatar, username, and notification preferences
-            </p>
-          </motion.div>
+      <motion.div variants={itemVariants} className="space-y-2">
+        <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-accent-600 via-secondary-600 to-primary-600 bg-clip-text text-transparent">
+          Complete your profile
+        </h1>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          Add your avatar, username, and notification preferences
+        </p>
+      </motion.div>
 
           {/* Avatar Upload */}
           <motion.div variants={itemVariants} className="space-y-4">
@@ -484,8 +454,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               Skip for now
             </button>
           </motion.div>
-        </motion.form>
-      </div>
-    </motion.div>
+    </motion.form>
   )
 }

@@ -1,9 +1,10 @@
 import { useState, useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, LayoutDashboard, Dumbbell, Apple, TrendingUp, Settings, Home, LogOut, ChevronDown, Moon, Sun } from 'lucide-react'
+import { Menu, X, LayoutDashboard, Dumbbell, Apple, TrendingUp, Settings, LogOut, ChevronDown, Moon, Sun } from 'lucide-react'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useTheme } from '../../hooks/useTheme'
+import DashboardAmbientBackground from './DashboardAmbientBackground'
 
 const navigationItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
@@ -42,7 +43,7 @@ export default function DashboardLayout({ children }) {
   const isActive = (href) => location.pathname === href
 
   return (
-    <div className="flex h-screen bg-neutral-50 dark:bg-neutral-950">
+    <div className="flex h-screen bg-neutral-50 dark:bg-neutral-950 transition-colors duration-300">
       {/* Desktop Sidebar */}
       <motion.aside
         id="main-sidebar"
@@ -51,7 +52,7 @@ export default function DashboardLayout({ children }) {
         initial={false}
         animate={{ width: sidebarOpen ? 256 : 80 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="hidden md:flex flex-col bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 shadow-sm"
+        className="hidden md:flex flex-col bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border-r border-neutral-200/80 dark:border-neutral-800/80 shadow-sm"
       >
         {/* Logo Section */}
         <motion.div
@@ -62,8 +63,8 @@ export default function DashboardLayout({ children }) {
             animate={{ scale: sidebarOpen ? 1 : 0.8 }}
             className="flex items-center gap-3"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
-              <Home className="w-4 h-4 text-white" />
+            <div className="w-9 h-9 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center shadow-md shadow-primary-500/20">
+              <span className="text-white font-bold text-sm">F</span>
             </div>
             {sidebarOpen && (
               <motion.h1
@@ -92,10 +93,10 @@ export default function DashboardLayout({ children }) {
                 whileTap={{ scale: 0.98 }}
                 aria-label={`Navigate to ${item.label}`}
                 aria-current={active ? 'page' : undefined}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900 ${
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900 ${
                   active
-                    ? 'bg-primary-100 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400'
-                    : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+                    ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-950/40 dark:to-primary-900/20 text-primary-700 dark:text-primary-300 shadow-sm border border-primary-100 dark:border-primary-900/50'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80'
                 }`}
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
@@ -264,12 +265,13 @@ export default function DashboardLayout({ children }) {
         </motion.header>
 
         {/* Content Scroll Area */}
-        <div className="flex-1 overflow-y-auto">
-          {children}
+        <div className="relative flex-1 overflow-y-auto bg-gradient-to-br from-neutral-50 via-white to-primary-50/25 dark:from-neutral-950 dark:via-neutral-950 dark:to-primary-950/15">
+          <DashboardAmbientBackground />
+          <div className="relative z-[1]">{children}</div>
         </div>
 
         {/* Mobile Bottom Tab Bar */}
-        <motion.nav role="navigation" aria-label="Mobile navigation" className="md:hidden flex items-center justify-around bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 shadow-lg">
+        <motion.nav role="navigation" aria-label="Mobile navigation" className="md:hidden flex items-center justify-around bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border-t border-neutral-200/80 dark:border-neutral-800/80 shadow-lg">
           {navigationItems.map((item) => {
             const Icon = item.icon
             const active = isActive(item.href)
@@ -281,13 +283,21 @@ export default function DashboardLayout({ children }) {
                 whileTap={{ scale: 0.95 }}
                 aria-label={`Navigate to ${item.label}`}
                 aria-current={active ? 'page' : undefined}
-                className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset ${
+                className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset relative ${
                   active
                     ? 'text-primary-600 dark:text-primary-400'
                     : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200'
                 }`}
               >
-                <Icon className="w-6 h-6" />
+                <span className="relative">
+                  <Icon className="w-6 h-6" />
+                  {active && (
+                    <motion.span
+                      layoutId="mobile-tab-indicator"
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary-500"
+                    />
+                  )}
+                </span>
                 <span className="text-xs font-medium">{item.label}</span>
               </motion.button>
             )

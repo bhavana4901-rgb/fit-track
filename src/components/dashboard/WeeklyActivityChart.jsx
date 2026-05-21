@@ -1,5 +1,8 @@
 import React, { useMemo } from 'react'
 import { motion } from 'framer-motion'
+import { BarChart3 } from 'lucide-react'
+import { dashboardCard, dashboardCardPadding, dashboardSectionTitle, dashboardSectionSubtitle } from './dashboardStyles'
+import { dashboardItem } from './dashboardMotion'
 import {
   BarChart,
   Bar,
@@ -48,19 +51,6 @@ const WeeklyActivityChart = () => {
     return null
   }
 
-  // Container animation variants
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: 'easeOut',
-      },
-    },
-  }
-
   // Bar colors array with gradient effect
   const barColors = [
     '#3B82F6', // primary-500
@@ -84,22 +74,28 @@ const WeeklyActivityChart = () => {
 
   return (
     <motion.div
-      variants={containerVariants}
+      variants={dashboardItem}
       initial="hidden"
       animate="visible"
-      className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-700 p-6"
+      className={`${dashboardCard} ${dashboardCardPadding} overflow-hidden relative`}
     >
-      {/* Header */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-success-500 opacity-80" />
+
       <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <h3 id="weekly-activity-heading" className="text-xl font-bold text-neutral-900 dark:text-white">
-            Weekly Activity
-          </h3>
-          <span className="text-xs font-medium px-3 py-1 bg-primary-100 dark:bg-primary-950/30 text-primary-700 dark:text-primary-400 rounded-full">
+        <div className="flex items-center justify-between gap-3 mb-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="inline-flex p-2 rounded-lg bg-primary-100 dark:bg-primary-950/40 shrink-0">
+              <BarChart3 className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+            </span>
+            <h3 id="weekly-activity-heading" className={dashboardSectionTitle}>
+              Weekly Activity
+            </h3>
+          </div>
+          <span className="text-xs font-medium px-3 py-1 bg-primary-100 dark:bg-primary-950/40 text-primary-700 dark:text-primary-400 rounded-full border border-primary-200/60 dark:border-primary-800/60 shrink-0">
             Last 7 days
           </span>
         </div>
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+        <p className={dashboardSectionSubtitle}>
           Workout minutes and intensity tracking
         </p>
       </div>
@@ -110,7 +106,7 @@ const WeeklyActivityChart = () => {
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-primary-50 dark:bg-primary-950/20 p-3 rounded-lg"
+          className="bg-primary-50/80 dark:bg-primary-950/25 p-3 rounded-xl border border-primary-100/80 dark:border-primary-900/40"
         >
           <p className="text-xs text-primary-600 dark:text-primary-400 font-medium">
             Total Minutes
@@ -123,7 +119,7 @@ const WeeklyActivityChart = () => {
           initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.15 }}
-          className="bg-secondary-50 dark:bg-secondary-950/20 p-3 rounded-lg"
+          className="bg-secondary-50/80 dark:bg-secondary-950/25 p-3 rounded-xl border border-secondary-100/80 dark:border-secondary-900/40"
         >
           <p className="text-xs text-secondary-600 dark:text-secondary-400 font-medium">
             Daily Average

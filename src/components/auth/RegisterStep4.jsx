@@ -126,47 +126,21 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
     },
   }
 
-  const blobVariants = {
-    animate: {
-      y: [0, -15, 0],
-      x: [0, 8, 0],
-      opacity: [0.3, 0.5, 0.3],
-    },
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-purple-50/30 to-pink-50/20 dark:from-neutral-950 dark:via-neutral-900 dark:to-pink-950/20 relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-      {/* Animated background blobs */}
-      <motion.div
-        className="absolute top-10 right-5 w-48 h-48 bg-gradient-to-br from-primary-400/20 to-accent-400/20 dark:from-primary-600/10 dark:to-accent-600/10 rounded-full blur-3xl pointer-events-none"
-        variants={blobVariants}
-        animate="animate"
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-10 left-5 w-64 h-64 bg-gradient-to-br from-secondary-400/20 to-primary-400/20 dark:from-secondary-600/10 dark:to-primary-600/10 rounded-full blur-3xl pointer-events-none"
-        variants={blobVariants}
-        animate="animate"
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-      />
-
-      {/* Main container */}
-      <div className="w-full max-w-4xl mx-auto relative z-10">
-        <motion.div
-          className="space-y-8"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-        >
-          {/* Header */}
-          <motion.div className="space-y-2" variants={itemVariants}>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 bg-clip-text text-transparent">
-              What's Your Activity Level?
-            </h1>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400">
-              Help us understand your current fitness habits to tailor your experience
-            </p>
-          </motion.div>
+    <motion.div
+      className="space-y-6"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.div className="space-y-2" variants={itemVariants}>
+        <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 bg-clip-text text-transparent">
+          Activity level
+        </h1>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          Help us tailor workouts to your current fitness habits
+        </p>
+      </motion.div>
 
           {/* Activity level cards form */}
           <motion.form onSubmit={handleSubmit(onSubmit)} className="space-y-6" variants={itemVariants}>
@@ -361,9 +335,7 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                 </div>
               </button>
             </motion.div>
-          </motion.form>
-        </motion.div>
-      </div>
-    </div>
+      </motion.form>
+    </motion.div>
   )
 }
