@@ -125,32 +125,7 @@ export default function DashboardHeader() {
             </div>
           </div>
         </motion.div>
-        <div className="grid grid-cols-3 gap-3">
-          <motion.div
-            className="p-3 md:p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-700/80 bg-neutral-50/50 dark:bg-neutral-800/50 text-center"
-            whileHover={{ y: -2, scale: 1.01 }}
-            transition={{ duration: 0.2 }}
-          >
-            <p className="text-2xl md:text-3xl font-bold text-accent-600 dark:text-accent-400">0</p>
-            <p className="text-xs md:text-sm text-neutral-600 dark:text-neutral-400 mt-1">Streak</p>
-          </motion.div>
-          <motion.div
-            className="p-3 md:p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-700/80 bg-neutral-50/50 dark:bg-neutral-800/50 text-center"
-            whileHover={{ y: -2, scale: 1.01 }}
-            transition={{ duration: 0.2 }}
-          >
-            <p className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">0%</p>
-            <p className="text-xs md:text-sm text-neutral-600 dark:text-neutral-400 mt-1">Goal</p>
-          </motion.div>
-          <motion.div
-            className="p-3 md:p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-700/80 bg-neutral-50/50 dark:bg-neutral-800/50 text-center"
-            whileHover={{ y: -2, scale: 1.01 }}
-            transition={{ duration: 0.2 }}
-          >
-            <p className="text-2xl md:text-3xl font-bold text-secondary-600 dark:text-secondary-400">0</p>
-            <p className="text-xs md:text-sm text-neutral-600 dark:text-neutral-400 mt-1">Points</p>
-          </motion.div>
-        </div>
+       
       </div>
     </motion.div>
   )

@@ -58,7 +58,7 @@ function FeatureCard({ feature }) {
       <motion.article
         variants={cardVariants}
         whileHover={{ y: -6 }}
-        className={`md:col-span-2 lg:col-span-2 lg:row-span-2 group relative overflow-hidden rounded-xl min-h-[220px] sm:min-h-[260px] md:min-h-[280px] border border-neutral-200 dark:border-neutral-800 shadow-sm ${ls.cardHover}`}
+        className={`md:col-span-2 lg:col-span-2 lg:row-span-2 group relative overflow-hidden rounded-xl min-h-[220px] sm:min-h-[260px] md:min-h-[280px] border-2 border-neutral-200 dark:border-neutral-800 shadow-sm ${ls.cardHover}`}
       >
         <div className={`absolute inset-0 bg-gradient-to-br ${feature.lightBg}`} />
         <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.gradient}`} />
@@ -107,7 +107,7 @@ function FeatureCard({ feature }) {
         >
           <Icon className="w-7 h-7 text-white" />
         </motion.div>
-        <div className={`relative h-full p-6 pt-12 rounded-xl bg-gradient-to-br ${feature.lightBg} border border-neutral-200 dark:border-neutral-800 shadow-sm overflow-hidden`}>
+        <div className={`relative h-full p-6 pt-12 rounded-xl bg-gradient-to-br ${feature.lightBg} border-2 border-neutral-200 dark:border-neutral-800 shadow-sm overflow-hidden`}>
           <span className="absolute top-2 right-4 text-5xl font-bold text-success-200/60 dark:text-success-900/40 leading-none select-none">
             {num}
           </span>
@@ -123,7 +123,7 @@ function FeatureCard({ feature }) {
       <motion.article
         variants={cardVariants}
         whileHover={{ x: 4 }}
-        className={`group relative flex overflow-hidden rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-sm ${ls.cardHover}`}
+        className={`group relative flex overflow-hidden rounded-xl bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 shadow-sm ${ls.cardHover}`}
       >
         <div className={`w-1.5 flex-shrink-0 bg-gradient-to-b ${feature.gradient}`} />
         <div className="flex-1 p-6 relative min-h-[200px]">
@@ -151,7 +151,7 @@ function FeatureCard({ feature }) {
     <motion.article
       variants={cardVariants}
       whileHover={{ scale: 1.01 }}
-      className={`group relative overflow-hidden rounded-xl min-h-[180px] md:col-span-2 lg:col-span-3 border border-neutral-200 dark:border-neutral-800 shadow-sm ${ls.cardHover}`}
+      className={`group relative overflow-hidden rounded-xl min-h-[180px] md:col-span-2 lg:col-span-3 border-2 border-neutral-200 dark:border-neutral-800 shadow-sm ${ls.cardHover}`}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${feature.lightBg}`} />
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.gradient}`} />
@@ -162,7 +162,7 @@ function FeatureCard({ feature }) {
           </span>
           <motion.div
             whileHover={{ scale: 1.03 }}
-            className={`p-3.5 rounded-xl bg-gradient-to-br ${feature.gradient}`}
+            className={`p-4 rounded-xl bg-gradient-to-br ${feature.gradient}`}
           >
             <Icon className="w-8 h-8 text-white" />
           </motion.div>
@@ -179,7 +179,7 @@ function FeatureCard({ feature }) {
             {['A', 'B', 'C', 'D', '+'].map((letter, i) => (
               <div
                 key={letter}
-                className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white bg-gradient-to-br ${feature.gradient} border-2 border-white dark:border-neutral-800 shadow-sm`}
+                className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold text-white bg-gradient-to-br ${feature.gradient} border-2 border-white dark:border-neutral-800 shadow-sm`}
                 style={{ marginLeft: i > 0 ? -10 : 0 }}
               >
                 {letter}
@@ -225,14 +225,14 @@ export default function Features() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto px-8 py-3.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-sm transition-colors"
+            className="w-full sm:w-auto px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-sm transition-colors"
           >
             Get Started Free
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+            className="w-full sm:w-auto px-8 py-4 rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
           >
             Learn More
           </motion.button>

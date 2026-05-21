@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Star, Users, Globe, Activity, TrendingUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { PARTNER_LOGOS, TRUST_BADGES } from './PartnerLogos'
+import { PARTNER_LOGOS } from './PartnerLogos'
 import * as ls from './landingStyles'
 import { fadeUpProps } from './landingMotion'
 const STATS = [
@@ -84,7 +84,7 @@ function StatCard({ stat, display, index }) {
       <motion.div
         {...fadeUpProps(index * 0.03)}
         whileHover={{ y: -4 }}
-        className={`${stat.col} relative overflow-hidden rounded-2xl border border-primary-200/60 dark:border-primary-800/50 p-6 md:p-8 min-h-[160px] flex flex-col justify-between`}
+        className={`${stat.col} relative overflow-hidden rounded-2xl border-2 border-primary-200/60 dark:border-primary-800/50 p-6 md:p-8 min-h-[160px] flex flex-col justify-between`}
       >
         <div className={`absolute inset-0 bg-gradient-to-br ${stat.surface}`} />
         <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.gradient}`} />
@@ -111,7 +111,7 @@ function StatCard({ stat, display, index }) {
       <motion.div
         {...fadeUpProps(index * 0.03)}
         whileHover={{ y: -4 }}
-        className={`${stat.col} relative overflow-hidden rounded-2xl border border-warning-200/50 dark:border-warning-900/40 p-6 md:p-8 min-h-[160px]`}
+        className={`${stat.col} relative overflow-hidden rounded-2xl border-2 border-warning-200/50 dark:border-warning-900/40 p-6 md:p-8 min-h-[160px]`}
       >
         <div className={`absolute inset-0 bg-gradient-to-br ${stat.surface}`} />
         <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.gradient}`} />
@@ -133,7 +133,7 @@ function StatCard({ stat, display, index }) {
       <motion.div
         {...fadeUpProps(index * 0.03)}
         whileHover={{ y: -4 }}
-        className={`${stat.col} relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px]`}
+        className={`${stat.col} relative overflow-hidden rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px]`}
       >
         <div className={`absolute inset-0 bg-gradient-to-br ${stat.surface}`} />
         <div className={`absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b ${stat.gradient}`} />
@@ -165,7 +165,7 @@ function StatCard({ stat, display, index }) {
     <motion.div
       {...fadeUpProps(index * 0.03)}
       whileHover={{ y: -4 }}
-      className={`${stat.col} relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px]`}
+      className={`${stat.col} relative overflow-hidden rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px]`}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${stat.surface}`} />
       <div className={`absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b ${stat.gradient}`} />
@@ -193,10 +193,10 @@ function LogoMarquee() {
           return (
             <div
               key={`${partner.name}-${i}`}
-              className="flex-shrink-0 px-3 py-2 rounded-xl bg-white/60 dark:bg-neutral-800/40 border border-neutral-200/50 dark:border-neutral-700/50 backdrop-blur-sm"
+              className="flex-shrink-0 px-3 py-2 rounded-xl bg-white/60 dark:bg-neutral-800/40  border-neutral-200/50 dark:border-neutral-700/50 backdrop-blur-sm"
               title={partner.name}
             >
-              <Logo className={`h-6 sm:h-7 w-[100px] sm:w-[120px] ${partner.color}`} />
+              <Logo className={`h-7 sm:h-7 w-[100px] sm:w-[120px] ${partner.color}`} />
             </div>
           )
         })}
@@ -239,7 +239,7 @@ export default function SocialProof() {
           ))}
           <motion.div
             {...fadeUpProps(0.12)}
-            className="md:col-span-4 relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px] flex flex-col justify-center"
+            className="md:col-span-4 relative overflow-hidden rounded-2xl border-2 border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px] flex flex-col justify-center"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-950/20" />
             <div className="relative">
@@ -256,13 +256,13 @@ export default function SocialProof() {
                 {MEMBER_AVATARS.map((initials, i) => (
                   <div
                     key={initials}
-                    className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 border-2 border-white dark:border-neutral-900 flex items-center justify-center text-[10px] font-bold text-white"
+                    className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 border-2 border-white dark:border-neutral-900 flex items-center justify-center text-[10px] font-bold text-white"
                     style={{ zIndex: MEMBER_AVATARS.length - i }}
                   >
                     {initials}
                   </div>
                 ))}
-                <div className="w-9 h-9 rounded-full bg-neutral-800 dark:bg-neutral-700 border-2 border-white dark:border-neutral-900 flex items-center justify-center text-[10px] font-semibold text-white">
+                <div className="w-10 h-10 rounded-full bg-neutral-800 dark:bg-neutral-700 border-2 border-white dark:border-neutral-900 flex items-center justify-center text-[10px] font-semibold text-white">
                   +50K
                 </div>
               </div>
@@ -277,29 +277,7 @@ export default function SocialProof() {
         </p>
         <LogoMarquee />
       </div>
-      <div className={`${ls.container} pt-10 md:pt-12`}>
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            {TRUST_BADGES.map((badge) => {
-              const Logo = badge.Logo
-              return (
-                <motion.div
-                  key={badge.name}
-                  whileHover={{ y: -2 }}
-                  className="opacity-75 hover:opacity-100 transition-opacity"
-                  title={badge.name}
-                >
-                  <Logo className="h-8 w-[115px] text-neutral-700 dark:text-neutral-300" />
-                </motion.div>
-              )
-            })}
-          </div>
-          <div className="hidden lg:block w-px h-10 bg-neutral-200 dark:bg-neutral-700" />
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 text-center lg:text-left max-w-xs">
-            Rated highly on every major platform — start free and see why athletes and coaches choose FitTrack.
-          </p>
-        </div>
-      </div>
+   
     </section>
   )
 }

@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion'
-import { Users, Star, PlayCircle } from 'lucide-react'
+import { Users, Star } from 'lucide-react'
 import Button from '../ui/Button'
 import HeroFitnessIllustration from './HeroFitnessIllustration'
 import HeroAnimatedBackground from './HeroAnimatedBackground'
 export default function Hero() {
   return (
-    <section className="relative isolate w-full overflow-hidden bg-white dark:bg-neutral-950 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-24 min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)]">
+    <section className="relative isolate w-full overflow-hidden bg-white dark:bg-neutral-950 pt-24 sm:pt-28 md:pt-32 pb-12 min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)]">
       <HeroAnimatedBackground />
       <div className="relative z-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center min-h-[inherit] py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
@@ -44,7 +44,6 @@ export default function Hero() {
                 size="lg"
                 className="w-full min-[480px]:flex-1 sm:w-auto sm:flex-initial flex items-center justify-center gap-2"
               >
-                <PlayCircle className="w-5 h-5 shrink-0" />
                 Watch Demo
               </Button>
             </motion.div>

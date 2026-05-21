@@ -95,8 +95,4 @@ export const PARTNER_LOGOS = [
   { name: 'TrackPro', Logo: TrackProLogo, color: 'text-warning-600 dark:text-warning-500' },
   { name: 'HealthSync', Logo: HealthSyncLogo, color: 'text-primary-600 dark:text-primary-400' },
 ]
-export const TRUST_BADGES = [
-  { name: 'App Store', Logo: AppStoreBadge },
-  { name: 'Google Play', Logo: GooglePlayBadge },
-  { name: 'Trustpilot', Logo: TrustpilotBadge },
-]
+

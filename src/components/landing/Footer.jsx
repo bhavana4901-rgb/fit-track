@@ -91,7 +91,7 @@ export default function Footer() {
                     placeholder="your@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-neutral-950 border border-neutral-700 text-white placeholder-neutral-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
+                    className="w-full pl-11 pr-4 py-4 rounded-xl bg-neutral-950 border border-neutral-700 text-white placeholder-neutral-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
                   />
                 </div>
                 <motion.button
@@ -99,7 +99,7 @@ export default function Footer() {
                   disabled={subscribeStatus === 'loading'}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="px-6 py-3.5 rounded-lg bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 hover:opacity-95 transition-opacity"
+                  className="px-6 py-4 rounded-lg bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 hover:opacity-95 transition-opacity"
                 >
                   {subscribeStatus === 'loading' ? '...' : subscribeStatus === 'success' ? 'Subscribed!' : 'Subscribe'}
                   {subscribeStatus === 'idle' && <ArrowRight className="w-4 h-4" />}

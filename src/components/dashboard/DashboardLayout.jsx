@@ -38,7 +38,7 @@ export default function DashboardLayout({ children }) {
             animate={{ scale: sidebarOpen ? 1 : 0.9 }}
             className="flex items-center gap-3"
           >
-            <div className="w-9 h-9 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center shadow-md shadow-primary-500/20">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center shadow-md shadow-primary-500/20">
               <span className="text-white font-bold text-sm">F</span>
             </div>
             <AnimatePresence>

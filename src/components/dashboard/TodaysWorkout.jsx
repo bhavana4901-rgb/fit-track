@@ -166,7 +166,7 @@ export default function TodaysWorkout() {
         variants={itemVariants}
         onClick={handleStartWorkout}
         aria-label={progressPercentage === 100 ? 'Workout complete' : 'Start workout'}
-        className={`w-full py-3.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-neutral-950 ${
+        className={`w-full py-4 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-neutral-950 ${
           progressPercentage === 100
             ? 'bg-gradient-to-r from-success-600 to-success-500 hover:from-success-700 hover:to-success-600 text-white focus:ring-success-500'
             : 'bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white focus:ring-primary-500'

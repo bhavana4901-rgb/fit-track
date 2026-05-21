@@ -50,34 +50,30 @@ function PricingCard({ tier, index }) {
   const isFeatured = tier.layout === 'featured'
   const isPremium = tier.layout === 'premium'
   const isMinimal = tier.layout === 'minimal'
+  
   return (
-    <motion.article
+    <motion.div
       {...fadeUpProps(index * 0.04)}
-      whileHover={{ y: isFeatured ? -4 : -2 }}
-      className={`relative flex flex-col h-full ${
-        isFeatured ? 'md:-mt-4 md:mb-4 z-0' : ''
-      }`}
+      whileHover={{ y: -4 }}
+      className="relative w-full"
     >
+      {/* Badge */}
       {tier.badge && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-[1]">
-          <span className={`px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r ${tier.gradient}`}>
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+          <span className={`px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r ${tier.gradient} shadow-lg`}>
             {tier.badge}
           </span>
         </div>
       )}
-      {isFeatured && (
-        <div className={`absolute -inset-px rounded-[1.75rem] bg-gradient-to-br ${tier.gradient} opacity-40`} />
-      )}
-      {isPremium && (
-        <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${tier.gradient} opacity-20 rounded-bl-[4rem]`} />
-      )}
+      
+      {/* Card */}
       <div
-        className={`relative flex flex-col flex-1 rounded-2xl overflow-hidden border transition-colors ${
+        className={`relative flex flex-col h-full rounded-2xl overflow-hidden border transition-all ${
           isFeatured
-            ? 'bg-neutral-950 text-white border-primary-500/40 shadow-sm'
+            ? 'bg-neutral-950 text-white border-primary-500/40 shadow-xl shadow-primary-500/20'
             : isPremium
-              ? 'bg-gradient-to-br from-secondary-50/80 to-violet-50/80 dark:from-secondary-950/50 dark:to-violet-950/40 border border-secondary-200 dark:border-secondary-800/80 shadow-sm'
-              : 'bg-white dark:bg-neutral-900 border border-dashed border-neutral-200 dark:border-neutral-800 shadow-sm hover:border-neutral-300 dark:hover:border-neutral-700'
+              ? 'bg-gradient-to-br from-secondary-50/80 to-violet-50/80 dark:from-secondary-950/50 dark:to-violet-950/40 border-secondary-200 dark:border-secondary-800/80 shadow-lg'
+              : 'bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 shadow-md hover:shadow-lg hover:border-neutral-300 dark:hover:border-neutral-700'
         }`}
       >
         <div className={`p-6 md:p-8 ${isFeatured ? 'bg-gradient-to-br from-primary-600/20 to-blue-600/10' : ''}`}>
@@ -117,12 +113,12 @@ function PricingCard({ tier, index }) {
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className={`w-full py-3.5 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all ${
+            className={`w-full py-4 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all ${
               isFeatured
-                ? `bg-gradient-to-r ${tier.gradient} text-white`
+                ? 'bg-primary-600 hover:bg-primary-700 text-white shadow-lg'
                 : isPremium
-                  ? `bg-gradient-to-r ${tier.gradient} text-white`
-                  : 'border border-neutral-300 dark:border-neutral-600 text-neutral-900 dark:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800'
+                  ? 'bg-secondary-600 hover:bg-secondary-700 text-white shadow-lg'
+                  : 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-100 shadow-md'
             }`}
           >
             {tier.cta}
@@ -161,7 +157,7 @@ function PricingCard({ tier, index }) {
           </ul>
         </div>
       </div>
-    </motion.article>
+    </motion.div>
   )
 }
 export default function Pricing() {
@@ -201,7 +197,7 @@ export default function Pricing() {
             </button>
           </div>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mt-10 sm:mt-14 max-w-md md:max-w-none mx-auto md:mx-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-16 w-full max-w-[90%] mx-auto">
           {pricingTiers.map((tier, index) => (
             <PricingCard
               key={tier.id}

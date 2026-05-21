@@ -289,7 +289,7 @@ export default function HowItWorks() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-sm inline-flex items-center gap-2 transition-colors"
+            className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-sm inline-flex items-center gap-2 transition-colors"
           >
             Begin Your Journey
             <ArrowRight className="w-5 h-5" />

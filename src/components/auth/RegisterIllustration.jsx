@@ -61,7 +61,7 @@ export default function RegisterIllustration({ currentStep = 1 }) {
           return (
             <li
               key={label}
-              className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
+              className={`flex items-center gap-2 px-3 py-3 rounded-lg border text-sm font-medium transition-colors ${
                 active
                   ? 'border-primary-300 dark:border-primary-700 bg-primary-50/80 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300'
                   : done
