@@ -1,167 +1,256 @@
 import { motion } from 'framer-motion'
-import { BarChart3, Leaf, TrendingUp, Users } from 'lucide-react'
+import { BarChart3, Leaf, TrendingUp, Users, ArrowUpRight } from 'lucide-react'
 
-/**
- * Premium Features section with 4 feature cards
- * - 4 premium cards with icons and descriptions
- * - Hover glow and lift effects
- * - Staggered entrance animations on scroll
- * - Responsive grid layout (1-2-4 columns)
- * - Full dark mode support
- */
-export default function Features() {
-  const features = [
-    {
-      id: 1,
-      icon: BarChart3,
-      title: 'Workout Tracking',
-      description: 'Log and monitor all your exercises with detailed stats. Track sets, reps, weights, and progress over time.',
-      color: 'from-primary-600 to-primary-400',
-      iconBg: 'bg-primary-100 dark:bg-primary-900/30',
-      iconColor: 'text-primary-600 dark:text-primary-400',
-    },
-    {
-      id: 2,
-      icon: Leaf,
-      title: 'Nutrition Plans',
-      description: 'Get personalized meal plans based on your goals. Track macros, calories, and stay on top of your diet.',
-      color: 'from-success-600 to-success-400',
-      iconBg: 'bg-success-100 dark:bg-success-900/30',
-      iconColor: 'text-success-600 dark:text-success-400',
-    },
-    {
-      id: 3,
-      icon: TrendingUp,
-      title: 'Progress Analytics',
-      description: 'Visual charts and insights into your fitness journey. See trends, celebrate wins, and stay motivated.',
-      color: 'from-accent-600 to-accent-400',
-      iconBg: 'bg-accent-100 dark:bg-accent-900/30',
-      iconColor: 'text-accent-600 dark:text-accent-400',
-    },
-    {
-      id: 4,
-      icon: Users,
-      title: 'Community Support',
-      description: 'Connect with other fitness enthusiasts. Share progress, get motivation, and build lasting friendships.',
-      color: 'from-secondary-600 to-secondary-400',
-      iconBg: 'bg-secondary-100 dark:bg-secondary-900/30',
-      iconColor: 'text-secondary-600 dark:text-secondary-400',
-    },
-  ]
+const features = [
+  {
+    id: 1,
+    icon: BarChart3,
+    title: 'Workout Tracking',
+    description: 'Log exercises with sets, reps, and weights. Watch your strength climb week after week.',
+    gradient: 'from-primary-500 to-blue-600',
+    lightBg: 'from-primary-50 to-blue-50 dark:from-primary-950/40 dark:to-blue-950/30',
+    accent: 'border-primary-400',
+    layout: 'featured',
+    stat: '120+ exercises',
+  },
+  {
+    id: 2,
+    icon: Leaf,
+    title: 'Nutrition Plans',
+    description: 'Personalized meal plans and macro tracking tailored to your goals.',
+    gradient: 'from-success-500 to-emerald-600',
+    lightBg: 'from-success-50 to-emerald-50 dark:from-success-950/40 dark:to-emerald-950/30',
+    accent: 'border-success-400',
+    layout: 'floating-icon',
+    stat: '2M+ meals logged',
+  },
+  {
+    id: 3,
+    icon: TrendingUp,
+    title: 'Progress Analytics',
+    description: 'Beautiful charts and insights that keep you motivated and on track.',
+    gradient: 'from-accent-500 to-pink-600',
+    lightBg: 'from-accent-50 to-pink-50 dark:from-accent-950/40 dark:to-pink-950/30',
+    accent: 'border-accent-400',
+    layout: 'accent-bar',
+    stat: '94% hit goals',
+  },
+  {
+    id: 4,
+    icon: Users,
+    title: 'Community Support',
+    description: 'Connect, compete, and celebrate wins with fitness enthusiasts worldwide.',
+    gradient: 'from-secondary-500 to-violet-600',
+    lightBg: 'from-secondary-50 to-violet-50 dark:from-secondary-950/40 dark:to-violet-950/30',
+    accent: 'border-secondary-400',
+    layout: 'stacked',
+    stat: '50K+ members',
+  },
+]
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+}
+
+function FeatureCard({ feature }) {
+  const Icon = feature.icon
+  const num = String(feature.id).padStart(2, '0')
+
+  if (feature.layout === 'featured') {
+    return (
+      <motion.article
+        variants={cardVariants}
+        whileHover={{ y: -6 }}
+        className="md:col-span-2 lg:col-span-2 lg:row-span-2 group relative overflow-hidden rounded-3xl min-h-[280px]"
+      >
+        <div className={`absolute inset-0 bg-gradient-to-br ${feature.lightBg}`} />
+        <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${feature.gradient}`} />
+        <div className="absolute -right-16 -bottom-16 w-64 h-64 bg-gradient-to-br from-primary-400/20 to-transparent rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500" />
+        <div className="relative h-full p-8 md:p-10 flex flex-col justify-between">
+          <div className="flex justify-between items-start">
+            <span className="text-7xl font-black text-primary-200/50 dark:text-primary-800/50 leading-none">{num}</span>
+            <motion.div
+              whileHover={{ rotate: 45 }}
+              className={`p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg shadow-primary-500/25`}
+            >
+              <Icon className="w-8 h-8 text-white" />
+            </motion.div>
+          </div>
+          <div>
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 mb-3">
+              {feature.stat}
+            </span>
+            <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-3">{feature.title}</h3>
+            <p className="text-neutral-600 dark:text-neutral-400 max-w-md leading-relaxed">{feature.description}</p>
+            <div className="mt-6 flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+              Explore feature <ArrowUpRight className="w-4 h-4" />
+            </div>
+          </div>
+          {/* Mini chart decoration */}
+          <div className="absolute bottom-8 right-8 flex items-end gap-1.5 opacity-40 group-hover:opacity-70 transition-opacity">
+            {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
+              <motion.div
+                key={i}
+                className={`w-2 rounded-full bg-gradient-to-t ${feature.gradient}`}
+                initial={{ height: 0 }}
+                whileInView={{ height: h * 0.5 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + i * 0.05, duration: 0.4 }}
+              />
+            ))}
+          </div>
+        </div>
+      </motion.article>
+    )
   }
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
+  if (feature.layout === 'floating-icon') {
+    return (
+      <motion.article variants={cardVariants} whileHover={{ y: -8 }} className="group relative pt-8">
+        <motion.div
+          whileHover={{ scale: 1.1, rotate: -8 }}
+          className={`absolute -top-2 left-6 z-20 p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-xl`}
+        >
+          <Icon className="w-7 h-7 text-white" />
+        </motion.div>
+        <div className={`relative h-full p-6 pt-12 rounded-3xl bg-gradient-to-br ${feature.lightBg} border-2 border-dashed border-success-300/50 dark:border-success-700/40 hover:border-solid transition-all`}>
+          <span className="text-xs font-bold text-success-600 dark:text-success-400 uppercase tracking-wider">{feature.stat}</span>
+          <h3 className="text-xl font-bold text-neutral-900 dark:text-white mt-2 mb-2">{feature.title}</h3>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{feature.description}</p>
+        </div>
+      </motion.article>
+    )
   }
 
+  if (feature.layout === 'accent-bar') {
+    return (
+      <motion.article
+        variants={cardVariants}
+        whileHover={{ x: 4 }}
+        className="group relative flex overflow-hidden rounded-3xl bg-white dark:bg-neutral-900 shadow-md hover:shadow-xl transition-shadow"
+      >
+        <div className={`w-2 flex-shrink-0 bg-gradient-to-b ${feature.gradient}`} />
+        <div className="flex-1 p-6 relative">
+          <div className="flex items-center gap-3 mb-3">
+            <div className={`p-2.5 rounded-lg bg-gradient-to-br ${feature.gradient}`}>
+              <Icon className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xs font-mono text-neutral-400">{num}</span>
+          </div>
+          <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-2">{feature.title}</h3>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">{feature.description}</p>
+          <p className={`mt-4 text-sm font-bold bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent`}>
+            {feature.stat}
+          </p>
+          {/* Sparkline */}
+          <svg className="absolute bottom-4 right-4 w-20 h-10 opacity-30 group-hover:opacity-60 transition-opacity" viewBox="0 0 80 40">
+            <path d="M0 35 L15 25 L30 30 L45 15 L60 20 L80 5" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent-500" />
+          </svg>
+        </div>
+      </motion.article>
+    )
+  }
+
+  // stacked — community (full-width banner)
   return (
-    <section id="features" className="w-full py-16 md:py-24 bg-gradient-to-b from-white to-primary-50/20 dark:from-neutral-950 dark:to-neutral-900/50 relative overflow-hidden">
-      {/* Decorative background element */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-primary-200/10 to-secondary-200/10 rounded-full blur-3xl dark:from-primary-900/5 dark:to-secondary-900/5" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-gradient-to-tr from-accent-200/10 to-primary-200/10 rounded-full blur-3xl dark:from-accent-900/5 dark:to-primary-900/5" />
+    <motion.article
+      variants={cardVariants}
+      whileHover={{ scale: 1.01 }}
+      className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-secondary-600 to-violet-700 p-6 md:p-8 text-white min-h-[180px] md:col-span-2 lg:col-span-3"
+    >
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xNSkiLz48L3N2Zz+')] opacity-60" />
+      <div className="relative">
+        <Icon className="w-8 h-8 mb-4 opacity-90" />
+        <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+        <p className="text-sm text-white/80 leading-relaxed">{feature.description}</p>
+        <div className="flex items-center gap-2 mt-5">
+          {['A', 'B', 'C', 'D', '+'].map((letter, i) => (
+            <div
+              key={letter}
+              className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-xs font-bold"
+              style={{ marginLeft: i > 0 ? -10 : 0 }}
+            >
+              {letter}
+            </div>
+          ))}
+          <span className="text-xs text-white/70 ml-1">{feature.stat}</span>
+        </div>
       </div>
+    </motion.article>
+  )
+}
+
+export default function Features() {
+  return (
+    <section id="features" className="w-full py-16 md:py-24 relative overflow-hidden bg-white dark:bg-neutral-950">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-300/50 to-transparent dark:via-primary-700/50" />
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary-100/40 dark:bg-primary-900/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary-100/30 dark:bg-secondary-900/10 rounded-full blur-3xl" />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.55 }}
+          className="text-center mb-12 md:mb-14"
         >
+          <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950/50 rounded-full border border-primary-200 dark:border-primary-800">
+            Features
+          </span>
           <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
-            Powerful Features for <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">Your Success</span>
+            Powerful tools for{' '}
+            <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+              your success
+            </span>
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto text-lg">
-            Everything you need to transform your fitness journey, all in one intuitive platform
+            Everything you need to transform your fitness journey — one intuitive platform
           </p>
         </motion.div>
 
+        {/* Bento grid — each card a different layout */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+          viewport={{ once: true, margin: '-80px' }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 auto-rows-fr"
         >
-          {features.map((feature) => {
-            const Icon = feature.icon
-            return (
-              <motion.div
-                key={feature.id}
-                variants={cardVariants}
-                whileHover={{ y: -8 }}
-                className="group relative"
-              >
-                {/* Glow effect on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-300`}></div>
-
-                {/* Card */}
-                <div className="relative h-full p-6 md:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-lg hover:shadow-xl transition-all duration-300">
-                  {/* Icon Container */}
-                  <div className={`flex items-center justify-center w-14 h-14 rounded-xl ${feature.iconBg} mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className={`w-7 h-7 ${feature.iconColor}`} />
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-600 group-hover:to-secondary-600 group-hover:bg-clip-text transition-all duration-300">
-                    {feature.title}
-                  </h3>
-
-                  <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
-                    {feature.description}
-                  </p>
-
-                  {/* Animated accent line */}
-                  <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-transparent to-transparent group-hover:from-primary-500 group-hover:to-transparent rounded-full w-0 group-hover:w-full transition-all duration-500"></div>
-                </div>
-              </motion.div>
-            )
-          })}
+          {features.map((feature) => (
+            <FeatureCard key={feature.id} feature={feature} />
+          ))}
         </motion.div>
 
-        {/* Bottom CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 md:mt-16 text-center"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-            Ready to start your transformation?
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              Get Started Free
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 border-2 border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 font-semibold rounded-lg hover:bg-primary-50 dark:hover:bg-primary-950 transition-all duration-300"
-            >
-              Learn More
-            </motion.button>
-          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3.5 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold rounded-2xl shadow-lg shadow-primary-500/30"
+          >
+            Get Started Free
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3.5 rounded-2xl border-2 border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+          >
+            Learn More
+          </motion.button>
         </motion.div>
       </div>
     </section>

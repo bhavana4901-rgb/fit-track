@@ -66,42 +66,8 @@ export function HealthSyncLogo({ className = 'w-full h-full' }) {
   )
 }
 
-export function AppStoreBadge({ className = 'w-full h-full' }) {
-  return (
-    <svg viewBox="0 0 120 40" className={className} fill="none" aria-hidden="true">
-      <rect x="1" y="1" width="118" height="38" rx="8" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M24 12l4 20 4-12h3l-5 14h-4L21 12h3z" fill="currentColor" />
-      <path d="M48 14h-2v14h2c4 0 6-2 6-7s-2-7-6-7zm0 2c2 0 3 1.5 3 5s-1 5-3 5v-10z" fill="currentColor" />
-      <text x="68" y="17" fill="currentColor" fontSize="7" fontFamily="system-ui,sans-serif">Download on the</text>
-      <text x="68" y="30" fill="currentColor" fontSize="11" fontWeight="600" fontFamily="system-ui,sans-serif">App Store</text>
-    </svg>
-  )
-}
 
-export function GooglePlayBadge({ className = 'w-full h-full' }) {
-  return (
-    <svg viewBox="0 0 120 40" className={className} fill="none" aria-hidden="true">
-      <rect x="1" y="1" width="118" height="38" rx="8" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M18 10l12 10-12 10V10z" fill="currentColor" opacity="0.9" />
-      <path d="M30 20L18 10v20l12-10z" fill="currentColor" opacity="0.6" />
-      <path d="M30 20l8-6v12l-8-6z" fill="currentColor" opacity="0.8" />
-      <text x="48" y="17" fill="currentColor" fontSize="7" fontFamily="system-ui,sans-serif">GET IT ON</text>
-      <text x="48" y="30" fill="currentColor" fontSize="11" fontWeight="600" fontFamily="system-ui,sans-serif">Google Play</text>
-    </svg>
-  )
-}
 
-export function TrustpilotBadge({ className = 'w-full h-full' }) {
-  return (
-    <svg viewBox="0 0 120 40" className={className} fill="none" aria-hidden="true">
-      <rect x="1" y="1" width="118" height="38" rx="8" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M16 28l4-10 4 10H16z" fill="currentColor" />
-      <path d="M20 14l1.5 4.5h4.7l-3.8 2.8 1.5 4.5L20 23l-3.9 2.8 1.5-4.5-3.8-2.8h4.7L20 14z" fill="currentColor" opacity="0.3" />
-      <text x="44" y="18" fill="currentColor" fontSize="8" fontWeight="600" fontFamily="system-ui,sans-serif">Trustpilot</text>
-      <text x="44" y="30" fill="currentColor" fontSize="10" fontFamily="system-ui,sans-serif">★★★★★ 4.9</text>
-    </svg>
-  )
-}
 
 export const PARTNER_LOGOS = [
   { name: 'TechFlow', Logo: TechFlowLogo, color: 'text-primary-600 dark:text-primary-400' },
@@ -112,8 +78,3 @@ export const PARTNER_LOGOS = [
   { name: 'HealthSync', Logo: HealthSyncLogo, color: 'text-primary-600 dark:text-primary-400' },
 ]
 
-export const TRUST_BADGES = [
-  { name: 'App Store', Logo: AppStoreBadge },
-  { name: 'Google Play', Logo: GooglePlayBadge },
-  { name: 'Trustpilot', Logo: TrustpilotBadge },
-]
