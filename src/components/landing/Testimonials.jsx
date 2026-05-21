@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 
 const testimonials = [
   {
@@ -8,116 +8,256 @@ const testimonials = [
     name: 'Sarah Chen',
     title: 'Fitness Enthusiast',
     initials: 'SC',
-    gradient: 'from-primary-500 to-primary-600',
+    gradient: 'from-primary-500 to-blue-600',
+    accent: 'border-primary-400',
+    ring: 'ring-primary-400',
+    bg: 'from-primary-50 to-blue-50 dark:from-primary-950/40 dark:to-blue-950/30',
     rating: 5,
-    quote: 'FitTrack completely transformed my fitness journey. The analytics are so detailed and motivating. I can see my progress in real-time!'
+    quote: 'FitTrack completely transformed my fitness journey. The analytics are so detailed and motivating!',
+    style: 'quote',
   },
   {
     id: 2,
     name: 'Marcus Johnson',
     title: 'Personal Trainer',
     initials: 'MJ',
-    gradient: 'from-secondary-500 to-secondary-600',
+    gradient: 'from-secondary-500 to-violet-600',
+    accent: 'border-secondary-400',
+    ring: 'ring-secondary-400',
+    bg: 'from-secondary-50 to-violet-50 dark:from-secondary-950/40 dark:to-violet-950/30',
     rating: 5,
-    quote: 'As a trainer, I recommend FitTrack to all my clients. The features are comprehensive and the UI is intuitive. Game changer!'
+    quote: 'As a trainer, I recommend FitTrack to all my clients. Comprehensive features and intuitive UI.',
+    style: 'bold',
   },
   {
     id: 3,
     name: 'Emma Rodriguez',
     title: 'Health Coach',
     initials: 'ER',
-    gradient: 'from-success-500 to-success-600',
+    gradient: 'from-success-500 to-emerald-600',
+    accent: 'border-success-400',
+    ring: 'ring-success-400',
+    bg: 'from-success-50 to-emerald-50 dark:from-success-950/40 dark:to-emerald-950/30',
     rating: 5,
-    quote: 'The nutrition tracking and meal planning features are exceptional. My clients love the integration with their daily workouts.'
+    quote: 'The nutrition tracking and meal planning features are exceptional. My clients love the integration.',
+    style: 'split',
   },
   {
     id: 4,
     name: 'David Kim',
     title: 'Athlete',
     initials: 'DK',
-    gradient: 'from-accent-500 to-accent-600',
+    gradient: 'from-accent-500 to-pink-600',
+    accent: 'border-accent-400',
+    ring: 'ring-accent-400',
+    bg: 'from-accent-50 to-pink-50 dark:from-accent-950/40 dark:to-pink-950/30',
     rating: 5,
-    quote: 'Finally, an app that understands advanced training. The progress analytics helped me optimize my performance significantly.'
+    quote: 'Finally, an app that understands advanced training. Progress analytics optimized my performance.',
+    style: 'glass',
   },
   {
     id: 5,
     name: 'Jessica Williams',
     title: 'Wellness Expert',
     initials: 'JW',
-    gradient: 'from-warning-500 to-warning-600',
+    gradient: 'from-warning-500 to-amber-600',
+    accent: 'border-warning-400',
+    ring: 'ring-warning-400',
+    bg: 'from-warning-50 to-amber-50 dark:from-warning-950/40 dark:to-amber-950/30',
     rating: 5,
-    quote: 'The community features make fitness fun. I love the challenges and being able to connect with others pursuing similar goals.'
+    quote: 'The community features make fitness fun. Challenges and connecting with others pursuing similar goals.',
+    style: 'quote',
   },
   {
     id: 6,
     name: 'Alex Thompson',
     title: 'Marathon Runner',
     initials: 'AT',
-    gradient: 'from-secondary-400 to-secondary-500',
+    gradient: 'from-primary-400 to-secondary-500',
+    accent: 'border-primary-300',
+    ring: 'ring-primary-300',
+    bg: 'from-primary-50/80 to-secondary-50/80 dark:from-primary-950/30 dark:to-secondary-950/30',
     rating: 5,
-    quote: 'Training with FitTrack gave me insights I never had before. The detailed metrics helped me run my personal best!'
-  }
+    quote: 'Training with FitTrack gave me insights I never had before. Detailed metrics helped me hit a personal best!',
+    style: 'bold',
+  },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2
-    }
+function StarRow({ count, size = 'w-4 h-4' }) {
+  return (
+    <div className="flex gap-1 flex-shrink-0" aria-label={`${count} star rating`}>
+      {[...Array(count)].map((_, i) => (
+        <Star key={i} className={`${size} fill-warning-400 text-warning-400`} strokeWidth={0} />
+      ))}
+    </div>
+  )
+}
+
+function TestimonialCard({ testimonial, isPrimary }) {
+  const { style } = testimonial
+  const inactive = !isPrimary ? 'opacity-85 scale-[0.98]' : ''
+
+  if (style === 'bold') {
+    return (
+      <div
+        className={`h-full min-h-[300px] rounded-3xl p-6 md:p-8 flex flex-col bg-gradient-to-br ${testimonial.gradient} text-white shadow-2xl transition-all duration-500 ${inactive}`}
+      >
+        <div className="flex flex-col flex-1 gap-4">
+          <StarRow count={testimonial.rating} size="w-4 h-4" />
+          <p className="text-base md:text-lg font-medium leading-relaxed flex-1">
+            &ldquo;{testimonial.quote}&rdquo;
+          </p>
+        </div>
+        <div className="flex items-center gap-3 mt-6 pt-5 border-t border-white/20 flex-shrink-0">
+          <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center font-bold">
+            {testimonial.initials}
+          </div>
+          <div className="min-w-0">
+            <p className="font-bold truncate">{testimonial.name}</p>
+            <p className="text-white/75 text-sm truncate">{testimonial.title}</p>
+          </div>
+        </div>
+      </div>
+    )
   }
-}
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' }
-  },
-  exit: { opacity: 0, y: -30, transition: { duration: 0.3 } }
-}
+  if (style === 'split') {
+    return (
+      <div
+        className={`h-full min-h-[300px] rounded-3xl overflow-hidden border-2 ${testimonial.accent} bg-white dark:bg-neutral-900 shadow-xl flex flex-col transition-all duration-500 ${inactive}`}
+      >
+        <div className={`p-5 flex flex-col items-center bg-gradient-to-br ${testimonial.bg} flex-shrink-0`}>
+          <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white font-bold text-lg shadow-lg mb-3`}>
+            {testimonial.initials}
+          </div>
+          <p className="font-bold text-neutral-900 dark:text-white text-center text-sm">{testimonial.name}</p>
+          <p className="text-xs text-neutral-600 dark:text-neutral-400 text-center mt-0.5">{testimonial.title}</p>
+          <div className="mt-3">
+            <StarRow count={testimonial.rating} size="w-3.5 h-3.5" />
+          </div>
+        </div>
+        <div className="p-5 flex-1 flex items-start">
+          <p className="text-sm md:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed italic">
+            &ldquo;{testimonial.quote}&rdquo;
+          </p>
+        </div>
+      </div>
+    )
+  }
 
-const cardHoverVariants = {
-  hover: { y: -8, transition: { duration: 0.3 } }
+  if (style === 'glass') {
+    return (
+      <div
+        className={`h-full min-h-[300px] rounded-3xl p-6 backdrop-blur-xl bg-white/70 dark:bg-neutral-900/70 border border-white/50 dark:border-neutral-700/50 shadow-xl relative overflow-hidden flex flex-col transition-all duration-500 ${inactive}`}
+      >
+        <div className={`absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br ${testimonial.gradient} opacity-20 rounded-full blur-2xl pointer-events-none`} />
+        <div className="relative z-10 flex flex-col flex-1 gap-4">
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <Quote className="w-8 h-8 text-primary-400/40 flex-shrink-0" />
+            <StarRow count={testimonial.rating} />
+          </div>
+          <p className="text-sm md:text-base text-neutral-800 dark:text-neutral-200 leading-relaxed flex-1">
+            {testimonial.quote}
+          </p>
+          <div className="flex items-center gap-3 flex-shrink-0 pt-2">
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white font-semibold text-xs flex-shrink-0`}>
+              {testimonial.initials}
+            </div>
+            <div className="min-w-0">
+              <p className="font-semibold text-neutral-900 dark:text-white text-sm truncate">{testimonial.name}</p>
+              <p className="text-xs text-neutral-500 truncate">{testimonial.title}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // quote — decorative mark separate from content
+  return (
+    <div
+      className={`h-full min-h-[300px] rounded-3xl bg-white dark:bg-neutral-900 shadow-lg border border-neutral-200 dark:border-neutral-800 flex overflow-hidden transition-all duration-500 ${inactive}`}
+    >
+      <div className={`w-1.5 flex-shrink-0 bg-gradient-to-b ${testimonial.gradient}`} />
+      <div className="flex-1 p-6 flex flex-col justify-between min-w-0">
+        <div className="relative flex-1">
+          <span
+            className="absolute -top-1 left-0 text-5xl md:text-6xl font-serif text-neutral-200/80 dark:text-neutral-800 leading-none select-none pointer-events-none"
+            aria-hidden="true"
+          >
+            &ldquo;
+          </span>
+          <div className="relative z-10 pt-6 space-y-4">
+            <StarRow count={testimonial.rating} />
+            <p className="text-sm md:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
+              {testimonial.quote}
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3 mt-5 flex-shrink-0">
+          <div className={`w-11 h-11 rounded-full ring-2 ring-offset-2 ring-offset-white dark:ring-offset-neutral-900 ${testimonial.ring} bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white font-semibold text-xs flex-shrink-0`}>
+            {testimonial.initials}
+          </div>
+          <div className="min-w-0">
+            <p className="font-bold text-neutral-900 dark:text-white text-sm truncate">{testimonial.name}</p>
+            <p className="text-xs text-neutral-500 truncate">{testimonial.title}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [direction, setDirection] = useState(1)
+  const total = testimonials.length
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-  }
+  const visiblePair = useMemo(
+    () => [
+      testimonials[currentIndex],
+      testimonials[(currentIndex + 1) % total],
+    ],
+    [currentIndex, total]
+  )
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  const goTo = useCallback(
+    (index) => {
+      const normalized = ((index % total) + total) % total
+      setDirection(normalized > currentIndex || (currentIndex === total - 1 && normalized === 0) ? 1 : -1)
+      setCurrentIndex(normalized)
+    },
+    [currentIndex, total]
+  )
+
+  const next = useCallback(() => goTo(currentIndex + 1), [currentIndex, goTo])
+  const prev = useCallback(() => goTo(currentIndex - 1), [currentIndex, goTo])
+
+  useEffect(() => {
+    const timer = setInterval(next, 6000)
+    return () => clearInterval(timer)
+  }, [next])
+
+  const slideVariants = {
+    enter: (d) => ({ x: d > 0 ? '8%' : '-8%', opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (d) => ({ x: d < 0 ? '8%' : '-8%', opacity: 0 }),
   }
 
   return (
-    <section className="py-20 md:py-32 px-4 md:px-8 lg:px-16 relative bg-gradient-to-b from-white via-pink-50/30 to-neutral-50/80 dark:from-neutral-950 dark:via-pink-950/20 dark:to-neutral-900/40 overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <motion.div 
-          animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
-          transition={{ duration: 12, repeat: Infinity }}
-          className="absolute top-20 left-1/3 w-96 h-96 bg-gradient-to-br from-pink-200/20 to-primary-200/10 rounded-full blur-3xl dark:from-pink-900/10 dark:to-primary-900/5"
-        />
-        <motion.div 
-          animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
-          transition={{ duration: 14, repeat: Infinity }}
-          className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-tl from-secondary-200/20 to-accent-200/10 rounded-full blur-3xl dark:from-secondary-900/10 dark:to-accent-900/5"
-        />
+    <section className="py-20 md:py-28 px-4 relative overflow-hidden bg-gradient-to-b from-neutral-50 via-pink-50/20 to-white dark:from-neutral-950 dark:via-pink-950/10 dark:to-neutral-950">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-pink-200/20 dark:bg-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-200/20 dark:bg-primary-900/10 rounded-full blur-3xl" />
       </div>
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
+
+      <div className="max-w-7xl mx-auto">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-14"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent">
@@ -125,151 +265,78 @@ export default function Testimonials() {
             </span>
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400 text-lg max-w-2xl mx-auto">
-            Real success stories from our community. See how FitTrack is transforming lives every day.
+            Real success stories from our community — two at a time
           </p>
         </motion.div>
 
-        {/* Desktop Grid View */}
-        <motion.div
-          className="hidden md:grid md:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {testimonials.map((testimonial) => (
-            <motion.div
-              key={testimonial.id}
-              variants={cardVariants}
-              whileHover={cardHoverVariants.hover}
-              className="group bg-white dark:bg-neutral-900 rounded-xl p-8 border border-neutral-200 dark:border-neutral-800 hover:shadow-xl hover:shadow-primary-500/10 dark:hover:shadow-primary-900/20 transition-shadow duration-300"
-            >
-              {/* Stars */}
-              <div className="flex gap-1.5 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, rotate: -180 }}
-                    whileInView={{ opacity: 1, rotate: 0 }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <Star
-                      className="w-4 h-4 fill-warning-400 text-warning-400"
-                      strokeWidth={0}
-                    />
-                  </motion.div>
-                ))}
-              </div>
+        <div className="relative px-10 md:px-14">
+          <button
+            type="button"
+            onClick={prev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-lg flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
+            aria-label="Previous testimonials"
+          >
+            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
 
-              {/* Quote */}
-              <p className="text-neutral-700 dark:text-neutral-300 mb-6 line-clamp-4">
-                "{testimonial.quote}"
-              </p>
+          <button
+            type="button"
+            onClick={next}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-lg flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
+            aria-label="Next testimonials"
+          >
+            <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
 
-              {/* User Info */}
-              <div className="flex items-center gap-4">
-                {/* Avatar */}
-                <div
-                  className={`w-12 h-12 rounded-full bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white font-semibold text-sm flex-shrink-0`}
-                >
-                  {testimonial.initials}
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-neutral-900 dark:text-white">
-                    {testimonial.name}
-                  </p>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    {testimonial.title}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Mobile Carousel View */}
-        <div className="md:hidden">
-          <div className="relative">
-            <AnimatePresence mode="wait">
+          <div className="overflow-hidden min-h-[300px]">
+            <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={currentIndex}
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
                 exit="exit"
-                className="bg-white dark:bg-neutral-900 rounded-xl p-8 border border-neutral-200 dark:border-neutral-800 shadow-lg"
+                transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6"
               >
-                {/* Stars */}
-                <div className="flex gap-1.5 mb-4">
-                  {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-warning-400 text-warning-400"
-                      strokeWidth={0}
-                    />
-                  ))}
-                </div>
-
-                {/* Quote */}
-                <p className="text-neutral-700 dark:text-neutral-300 mb-8 text-base">
-                  "{testimonials[currentIndex].quote}"
-                </p>
-
-                {/* User Info */}
-                <div className="flex items-center gap-4">
-                  {/* Avatar */}
-                  <div
-                    className={`w-12 h-12 rounded-full bg-gradient-to-br ${testimonials[currentIndex].gradient} flex items-center justify-center text-white font-semibold text-sm flex-shrink-0`}
-                  >
-                    {testimonials[currentIndex].initials}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-neutral-900 dark:text-white">
-                      {testimonials[currentIndex].name}
-                    </p>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      {testimonials[currentIndex].title}
-                    </p>
-                  </div>
-                </div>
+                {visiblePair.map((testimonial, i) => (
+                  <TestimonialCard
+                    key={`${currentIndex}-${testimonial.id}`}
+                    testimonial={testimonial}
+                    isPrimary={i === 0}
+                  />
+                ))}
               </motion.div>
             </AnimatePresence>
-
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 bg-primary-600 hover:bg-primary-700 text-white rounded-full p-2 transition-colors"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 bg-primary-600 hover:bg-primary-700 text-white rounded-full p-2 transition-colors"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
           </div>
+        </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-2 mt-8">
+        <div className="flex flex-col items-center gap-4 mt-10">
+          <div className="flex gap-2">
             {testimonials.map((_, index) => (
-              <motion.button
+              <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                  index === currentIndex
-                    ? 'bg-primary-600'
-                    : 'bg-neutral-300 dark:bg-neutral-700'
-                }`}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
+                type="button"
+                onClick={() => goTo(index)}
+                aria-label={`Go to testimonial pair starting at ${index + 1}`}
+                className="p-1"
+              >
+                <motion.span
+                  className={`block rounded-full ${
+                    index === currentIndex
+                      ? 'bg-gradient-to-r from-primary-500 to-secondary-500'
+                      : 'bg-neutral-300 dark:bg-neutral-700'
+                  }`}
+                  animate={{ width: index === currentIndex ? 28 : 8, height: 8 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </button>
             ))}
           </div>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            Showing {currentIndex + 1} & {((currentIndex + 1) % total) + 1} of {total}
+          </p>
         </div>
       </div>
     </section>
