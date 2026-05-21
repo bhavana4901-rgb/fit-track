@@ -1,4 +1,3 @@
-/** Shared class strings for consistent professional landing sections */
 export const section = 'py-14 sm:py-20 md:py-24 relative overflow-hidden'
 export const container = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-0 w-full'
 export const eyebrow =

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { Play, Apple, TrendingUp, Zap, ArrowRight } from 'lucide-react'
 import { dashboardCard, dashboardCardPadding, dashboardSectionTitle, dashboardSectionSubtitle } from './dashboardStyles'
 import { dashboardItem } from './dashboardMotion'
-
 const QuickActions = () => {
   const actions = [
     {
@@ -37,7 +36,6 @@ const QuickActions = () => {
       onClick: () => console.log('View Progress clicked'),
     },
   ]
-
   const itemVariants = {
     hidden: { opacity: 0, scale: 0.96, y: 8 },
     visible: {
@@ -47,7 +45,6 @@ const QuickActions = () => {
       transition: { duration: 0.28, ease: 'easeOut' },
     },
   }
-
   const getColorClasses = (colorType) => {
     const colors = {
       primary: {
@@ -80,7 +77,6 @@ const QuickActions = () => {
     }
     return colors[colorType] || colors.primary
   }
-
   return (
     <motion.div
       variants={dashboardItem}
@@ -89,7 +85,6 @@ const QuickActions = () => {
       className={`${dashboardCard} ${dashboardCardPadding} overflow-hidden relative`}
     >
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 via-primary-500 to-success-500 opacity-80" />
-
       <div className="mb-6 flex items-start gap-2">
         <span className="inline-flex p-2 rounded-lg bg-accent-100 dark:bg-accent-950/40 shrink-0">
           <Zap className="w-5 h-5 text-accent-600 dark:text-accent-400" />
@@ -101,7 +96,6 @@ const QuickActions = () => {
           </p>
         </div>
       </div>
-
       <motion.div
         className="space-y-3"
         initial="hidden"
@@ -113,7 +107,6 @@ const QuickActions = () => {
         {actions.map((action) => {
           const colorClasses = getColorClasses(action.color)
           const Icon = action.icon
-
           return (
             <motion.button
               key={action.id}
@@ -124,9 +117,8 @@ const QuickActions = () => {
               aria-label={`${action.label}: ${action.description}`}
               className={`group w-full p-4 rounded-xl border-2 text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-neutral-900 ${colorClasses.focusRing} ${colorClasses.bg} ${colorClasses.border} ${colorClasses.hover} relative overflow-hidden`}
             >
-              {/* Gradient overlay on hover */}
+              {}
               <div className={`absolute inset-0 bg-gradient-to-r ${action.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-              
               <div className="relative flex items-center gap-4">
                 <motion.div
                   className={`p-3 rounded-xl ${colorClasses.iconBg} shadow-sm`}
@@ -152,7 +144,6 @@ const QuickActions = () => {
           )
         })}
       </motion.div>
-
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
@@ -166,5 +157,4 @@ const QuickActions = () => {
     </motion.div>
   )
 }
-
 export default QuickActions

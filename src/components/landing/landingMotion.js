@@ -1,11 +1,6 @@
-/** Fast, snappy scroll-reveal presets (avoid sluggish first-time section loads) */
 export const viewViewport = { once: true, margin: '-48px 0px -48px 0px' }
-
 export const viewTransition = { duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }
-
 export const viewTransitionFast = { duration: 0.22, ease: 'easeOut' }
-
-/** Stagger for child lists */
 export const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
@@ -13,7 +8,6 @@ export const staggerContainer = {
     transition: { staggerChildren: 0.04, delayChildren: 0.02 },
   },
 }
-
 export const staggerItem = {
   hidden: { opacity: 0, y: 10 },
   visible: {
@@ -22,8 +16,6 @@ export const staggerItem = {
     transition: viewTransitionFast,
   },
 }
-
-/** Spread onto motion.* for fade-up on scroll */
 export function fadeUpProps(delay = 0) {
   return {
     initial: { opacity: 0, y: 10 },

@@ -16,8 +16,6 @@ import {
   Loader2,
 } from 'lucide-react'
 import Button from '../ui/Button'
-
-// Zod validation schema
 const registerStep3Schema = z.object({
   goals: z
     .array(z.string())
@@ -27,8 +25,6 @@ const registerStep3Schema = z.object({
       message: 'Cannot select the same goal twice',
     }),
 })
-
-// Goal options with icons and descriptions
 const goalOptions = [
   {
     id: 'lose-weight',
@@ -67,10 +63,8 @@ const goalOptions = [
     icon: Wind,
   },
 ]
-
 export default function RegisterStep3({ onNext, onPrevious, initialData }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
-
   const {
     control,
     handleSubmit,
@@ -83,21 +77,16 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
       goals: initialData?.goals || [],
     },
   })
-
   const selectedGoals = watch('goals')
-
   const onSubmit = async (data) => {
     setIsSubmitting(true)
     try {
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 500))
       onNext(data)
     } finally {
       setIsSubmitting(false)
     }
   }
-
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -108,7 +97,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
       },
     },
   }
-
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
     visible: {
@@ -117,7 +105,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
       transition: { duration: 0.4, ease: 'easeOut' },
     },
   }
-
   return (
     <motion.div
       className="space-y-6"
@@ -133,8 +120,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
           Select 1 to 3 fitness goals to personalize your experience
         </p>
       </motion.div>
-
-          {/* Goal selection counter */}
+          {}
           <motion.div
             className="flex items-center justify-between px-4 py-3 rounded-lg bg-warning-50/50 dark:bg-warning-950/20 border border-warning-200 dark:border-warning-900/50"
             variants={itemVariants}
@@ -146,8 +132,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
               {selectedGoals.length} / 3
             </span>
           </motion.div>
-
-          {/* Goal cards grid */}
+          {}
           <motion.form onSubmit={handleSubmit(onSubmit)} className="space-y-6" variants={itemVariants}>
             <Controller
               name="goals"
@@ -157,7 +142,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                   {goalOptions.map((goal, index) => {
                     const isSelected = field.value.includes(goal.id)
                     const Icon = goal.icon
-
                     const handleToggle = () => {
                       if (isSelected) {
                         field.onChange(field.value.filter((id) => id !== goal.id))
@@ -167,7 +151,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                         }
                       }
                     }
-
                     return (
                       <motion.button
                         key={goal.id}
@@ -191,7 +174,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                         initial="hidden"
                         animate="visible"
                       >
-                        {/* Background gradient for selected */}
+                        {}
                         {isSelected && (
                           <motion.div
                             className="absolute inset-0 rounded-xl bg-gradient-to-br from-warning-100/50 to-error-100/50 dark:from-warning-900/20 dark:to-error-900/20 pointer-events-none"
@@ -202,8 +185,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                             transition={{ duration: 0.2 }}
                           />
                         )}
-
-                        {/* Checkmark */}
+                        {}
                         <AnimatePresence>
                           {isSelected && (
                             <motion.div
@@ -217,8 +199,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                             </motion.div>
                           )}
                         </AnimatePresence>
-
-                        {/* Content */}
+                        {}
                         <div className="relative space-y-3">
                           <div className="flex items-start justify-between">
                             <div
@@ -258,8 +239,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                 </div>
               )}
             />
-
-            {/* Error message */}
+            {}
             {errors.goals && (
               <motion.div
                 className="p-4 rounded-lg bg-error-50 dark:bg-error-950/20 border border-error-200 dark:border-error-900/50"
@@ -272,8 +252,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                 </p>
               </motion.div>
             )}
-
-            {/* Selection summary */}
+            {}
             {selectedGoals.length > 0 && (
               <motion.div
                 className="p-4 rounded-lg bg-primary-50 dark:bg-primary-950/20 border border-primary-200 dark:border-primary-900/50"
@@ -290,8 +269,7 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                 </p>
               </motion.div>
             )}
-
-            {/* Navigation buttons */}
+            {}
             <motion.div
               className="flex gap-3 pt-6"
               variants={itemVariants}

@@ -3,10 +3,8 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Moon, Sun } from 'lucide-react'
 import { useTheme } from '../../hooks/useTheme'
 import { viewTransitionFast } from '../landing/landingMotion'
-
 export default function AuthPageHeader({ backHref = '/', backLabel = 'Back to home' }) {
   const { isDark, toggleTheme } = useTheme()
-
   return (
     <motion.header
       initial={{ opacity: 0, y: -12 }}
@@ -20,7 +18,6 @@ export default function AuthPageHeader({ backHref = '/', backLabel = 'Back to ho
         </div>
         <span className="font-bold text-lg text-neutral-900 dark:text-white">FitTrack</span>
       </Link>
-
       <div className="flex items-center gap-2 sm:gap-3">
         <button
           type="button"

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { Check, ArrowRight, Sparkles, Zap, Crown } from 'lucide-react'
 import * as ls from './landingStyles'
 import { fadeUpProps, viewTransitionFast } from './landingMotion'
-
 const pricingTiers = [
   {
     id: 'free',
@@ -46,13 +45,11 @@ const pricingTiers = [
     highlighted: false,
   },
 ]
-
 function PricingCard({ tier, index }) {
   const Icon = tier.icon
   const isFeatured = tier.layout === 'featured'
   const isPremium = tier.layout === 'premium'
   const isMinimal = tier.layout === 'minimal'
-
   return (
     <motion.article
       {...fadeUpProps(index * 0.04)}
@@ -68,17 +65,14 @@ function PricingCard({ tier, index }) {
           </span>
         </div>
       )}
-
-      {/* Featured — glowing spotlight */}
+      {}
       {isFeatured && (
         <div className={`absolute -inset-px rounded-[1.75rem] bg-gradient-to-br ${tier.gradient} opacity-40`} />
       )}
-
-      {/* Premium — angled accent stripe */}
+      {}
       {isPremium && (
         <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${tier.gradient} opacity-20 rounded-bl-[4rem]`} />
       )}
-
       <div
         className={`relative flex flex-col flex-1 rounded-2xl overflow-hidden border transition-colors ${
           isFeatured
@@ -88,7 +82,7 @@ function PricingCard({ tier, index }) {
               : 'bg-white dark:bg-neutral-900 border border-dashed border-neutral-200 dark:border-neutral-800 shadow-sm hover:border-neutral-300 dark:hover:border-neutral-700'
         }`}
       >
-        {/* Card header */}
+        {}
         <div className={`p-6 md:p-8 ${isFeatured ? 'bg-gradient-to-br from-primary-600/20 to-blue-600/10' : ''}`}>
           <div className="flex items-start justify-between mb-6">
             <div
@@ -111,21 +105,18 @@ function PricingCard({ tier, index }) {
               </span>
             )}
           </div>
-
           <h3 className={`text-2xl font-bold mb-1 ${isFeatured ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
             {tier.name}
           </h3>
           <p className={`text-sm mb-6 ${isFeatured ? 'text-neutral-400' : 'text-neutral-600 dark:text-neutral-400'}`}>
             {tier.description}
           </p>
-
           <div className="flex items-baseline gap-1 mb-6">
             <span className={`text-4xl sm:text-5xl font-bold tracking-tight ${isFeatured ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
               ${tier.price}
             </span>
             <span className={`text-sm ${isFeatured ? 'text-neutral-400' : 'text-neutral-500'}`}>{tier.period}</span>
           </div>
-
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
@@ -141,8 +132,7 @@ function PricingCard({ tier, index }) {
             <ArrowRight className="w-4 h-4" />
           </motion.button>
         </div>
-
-        {/* Features */}
+        {}
         <div
           className={`flex-1 p-6 md:px-8 md:pb-8 border-t ${
             isFeatured ? 'border-white/10' : 'border-neutral-200/80 dark:border-neutral-700/80'
@@ -178,10 +168,8 @@ function PricingCard({ tier, index }) {
     </motion.article>
   )
 }
-
 export default function Pricing() {
   const [annual, setAnnual] = useState(false)
-
   return (
     <section id="pricing" className={`${ls.section} bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800`}>
       <div className={ls.container}>
@@ -193,8 +181,7 @@ export default function Pricing() {
           <p className={`${ls.subheading} mx-auto mb-8`}>
             Choose your plan. Upgrade or downgrade anytime — no commitment.
           </p>
-
-          {/* Billing toggle */}
+          {}
           <div className="inline-flex items-center gap-3 p-1.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800">
             <button
               type="button"
@@ -219,7 +206,6 @@ export default function Pricing() {
             </button>
           </div>
         </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mt-10 sm:mt-14 max-w-md md:max-w-none mx-auto md:mx-0">
           {pricingTiers.map((tier, index) => (
             <PricingCard
@@ -233,7 +219,6 @@ export default function Pricing() {
             />
           ))}
         </div>
-
         <motion.p
           className="text-center mt-12 text-neutral-500 dark:text-neutral-400 text-sm"
           initial={{ opacity: 0 }}

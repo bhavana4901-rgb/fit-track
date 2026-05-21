@@ -5,7 +5,6 @@ import { Menu, ChevronLeft, ChevronRight, LayoutDashboard, Dumbbell, Apple, Tren
 import { AuthContext } from '../../contexts/AuthContext'
 import { useTheme } from '../../hooks/useTheme'
 import DashboardAmbientBackground from './DashboardAmbientBackground'
-
 const navigationItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
   { id: 'workouts', label: 'Workouts', icon: Dumbbell, href: '/workouts' },
@@ -13,19 +12,16 @@ const navigationItems = [
   { id: 'progress', label: 'Progress', icon: TrendingUp, href: '/progress' },
   { id: 'settings', label: 'Settings', icon: Settings, href: '/settings' },
 ]
-
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const { user } = useContext(AuthContext)
   const { isDark, toggleTheme } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
-
   const isActive = (href) => location.pathname === href
-
   return (
     <div className="flex h-screen bg-neutral-50 dark:bg-neutral-950 transition-colors duration-300">
-      {/* Desktop Sidebar */}
+      {}
       <motion.aside
         id="main-sidebar"
         role="navigation"
@@ -35,7 +31,7 @@ export default function DashboardLayout({ children }) {
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         className="hidden md:flex flex-col bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border-r border-neutral-200/80 dark:border-neutral-800/80 shadow-sm relative"
       >
-        {/* Logo Section */}
+        {}
         <motion.div
           className="p-4 border-b border-neutral-200 dark:border-neutral-800 flex items-center"
           animate={{ justifyContent: sidebarOpen ? 'flex-start' : 'center' }}
@@ -62,8 +58,7 @@ export default function DashboardLayout({ children }) {
             </AnimatePresence>
           </motion.div>
         </motion.div>
-
-        {/* Navigation */}
+        {}
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {navigationItems.map((item) => {
             const Icon = item.icon
@@ -101,8 +96,7 @@ export default function DashboardLayout({ children }) {
             )
           })}
         </nav>
-
-        {/* User Profile Section */}
+        {}
         <motion.div
           className="p-4 border-t border-neutral-200 dark:border-neutral-800"
           animate={{ justifyContent: sidebarOpen ? 'flex-start' : 'center' }}
@@ -144,8 +138,7 @@ export default function DashboardLayout({ children }) {
                 )}
               </AnimatePresence>
             </motion.div>
-            
-            {/* Tooltip for collapsed state */}
+            {}
             {!sidebarOpen && (
               <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-neutral-900 dark:bg-neutral-800 text-white text-xs rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-50">
                 <div className="font-medium">{user?.name || 'User'}</div>
@@ -155,8 +148,7 @@ export default function DashboardLayout({ children }) {
             )}
           </div>
         </motion.div>
-
-        {/* Theme Toggle */}
+        {}
         <motion.div className="p-4 border-t border-neutral-200 dark:border-neutral-800">
           <motion.button
             onClick={toggleTheme}
@@ -186,8 +178,7 @@ export default function DashboardLayout({ children }) {
             </AnimatePresence>
           </motion.button>
         </motion.div>
-
-        {/* Collapse/Expand Button - Styled Better */}
+        {}
         <motion.button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           whileHover={{ scale: 1.05 }}
@@ -204,10 +195,9 @@ export default function DashboardLayout({ children }) {
           )}
         </motion.button>
       </motion.aside>
-
-      {/* Main Content */}
+      {}
       <main className="flex-1 flex flex-col overflow-hidden">
-        {/* Mobile Header with Sidebar Toggle */}
+        {}
         <motion.header className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-sm">
           <h1 className="font-bold text-lg text-neutral-900 dark:text-white">FitTrack</h1>
           <div className="flex items-center gap-2">
@@ -225,14 +215,12 @@ export default function DashboardLayout({ children }) {
             </button>
           </div>
         </motion.header>
-
-        {/* Content Scroll Area */}
+        {}
         <div className="relative flex-1 overflow-y-auto bg-gradient-to-br from-neutral-50 via-white to-primary-50/25 dark:from-neutral-950 dark:via-neutral-950 dark:to-primary-950/15">
           <DashboardAmbientBackground />
           <div className="relative z-[1]">{children}</div>
         </div>
-
-        {/* Mobile Bottom Tab Bar */}
+        {}
         <motion.nav role="navigation" aria-label="Mobile navigation" className="md:hidden flex items-center justify-around bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border-t border-neutral-200/80 dark:border-neutral-800/80 shadow-lg">
           {navigationItems.map((item) => {
             const Icon = item.icon

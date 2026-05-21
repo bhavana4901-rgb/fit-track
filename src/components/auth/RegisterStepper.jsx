@@ -1,19 +1,13 @@
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { viewTransitionFast } from '../landing/landingMotion'
-
-/**
- * Horizontal stepper for the register flow — circles, connectors, one active label.
- * Now includes animated progress bar showing overall completion percentage.
- */
 export default function RegisterStepper({ currentStep = 1, steps = [] }) {
   const total = steps.length
   const active = steps[currentStep - 1]
   const progressPercentage = Math.round((currentStep / total) * 100)
-
   return (
     <nav aria-label="Registration progress" className="w-full">
-      {/* Horizontal Progress Bar */}
+      {}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
@@ -32,15 +26,13 @@ export default function RegisterStepper({ currentStep = 1, steps = [] }) {
           />
         </div>
       </div>
-
-      {/* Step Circles */}
+      {}
       <ol className="flex items-center w-full list-none m-0 p-0">
         {steps.map((step, index) => {
           const stepNumber = index + 1
           const isComplete = stepNumber < currentStep
           const isCurrent = stepNumber === currentStep
           const isLast = index === total - 1
-
           return (
             <li
               key={step.label}
@@ -78,7 +70,6 @@ export default function RegisterStepper({ currentStep = 1, steps = [] }) {
                   {step.label}
                 </span>
               </div>
-
               {!isLast && (
                 <div
                   className="flex-1 h-0.5 mx-1.5 sm:mx-2 rounded-full bg-neutral-200 dark:bg-neutral-700 overflow-hidden min-w-[0.5rem]"
@@ -96,7 +87,6 @@ export default function RegisterStepper({ currentStep = 1, steps = [] }) {
           )
         })}
       </ol>
-
       <motion.div
         key={currentStep}
         initial={{ opacity: 0, y: 4 }}

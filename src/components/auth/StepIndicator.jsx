@@ -1,16 +1,5 @@
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
-
-/**
- * Enhanced StepIndicator component for multi-step forms
- * - Animated progress bar (fills based on current step)
- * - Step dots/circles showing completion status
- * - Step labels and descriptions
- * - Smooth animations when transitioning between steps
- * - Fully responsive design
- * - Dark mode support
- * - Accessibility: aria-* attributes
- */
 export default function StepIndicator({
   currentStep = 1,
   totalSteps = 5,
@@ -20,7 +9,6 @@ export default function StepIndicator({
   variant = 'default', // 'default', 'compact'
   className = '',
 }) {
-  // Default step labels if not provided
   const defaultSteps = [
     { label: 'Account', description: 'Create your account' },
     { label: 'Details', description: 'Personal information' },
@@ -28,10 +16,8 @@ export default function StepIndicator({
     { label: 'Activity', description: 'Activity level' },
     { label: 'Profile', description: 'Complete profile' },
   ]
-
   const stepList = steps.length > 0 ? steps : defaultSteps.slice(0, totalSteps)
   const progress = ((currentStep - 1) / (totalSteps - 1)) * 100
-
   const sizeClasses = {
     sm: {
       dot: 'w-8 h-8',
@@ -55,20 +41,17 @@ export default function StepIndicator({
       progressHeight: 'h-2',
     },
   }
-
   const currentSizeClasses = sizeClasses[size]
-
   const isStepComplete = (step) => step < currentStep
   const isStepCurrent = (step) => step === currentStep
   const isStepFuture = (step) => step > currentStep
-
   return (
     <div className={`w-full ${className}`}>
-      {/* Progress Bar Section */}
+      {}
       <div className="space-y-6">
-        {/* Progress Bar Background */}
+        {}
         <div className="space-y-2">
-          {/* Text Info */}
+          {}
           <div className="flex items-center justify-between">
             <motion.div
               initial={{ opacity: 0 }}
@@ -88,8 +71,7 @@ export default function StepIndicator({
               {Math.round(progress)}%
             </motion.div>
           </div>
-
-          {/* Animated Progress Bar */}
+          {}
           <div className={`w-full bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden ${currentSizeClasses.progressHeight}`}>
             <motion.div
               className="h-full bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full"
@@ -99,21 +81,19 @@ export default function StepIndicator({
             />
           </div>
         </div>
-
-        {/* Steps Dots and Labels */}
+        {}
         {variant === 'default' && (
           <div className="space-y-4 relative">
-            {/* Dots Container */}
+            {}
             <div className="flex items-center justify-between">
               {stepList.map((step, index) => {
                 const stepNumber = index + 1
                 const isComplete = isStepComplete(stepNumber)
                 const isCurrent = isStepCurrent(stepNumber)
                 const isFuture = isStepFuture(stepNumber)
-
                 return (
                   <div key={stepNumber} className="flex flex-col items-center gap-2">
-                    {/* Dot */}
+                    {}
                     <motion.div
                       initial={false}
                       animate={{
@@ -155,8 +135,7 @@ export default function StepIndicator({
                         </motion.span>
                       )}
                     </motion.div>
-
-                    {/* Label and Description */}
+                    {}
                     {showLabels && (
                       <motion.div
                         className="text-center"
@@ -188,21 +167,17 @@ export default function StepIndicator({
                 )
               })}
             </div>
-
-          
           </div>
         )}
-
-        {/* Compact Variant */}
+        {}
         {variant === 'compact' && (
           <div className="space-y-2">
-            {/* Compact Dots Only */}
+            {}
             <div className="flex items-center justify-between gap-1">
               {stepList.map((step, index) => {
                 const stepNumber = index + 1
                 const isComplete = isStepComplete(stepNumber)
                 const isCurrent = isStepCurrent(stepNumber)
-
                 return (
                   <motion.div
                     key={stepNumber}
@@ -231,8 +206,6 @@ export default function StepIndicator({
           </div>
         )}
       </div>
-
-     
     </div>
   )
 }

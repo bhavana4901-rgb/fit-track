@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { Mail, ArrowRight, Share2, Heart, Globe, Link2, Home } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { fadeUpProps, viewTransitionFast } from './landingMotion'
-
 const navigationLinks = {
   product: [
     { name: 'Features', href: '#features' },
@@ -29,14 +28,12 @@ const navigationLinks = {
     { name: 'Cookies', href: '#' },
   ],
 }
-
 const socialLinks = [
   { icon: Share2, label: 'Twitter', href: '#', color: 'hover:text-sky-400' },
   { icon: Heart, label: 'Instagram', href: '#', color: 'hover:text-pink-400' },
   { icon: Link2, label: 'LinkedIn', href: '#', color: 'hover:text-blue-400' },
   { icon: Globe, label: 'Website', href: '#', color: 'hover:text-primary-400' },
 ]
-
 function FooterLinkColumn({ title, links }) {
   return (
     <div>
@@ -57,11 +54,9 @@ function FooterLinkColumn({ title, links }) {
     </div>
   )
 }
-
 export default function Footer() {
   const [email, setEmail] = useState('')
   const [subscribeStatus, setSubscribeStatus] = useState('idle')
-
   const handleSubscribe = (e) => {
     e.preventDefault()
     if (!email) return
@@ -72,15 +67,13 @@ export default function Footer() {
       setTimeout(() => setSubscribeStatus('idle'), 3000)
     }, 800)
   }
-
   return (
     <footer className="relative bg-neutral-950 text-neutral-400 overflow-hidden">
-      {/* Top wave gradient */}
+      {}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/50 to-transparent" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-24 bg-gradient-to-b from-primary-500/5 to-transparent pointer-events-none" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20 pb-8 relative z-10">
-        {/* Newsletter — elevated card */}
+        {}
         <motion.div {...fadeUpProps(0)} className="relative -mt-2 mb-16 md:mb-20">
           <div className="relative rounded-xl bg-neutral-900 border border-neutral-800 p-6 md:p-10 overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 w-48 h-48 bg-primary-500/5 rounded-full blur-2xl pointer-events-none" />
@@ -117,8 +110,7 @@ export default function Footer() {
             </div>
           </div>
         </motion.div>
-
-        {/* Main grid */}
+        {}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-8 sm:gap-10 md:gap-8 mb-14">
           <motion.div className="sm:col-span-2 md:col-span-2" {...fadeUpProps(0)}>
             <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
@@ -144,7 +136,6 @@ export default function Footer() {
               ))}
             </div>
           </motion.div>
-
           <motion.div {...fadeUpProps(0.02)}>
             <FooterLinkColumn title="Product" links={navigationLinks.product} />
           </motion.div>
@@ -158,8 +149,7 @@ export default function Footer() {
             <FooterLinkColumn title="Legal" links={navigationLinks.legal} />
           </motion.div>
         </div>
-
-        {/* Bottom bar */}
+        {}
         <div className="pt-8 border-t border-neutral-800/80 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-neutral-600">
             © {new Date().getFullYear()} FitTrack. All rights reserved.

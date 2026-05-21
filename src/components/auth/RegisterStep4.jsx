@@ -15,15 +15,11 @@ import {
   SkipForward,
 } from 'lucide-react'
 import Button from '../ui/Button'
-
-// Zod validation schema
 const registerStep4Schema = z.object({
   activityLevel: z.enum(['sedentary', 'lightly-active', 'moderately-active', 'very-active', 'athlete'], {
     errorMap: () => ({ message: 'Please select your activity level' }),
   }),
 })
-
-// Activity level options with icons and descriptions
 const activityLevelOptions = [
   {
     id: 'sedentary',
@@ -66,10 +62,8 @@ const activityLevelOptions = [
     color: 'from-orange-400 to-red-400',
   },
 ]
-
 export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
-
   const {
     control,
     handleSubmit,
@@ -82,29 +76,22 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
       activityLevel: initialData?.activityLevel || '',
     },
   })
-
   const selectedActivityLevel = watch('activityLevel')
   const selectedOption = activityLevelOptions.find((opt) => opt.id === selectedActivityLevel)
-
   const onSubmit = async (data) => {
     setIsSubmitting(true)
     try {
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 500))
       onNext(data)
     } finally {
       setIsSubmitting(false)
     }
   }
-
   const handleSkip = () => {
-    // Call the onSkip prop which will advance to next step
     if (onSkip) {
       onSkip()
     }
   }
-
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -115,7 +102,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
       },
     },
   }
-
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
     visible: {
@@ -124,7 +110,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
       transition: { duration: 0.4, ease: 'easeOut' },
     },
   }
-
   return (
     <motion.div
       className="space-y-6"
@@ -140,8 +125,7 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
           Help us tailor workouts to your current fitness habits
         </p>
       </motion.div>
-
-          {/* Activity level cards form */}
+          {}
           <motion.form onSubmit={handleSubmit(onSubmit)} className="space-y-6" variants={itemVariants}>
             <Controller
               name="activityLevel"
@@ -151,7 +135,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                   {activityLevelOptions.map((option, index) => {
                     const isSelected = field.value === option.id
                     const Icon = option.icon
-
                     return (
                       <motion.button
                         key={option.id}
@@ -175,7 +158,7 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                         initial="hidden"
                         animate="visible"
                       >
-                        {/* Gradient background for selected */}
+                        {}
                         {isSelected && (
                           <motion.div
                             className={`absolute inset-0 rounded-xl bg-gradient-to-r ${option.color}/10 dark:${option.color}/5 pointer-events-none`}
@@ -186,8 +169,7 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                             transition={{ duration: 0.2 }}
                           />
                         )}
-
-                        {/* Radio indicator */}
+                        {}
                         <div className="absolute top-6 right-6 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300">
                           <div
                             className={`w-4 h-4 rounded-full transition-all duration-300 ${
@@ -197,8 +179,7 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                             }`}
                           />
                         </div>
-
-                        {/* Content */}
+                        {}
                         <div className="relative space-y-3">
                           <div className="flex items-start gap-4">
                             <div
@@ -247,8 +228,7 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                 </div>
               )}
             />
-
-            {/* Error message */}
+            {}
             {errors.activityLevel && (
               <motion.div
                 className="p-4 rounded-lg bg-error-50 dark:bg-error-950/20 border border-error-200 dark:border-error-900/50"
@@ -261,8 +241,7 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                 </p>
               </motion.div>
             )}
-
-            {/* Selection summary */}
+            {}
             {selectedOption && (
               <motion.div
                 className="p-5 rounded-lg bg-primary-50 dark:bg-primary-950/20 border border-primary-200 dark:border-primary-900/50"
@@ -287,8 +266,7 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                 </div>
               </motion.div>
             )}
-
-            {/* Navigation buttons and skip link */}
+            {}
             <motion.div
               className="flex flex-col gap-4 pt-6"
               variants={itemVariants}
@@ -321,8 +299,7 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                   )}
                 </Button>
               </div>
-
-              {/* Skip for now link */}
+              {}
               <button
                 type="button"
                 onClick={handleSkip}

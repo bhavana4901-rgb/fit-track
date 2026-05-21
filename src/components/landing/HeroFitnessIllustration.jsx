@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { Dumbbell, Heart, Flame, Activity, Zap } from 'lucide-react'
-
 const floatVariants = {
   animate: (i) => ({
     y: [0, -12, 0],
@@ -12,7 +11,6 @@ const floatVariants = {
     },
   }),
 }
-
 const pulseRing = {
   animate: {
     scale: [1, 1.15, 1],
@@ -20,7 +18,6 @@ const pulseRing = {
     transition: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
   },
 }
-
 export default function HeroFitnessIllustration() {
   const badges = [
     { Icon: Dumbbell, color: 'text-primary-500', pos: 'top-6 left-2 sm:top-8 sm:left-4 md:top-12 md:left-8', delay: 0, hideOnMobile: false },
@@ -29,17 +26,15 @@ export default function HeroFitnessIllustration() {
     { Icon: Activity, color: 'text-success-500', pos: 'bottom-14 right-3 sm:bottom-12 sm:right-6 md:bottom-16 md:right-8', delay: 0.9, hideOnMobile: false },
     { Icon: Zap, color: 'text-secondary-500', pos: 'top-1/2 -translate-y-1/2 right-0 md:right-2', delay: 1.2, hideOnMobile: true },
   ]
-
   return (
     <div className="relative w-full max-w-[min(100%,20rem)] sm:max-w-md lg:max-w-lg mx-auto aspect-square" aria-hidden="true">
-      {/* Glow backdrop */}
+      {}
       <motion.div
         className="absolute inset-8 rounded-full bg-gradient-to-br from-primary-400/30 via-secondary-400/25 to-accent-400/20 blur-2xl"
         animate={{ scale: [1, 1.08, 1], opacity: [0.6, 0.85, 0.6] }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
       />
-
-      {/* Pulse rings */}
+      {}
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
@@ -49,8 +44,7 @@ export default function HeroFitnessIllustration() {
           className="absolute inset-12 md:inset-10 rounded-full border-2 border-primary-400/30 dark:border-primary-500/25"
         />
       ))}
-
-      {/* Main illustration card */}
+      {}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -74,25 +68,23 @@ export default function HeroFitnessIllustration() {
               <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.1" />
             </linearGradient>
           </defs>
-
-          {/* Floor shadow */}
+          {}
           <ellipse cx="160" cy="268" rx="90" ry="12" fill="url(#heroFloorGrad)" />
-
-          {/* Animated runner figure */}
+          {}
           <motion.g
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            {/* Head */}
+            {}
             <circle cx="160" cy="72" r="22" fill="url(#heroBodyGrad)" opacity="0.9" />
-            {/* Body */}
+            {}
             <path
               d="M160 94 L160 168"
               stroke="url(#heroBodyGrad)"
               strokeWidth="14"
               strokeLinecap="round"
             />
-            {/* Arms - running motion */}
+            {}
             <motion.path
               d="M160 110 L120 140"
               stroke="url(#heroBodyGrad)"
@@ -109,7 +101,7 @@ export default function HeroFitnessIllustration() {
               animate={{ d: ['M160 110 L200 130', 'M160 110 L120 140', 'M160 110 L200 130'] }}
               transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
             />
-            {/* Legs - running motion */}
+            {}
             <motion.path
               d="M160 168 L130 220"
               stroke="url(#heroBodyGrad)"
@@ -127,8 +119,7 @@ export default function HeroFitnessIllustration() {
               transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
             />
           </motion.g>
-
-          {/* Heart rate line */}
+          {}
           <motion.path
             d="M40 200 L70 200 L85 170 L100 230 L115 190 L130 200 L160 200"
             stroke="#10B981"
@@ -151,8 +142,7 @@ export default function HeroFitnessIllustration() {
             animate={{ pathLength: 1, opacity: 1 }}
             transition={{ duration: 1.5, delay: 0.7 }}
           />
-
-          {/* Dumbbell accent */}
+          {}
           <motion.g
             animate={{ rotate: [0, 8, 0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -164,8 +154,7 @@ export default function HeroFitnessIllustration() {
           </motion.g>
         </svg>
       </motion.div>
-
-      {/* Floating icon badges */}
+      {}
       {badges.map(({ Icon, color, pos, delay, hideOnMobile }, i) => (
         <motion.div
           key={i}
@@ -178,8 +167,7 @@ export default function HeroFitnessIllustration() {
           <Icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${color}`} strokeWidth={2.5} />
         </motion.div>
       ))}
-
-      {/* Stats pill */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

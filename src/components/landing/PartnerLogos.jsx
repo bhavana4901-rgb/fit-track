@@ -1,5 +1,3 @@
-/** Inline SVG partner & trust logos (no letter-only placeholders) */
-
 export function TechFlowLogo({ className = 'w-full h-full' }) {
   return (
     <svg viewBox="0 0 120 40" className={className} fill="none" aria-hidden="true">
@@ -10,7 +8,6 @@ export function TechFlowLogo({ className = 'w-full h-full' }) {
     </svg>
   )
 }
-
 export function FitnessHubLogo({ className = 'w-full h-full' }) {
   return (
     <svg viewBox="0 0 120 40" className={className} fill="none" aria-hidden="true">
@@ -21,7 +18,6 @@ export function FitnessHubLogo({ className = 'w-full h-full' }) {
     </svg>
   )
 }
-
 export function WellnessXLogo({ className = 'w-full h-full' }) {
   return (
     <svg viewBox="0 0 120 40" className={className} fill="none" aria-hidden="true">
@@ -32,7 +28,6 @@ export function WellnessXLogo({ className = 'w-full h-full' }) {
     </svg>
   )
 }
-
 export function ActiveLifeLogo({ className = 'w-full h-full' }) {
   return (
     <svg viewBox="0 0 120 40" className={className} fill="none" aria-hidden="true">
@@ -42,7 +37,6 @@ export function ActiveLifeLogo({ className = 'w-full h-full' }) {
     </svg>
   )
 }
-
 export function TrackProLogo({ className = 'w-full h-full' }) {
   return (
     <svg viewBox="0 0 120 40" className={className} fill="none" aria-hidden="true">
@@ -53,7 +47,6 @@ export function TrackProLogo({ className = 'w-full h-full' }) {
     </svg>
   )
 }
-
 export function HealthSyncLogo({ className = 'w-full h-full' }) {
   return (
     <svg viewBox="0 0 120 40" className={className} fill="none" aria-hidden="true">
@@ -65,10 +58,6 @@ export function HealthSyncLogo({ className = 'w-full h-full' }) {
     </svg>
   )
 }
-
-
-
-
 export function AppStoreBadge({ className = 'w-full h-full' }) {
   return (
     <svg viewBox="0 0 120 36" className={className} fill="none" aria-hidden="true">
@@ -79,7 +68,6 @@ export function AppStoreBadge({ className = 'w-full h-full' }) {
     </svg>
   )
 }
-
 export function GooglePlayBadge({ className = 'w-full h-full' }) {
   return (
     <svg viewBox="0 0 120 36" className={className} fill="none" aria-hidden="true">
@@ -90,7 +78,6 @@ export function GooglePlayBadge({ className = 'w-full h-full' }) {
     </svg>
   )
 }
-
 export function TrustpilotBadge({ className = 'w-full h-full' }) {
   return (
     <svg viewBox="0 0 120 36" className={className} fill="none" aria-hidden="true">
@@ -100,7 +87,6 @@ export function TrustpilotBadge({ className = 'w-full h-full' }) {
     </svg>
   )
 }
-
 export const PARTNER_LOGOS = [
   { name: 'TechFlow', Logo: TechFlowLogo, color: 'text-primary-600 dark:text-primary-400' },
   { name: 'FitnessHub', Logo: FitnessHubLogo, color: 'text-secondary-600 dark:text-secondary-400' },
@@ -109,10 +95,8 @@ export const PARTNER_LOGOS = [
   { name: 'TrackPro', Logo: TrackProLogo, color: 'text-warning-600 dark:text-warning-500' },
   { name: 'HealthSync', Logo: HealthSyncLogo, color: 'text-primary-600 dark:text-primary-400' },
 ]
-
 export const TRUST_BADGES = [
   { name: 'App Store', Logo: AppStoreBadge },
   { name: 'Google Play', Logo: GooglePlayBadge },
   { name: 'Trustpilot', Logo: TrustpilotBadge },
 ]
-

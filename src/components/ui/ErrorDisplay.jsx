@@ -1,15 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { AlertCircle, X } from 'lucide-react'
-
-/**
- * Error Display component for form validation errors
- * - Animated error message display
- * - Icon support (AlertCircle by default)
- * - Close button for dismissible errors
- * - Multiple error support (array or single)
- * - Variants: inline, block, toast
- * - Accessibility: role="alert", aria-live
- */
 export default function ErrorDisplay({
   errors,
   onDismiss,
@@ -17,11 +7,8 @@ export default function ErrorDisplay({
   icon: Icon = AlertCircle,
   className = '',
 }) {
-  // Normalize errors to array
   const errorList = Array.isArray(errors) ? errors : [errors].filter(Boolean)
-
   if (errorList.length === 0) return null
-
   const variants = {
     inline: {
       container: 'text-sm text-error-600 dark:text-error-400',
@@ -38,19 +25,16 @@ export default function ErrorDisplay({
       wrapper: 'flex items-start gap-3',
     },
   }
-
   const textColor = {
     inline: 'text-error-600 dark:text-error-400',
     block: 'text-error-800 dark:text-error-200',
     toast: 'text-white',
   }
-
   const iconColor = {
     inline: 'text-error-500 dark:text-error-400',
     block: 'text-error-600 dark:text-error-400',
     toast: 'text-white',
   }
-
   return (
     <AnimatePresence>
       <motion.div
@@ -64,7 +48,6 @@ export default function ErrorDisplay({
       >
         <div className={variants[variant].wrapper}>
           <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 ${iconColor[variant]}`} />
-
           <div className="flex-1">
             {errorList.length === 1 ? (
               <p className={`font-medium ${textColor[variant]}`}>
@@ -80,7 +63,6 @@ export default function ErrorDisplay({
               </ul>
             )}
           </div>
-
           {onDismiss && (
             <button
               onClick={onDismiss}

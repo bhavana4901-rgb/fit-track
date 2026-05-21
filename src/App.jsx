@@ -6,19 +6,16 @@ import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
-
 function App() {
   const { user } = useContext(AuthContext)
-
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public Routes - Landing page accessible to all */}
+        {}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
         <Route path="/register" element={!user ? <Register /> : <Navigate to="/dashboard" />} />
-
-        {/* Protected Routes */}
+        {}
         <Route
           path="/dashboard"
           element={
@@ -27,12 +24,10 @@ function App() {
             </ProtectedRoute>
           }
         />
-
-        {/* Catch all */}
+        {}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   )
 }
-
 export default App

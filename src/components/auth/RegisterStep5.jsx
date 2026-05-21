@@ -5,7 +5,6 @@ import { z } from 'zod'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Upload, Mail, Bell, Calendar, Loader2 } from 'lucide-react'
 import Button from '../ui/Button'
-
 const registerStep5Schema = z.object({
   avatar: z.string().optional().nullable(),
   username: z
@@ -18,12 +17,10 @@ const registerStep5Schema = z.object({
   pushNotifications: z.boolean().default(false),
   weeklyDigest: z.boolean().default(true),
 })
-
 export default function RegisterStep5({ onNext, onPrevious, initialData = {}, onSkip }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [dragActive, setDragActive] = useState(false)
   const [previewUrl, setPreviewUrl] = useState(initialData?.avatarUrl || null)
-
   const {
     control,
     handleSubmit,
@@ -42,13 +39,11 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
       weeklyDigest: initialData?.weeklyDigest ?? true,
     },
   })
-
   const watchUsername = watch('username')
   const watchBio = watch('bio')
   const watchEmailNotifications = watch('emailNotifications')
   const watchPushNotifications = watch('pushNotifications')
   const watchWeeklyDigest = watch('weeklyDigest')
-
   const handleDrag = (e) => {
     e.preventDefault()
     e.stopPropagation()
@@ -58,32 +53,24 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
       setDragActive(false)
     }
   }
-
   const handleDrop = (e) => {
     e.preventDefault()
     e.stopPropagation()
     setDragActive(false)
-
     const files = e.dataTransfer.files
     if (files && files[0]) {
       handleFileSelect(files[0])
     }
   }
-
   const handleFileSelect = (file) => {
-    // Validate file type
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file')
       return
     }
-
-    // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       alert('File size must be less than 5MB')
       return
     }
-
-    // Create preview URL
     const reader = new FileReader()
     reader.onload = (e) => {
       setPreviewUrl(e.target.result)
@@ -91,14 +78,12 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
     }
     reader.readAsDataURL(file)
   }
-
   const handleInputChange = (e) => {
     const files = e.target.files
     if (files && files[0]) {
       handleFileSelect(files[0])
     }
   }
-
   const onSubmit = async (data) => {
     setIsSubmitting(true)
     try {
@@ -108,7 +93,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
       setIsSubmitting(false)
     }
   }
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -119,7 +103,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
       },
     },
   }
-
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -128,7 +111,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
       transition: { duration: 0.4, ease: 'easeOut' },
     },
   }
-
   return (
     <motion.form
       onSubmit={handleSubmit(onSubmit)}
@@ -145,13 +127,11 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
           Add your avatar, username, and notification preferences
         </p>
       </motion.div>
-
-          {/* Avatar Upload */}
+          {}
           <motion.div variants={itemVariants} className="space-y-4">
             <label className="block text-sm font-semibold text-neutral-900 dark:text-white">
               Profile Avatar
             </label>
-
             <div
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
@@ -167,49 +147,41 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
                 type="file"
                 accept="image/*"
                 onChange={handleInputChange}
-                className="absolute inset-0 opacity-0 cursor-pointer"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
               />
-
-              <div className="flex flex-col items-center space-y-4">
-                {previewUrl ? (
-                  <div className="relative">
-                    <img
-                      src={previewUrl}
-                      alt="Avatar preview"
-                      className="w-24 h-24 rounded-full object-cover border-4 border-primary-500"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="absolute inset-0 rounded-full border-4 border-primary-500 opacity-30" />
-                    </div>
+              {previewUrl ? (
+                <div className="flex flex-col items-center gap-4">
+                  <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary-500 shadow-lg">
+                    <img src={previewUrl} alt="Avatar preview" className="w-full h-full object-cover" />
                   </div>
-                ) : (
-                  <div className="flex items-center justify-center w-24 h-24 rounded-full bg-neutral-100 dark:bg-neutral-800 border-2 border-neutral-200 dark:border-neutral-700">
-                    <Upload className="w-8 h-8 text-neutral-400 dark:text-neutral-500" />
+                  <div className="text-center">
+                    <p className="text-sm font-medium text-neutral-900 dark:text-white">
+                      Looking good! Click or drag to change
+                    </p>
                   </div>
-                )}
-
-                <div className="text-center">
-                  <p className="font-semibold text-neutral-900 dark:text-white">
-                    {previewUrl ? 'Change avatar' : 'Upload avatar'}
-                  </p>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                    Drag and drop or click to select
-                  </p>
                 </div>
-
-                <p className="text-xs text-neutral-400 dark:text-neutral-500">
-                  PNG, JPG, GIF up to 5MB
-                </p>
-              </div>
+              ) : (
+                <div className="flex flex-col items-center gap-4 text-center">
+                  <div className="w-20 h-20 rounded-full bg-primary-100 dark:bg-primary-950 flex items-center justify-center">
+                    <Upload className="w-10 h-10 text-primary-600 dark:text-primary-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-neutral-900 dark:text-white mb-1">
+                      Click to upload or drag and drop
+                    </p>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                      PNG, JPG, GIF up to 5MB
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </motion.div>
 
-          {/* Username Input */}
           <motion.div variants={itemVariants} className="space-y-4">
             <label className="block text-sm font-semibold text-neutral-900 dark:text-white">
               Username <span className="text-error-500">*</span>
             </label>
-
             <Controller
               name="username"
               control={control}
@@ -226,7 +198,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
                 />
               )}
             />
-
             <div className="flex justify-between items-start">
               <div className="text-xs text-neutral-500 dark:text-neutral-400">
                 3-20 characters, letters/numbers/underscores only
@@ -235,7 +206,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
                 {watchUsername?.length || 0}/20
               </div>
             </div>
-
             <AnimatePresence>
               {errors.username && (
                 <motion.div
@@ -252,13 +222,11 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               )}
             </AnimatePresence>
           </motion.div>
-
-          {/* Bio Textarea */}
+          {}
           <motion.div variants={itemVariants} className="space-y-4">
             <label className="block text-sm font-semibold text-neutral-900 dark:text-white">
               Bio <span className="text-neutral-400 dark:text-neutral-500">(Optional)</span>
             </label>
-
             <Controller
               name="bio"
               control={control}
@@ -275,13 +243,11 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
                 />
               )}
             />
-
             <div className="flex justify-end">
               <div className="text-xs text-neutral-500 dark:text-neutral-400">
                 {watchBio?.length || 0}/300
               </div>
             </div>
-
             <AnimatePresence>
               {errors.bio && (
                 <motion.div
@@ -298,15 +264,13 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               )}
             </AnimatePresence>
           </motion.div>
-
-          {/* Notification Preferences */}
+          {}
           <motion.div variants={itemVariants} className="space-y-4">
             <label className="block text-sm font-semibold text-neutral-900 dark:text-white">
               Notification Preferences <span className="text-neutral-400 dark:text-neutral-500">(Optional)</span>
             </label>
-
             <div className="space-y-3">
-              {/* Email Notifications */}
+              {}
               <Controller
                 name="emailNotifications"
                 control={control}
@@ -334,8 +298,7 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
                   </motion.label>
                 )}
               />
-
-              {/* Push Notifications */}
+              {}
               <Controller
                 name="pushNotifications"
                 control={control}
@@ -363,8 +326,7 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
                   </motion.label>
                 )}
               />
-
-              {/* Weekly Digest */}
+              {}
               <Controller
                 name="weeklyDigest"
                 control={control}
@@ -394,8 +356,7 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               />
             </div>
           </motion.div>
-
-          {/* Selection Summary */}
+          {}
           <motion.div
             variants={itemVariants}
             className="p-4 rounded-lg bg-primary-50 dark:bg-primary-950/30 border border-primary-200 dark:border-primary-900/50"
@@ -415,8 +376,7 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               </div>
             </div>
           </motion.div>
-
-          {/* Buttons */}
+          {}
           <motion.div variants={itemVariants} className="flex gap-3 pt-4">
             <Button
               type="button"
@@ -428,7 +388,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               <ArrowLeft className="w-4 h-4" />
               Back
             </Button>
-
             <Button type="submit" variant="primary" disabled={isSubmitting} className="flex-1">
               {isSubmitting ? (
                 <>
@@ -443,8 +402,7 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               )}
             </Button>
           </motion.div>
-
-          {/* Skip Link */}
+          {}
           <motion.div variants={itemVariants} className="text-center">
             <button
               type="button"

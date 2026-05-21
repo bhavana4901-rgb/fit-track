@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { UserPlus, Target, Activity, Sparkles, ClipboardList } from 'lucide-react'
 import HeroFitnessIllustration from '../landing/HeroFitnessIllustration'
 import { viewTransitionFast } from '../landing/landingMotion'
-
 const STEP_HINTS = {
   1: { title: 'Create your account', desc: 'Secure sign-up with email or Google — takes under a minute.' },
   2: { title: 'Your body metrics', desc: 'Height, weight, and age help us personalize your plan.' },
@@ -10,7 +9,6 @@ const STEP_HINTS = {
   4: { title: 'Activity level', desc: 'We calibrate intensity based on how active you are today.' },
   5: { title: 'Finish your profile', desc: 'Avatar and preferences — then you are ready to train.' },
 }
-
 const STEPS = [
   { icon: UserPlus, label: 'Account' },
   { icon: ClipboardList, label: 'Details' },
@@ -18,7 +16,6 @@ const STEPS = [
   { icon: Activity, label: 'Activity' },
   { icon: Sparkles, label: 'Profile' },
 ]
-
 const panelVariants = {
   hidden: { opacity: 0, x: -20 },
   visible: {
@@ -27,15 +24,12 @@ const panelVariants = {
     transition: { duration: 0.4, staggerChildren: 0.06, delayChildren: 0.1 },
   },
 }
-
 const childVariants = {
   hidden: { opacity: 0, y: 10 },
   visible: { opacity: 1, y: 0, transition: viewTransitionFast },
 }
-
 export default function RegisterIllustration({ currentStep = 1 }) {
   const hint = STEP_HINTS[currentStep] || STEP_HINTS[1]
-
   return (
     <motion.aside
       className="hidden lg:flex flex-col justify-start pr-4 xl:pr-8 sticky top-28"
@@ -52,7 +46,6 @@ export default function RegisterIllustration({ currentStep = 1 }) {
           {hint.desc}
         </p>
       </motion.div>
-
       <motion.div variants={childVariants} className="relative w-full max-w-sm mx-auto xl:max-w-md mb-6">
         <motion.div
           animate={{ y: [0, -8, 0] }}
@@ -61,7 +54,6 @@ export default function RegisterIllustration({ currentStep = 1 }) {
           <HeroFitnessIllustration />
         </motion.div>
       </motion.div>
-
       <motion.ul variants={childVariants} className="grid grid-cols-2 gap-2 max-w-md">
         {STEPS.map(({ icon: Icon, label }, i) => {
           const done = i + 1 < currentStep

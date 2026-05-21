@@ -4,19 +4,12 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { LayoutDashboard, LogOut } from 'lucide-react'
 import Button from '../ui/Button'
-
-/**
- * Mobile menu drawer — portaled to document.body so it stacks above
- * all landing sections (features cards, pricing badges, etc.)
- * Shows different buttons for logged-in vs logged-out users
- */
 export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
   const navLinks = [
     { label: 'Features', href: '#features' },
     { label: 'Testimonials', href: '#testimonials' },
     { label: 'Pricing', href: '#pricing' },
   ]
-
   useEffect(() => {
     if (!isOpen) return
     const prev = document.body.style.overflow
@@ -25,17 +18,15 @@ export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
       document.body.style.overflow = prev
     }
   }, [isOpen])
-
   const handleLogout = () => {
     onClose()
     onLogout?.()
   }
-
   return createPortal(
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[200] md:hidden" role="dialog" aria-modal="true" aria-label="Navigation menu">
-          {/* Backdrop */}
+          {}
           <motion.div
             key="backdrop"
             initial={{ opacity: 0 }}
@@ -45,8 +36,7 @@ export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
             onClick={onClose}
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           />
-
-          {/* Drawer */}
+          {}
           <motion.div
             key="menu"
             initial={{ x: '100%', opacity: 0 }}
@@ -59,7 +49,6 @@ export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
               <div className="px-6 py-6 border-b border-neutral-200 dark:border-neutral-800">
                 <h2 className="text-lg font-bold text-neutral-900 dark:text-white">Menu</h2>
               </div>
-
               <div className="flex-1 overflow-y-auto px-6 py-4">
                 <nav className="space-y-1">
                   {navLinks.map((link, index) => (
@@ -77,7 +66,6 @@ export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
                   ))}
                 </nav>
               </div>
-
               <div className="border-t border-neutral-200 dark:border-neutral-800 px-6 py-4 space-y-3">
                 {user ? (
                   <>
@@ -93,7 +81,6 @@ export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
                         </Button>
                       </Link>
                     </motion.div>
-
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -118,7 +105,6 @@ export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
                         </Button>
                       </Link>
                     </motion.div>
-
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}

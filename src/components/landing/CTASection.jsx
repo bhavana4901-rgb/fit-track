@@ -4,20 +4,16 @@ import { Mail, ArrowRight, CheckCircle, Dumbbell, Flame, Trophy } from 'lucide-r
 import { Link } from 'react-router-dom'
 import * as ls from './landingStyles'
 import { fadeUpProps, viewTransitionFast } from './landingMotion'
-
 const perks = [
   { icon: Dumbbell, label: 'Unlimited workouts' },
   { icon: Flame, label: '14-day free trial' },
   { icon: Trophy, label: '50K+ members' },
 ]
-
 export default function CTASection() {
   const [email, setEmail] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
-
   const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-
   const handleSubmit = (e) => {
     e.preventDefault()
     setError('')
@@ -33,16 +29,14 @@ export default function CTASection() {
     setEmail('')
     setTimeout(() => setIsSubmitted(false), 4000)
   }
-
   return (
     <section className={`${ls.section} bg-white dark:bg-neutral-950`}>
       <div className={`${ls.container} max-w-6xl`}>
         <div className="relative rounded-2xl overflow-hidden bg-neutral-950 border border-neutral-800 shadow-sm">
-          {/* Animated mesh */}
+          {}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_0%_0%,rgba(59,130,246,0.12),transparent_50%),radial-gradient(ellipse_at_100%_100%,rgba(139,92,246,0.1),transparent_50%)]" />
-
           <div className="relative z-10 grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 p-5 sm:p-8 md:p-12 lg:p-16 items-center">
-            {/* Left — copy + perks */}
+            {}
             <motion.div
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -78,8 +72,7 @@ export default function CTASection() {
                 ))}
               </div>
             </motion.div>
-
-            {/* Right — glass form card */}
+            {}
             <motion.div
               initial={{ opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -90,7 +83,6 @@ export default function CTASection() {
               <div className="relative p-6 md:p-8 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                 <h3 className="text-xl font-bold text-white mb-2">Get started today</h3>
                 <p className="text-neutral-400 text-sm mb-6">Enter your email for instant access</p>
-
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
@@ -119,7 +111,6 @@ export default function CTASection() {
                       </motion.p>
                     )}
                   </AnimatePresence>
-
                   <motion.button
                     type="submit"
                     whileHover={{ scale: 1.02 }}
@@ -129,7 +120,6 @@ export default function CTASection() {
                     Get Started Free
                     <ArrowRight className="w-5 h-5" />
                   </motion.button>
-
                   <Link
                     to="/register"
                     className="block text-center text-sm text-neutral-400 hover:text-white transition-colors"
@@ -137,7 +127,6 @@ export default function CTASection() {
                     Or create a full account →
                   </Link>
                 </form>
-
                 <AnimatePresence>
                   {isSubmitted && (
                     <motion.div
@@ -151,7 +140,6 @@ export default function CTASection() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-
                 <p className="text-neutral-500 text-xs mt-4 text-center">
                   No spam. Unsubscribe anytime.
                 </p>

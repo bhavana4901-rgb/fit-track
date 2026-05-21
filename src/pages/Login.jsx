@@ -24,7 +24,6 @@ import { Input, ErrorDisplay } from '../components/ui'
 import LoginAnimatedBackground from '../components/auth/LoginAnimatedBackground'
 import LoginIllustration from '../components/auth/LoginIllustration'
 import { viewTransitionFast } from '../components/landing/landingMotion'
-
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address').min(1, 'Email is required'),
   password: z
@@ -33,13 +32,11 @@ const loginSchema = z.object({
     .min(6, 'Password must be at least 6 characters'),
   rememberMe: z.boolean().default(false),
 })
-
 const TRUST_ITEMS = [
   { icon: Shield, label: 'Secure login', color: 'text-success-600 dark:text-success-400', bg: 'bg-success-100 dark:bg-success-950' },
   { icon: Users, label: '50K+ members', color: 'text-primary-600 dark:text-primary-400', bg: 'bg-primary-100 dark:bg-primary-950' },
   { icon: Star, label: '4.9 rating', color: 'text-warning-600 dark:text-warning-500', bg: 'bg-warning-100 dark:bg-warning-950' },
 ]
-
 const pageVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -47,7 +44,6 @@ const pageVariants = {
     transition: { staggerChildren: 0.06, delayChildren: 0.08 },
   },
 }
-
 const itemVariants = {
   hidden: { opacity: 0, y: 14 },
   visible: {
@@ -56,7 +52,6 @@ const itemVariants = {
     transition: viewTransitionFast,
   },
 }
-
 export default function Login() {
   const navigate = useNavigate()
   const { login, isLoading } = useAuth()
@@ -64,7 +59,6 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [serverError, setServerError] = useState('')
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
-
   const {
     register,
     handleSubmit,
@@ -77,13 +71,11 @@ export default function Login() {
       rememberMe: false,
     },
   })
-
   const onSubmit = async (data) => {
     setServerError('')
     try {
       await new Promise((resolve) => setTimeout(resolve, 800))
       const result = await login(data.email, data.password)
-
       if (result.success) {
         if (data.rememberMe) {
           localStorage.setItem('rememberEmail', data.email)
@@ -99,7 +91,6 @@ export default function Login() {
       console.error('Login error:', error)
     }
   }
-
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true)
     try {
@@ -111,12 +102,10 @@ export default function Login() {
       setIsGoogleLoading(false)
     }
   }
-
   return (
     <div className="min-h-screen min-h-[100dvh] relative overflow-hidden bg-white dark:bg-neutral-950">
       <LoginAnimatedBackground />
-
-      {/* Top bar */}
+      {}
       <motion.header
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -129,7 +118,6 @@ export default function Login() {
           </div>
           <span className="font-bold text-lg text-neutral-900 dark:text-white">FitTrack</span>
         </Link>
-
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
@@ -148,12 +136,10 @@ export default function Login() {
           </Link>
         </div>
       </motion.header>
-
-      {/* Split layout: illustration + form — aligned to top */}
+      {}
       <div className="relative z-10 px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-10 sm:pb-12">
         <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
           <LoginIllustration />
-
           <motion.div
             className="w-full max-w-[440px] mx-auto lg:max-w-none lg:mx-0 lg:justify-self-end"
             variants={pageVariants}
@@ -165,7 +151,6 @@ export default function Login() {
             className="rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/95 backdrop-blur-xl shadow-sm overflow-hidden"
           >
             <div className="h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500" />
-
             <div className="p-6 sm:p-8">
               <motion.div variants={itemVariants} className="mb-6 sm:mb-8">
                 <span className="inline-block px-3 py-1 mb-3 text-xs font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-950/50 rounded-md border border-primary-100 dark:border-primary-900">
@@ -178,7 +163,6 @@ export default function Login() {
                   Continue your fitness journey with FitTrack
                 </p>
               </motion.div>
-
               {serverError && (
                 <motion.div variants={itemVariants} className="mb-5">
                   <ErrorDisplay
@@ -188,7 +172,6 @@ export default function Login() {
                   />
                 </motion.div>
               )}
-
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
                 <motion.div variants={itemVariants}>
                   <Input
@@ -201,7 +184,6 @@ export default function Login() {
                     {...register('email')}
                   />
                 </motion.div>
-
                 <motion.div variants={itemVariants}>
                   <Input
                     label="Password"
@@ -215,7 +197,6 @@ export default function Login() {
                     {...register('password')}
                   />
                 </motion.div>
-
                 <motion.div variants={itemVariants} className="flex items-center justify-between gap-3 flex-wrap">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -234,7 +215,6 @@ export default function Login() {
                     Forgot password?
                   </Link>
                 </motion.div>
-
                 <motion.div variants={itemVariants}>
                   <Button
                     type="submit"
@@ -258,7 +238,6 @@ export default function Login() {
                     )}
                   </Button>
                 </motion.div>
-
                 <motion.div variants={itemVariants} className="relative py-1">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-neutral-200 dark:border-neutral-700" />
@@ -269,7 +248,6 @@ export default function Login() {
                     </span>
                   </div>
                 </motion.div>
-
                 <motion.div variants={itemVariants}>
                   <button
                     type="button"
@@ -312,7 +290,6 @@ export default function Login() {
                   </button>
                 </motion.div>
               </form>
-
               <motion.p
                 variants={itemVariants}
                 className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-6"
@@ -327,8 +304,7 @@ export default function Login() {
               </motion.p>
             </div>
           </motion.div>
-
-          {/* Trust indicators */}
+          {}
           <motion.div
             variants={itemVariants}
             className="mt-6 grid grid-cols-3 gap-2 sm:gap-3"
@@ -347,7 +323,6 @@ export default function Login() {
               </div>
             ))}
           </motion.div>
-
           <motion.p
             variants={itemVariants}
             className="sm:hidden text-center mt-4"

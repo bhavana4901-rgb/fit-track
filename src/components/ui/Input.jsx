@@ -1,16 +1,4 @@
 import { forwardRef } from 'react'
-
-/**
- * Reusable Input component with accessibility and styling
- * - Label support
- * - Error state display
- * - Disabled state
- * - Focus styles with ring
- * - Placeholder text
- * - Accessibility attributes (aria-*, id)
- * - Icon support (left/right icons)
- * - Type variants (text, email, password, number, date, etc.)
- */
 const Input = forwardRef(({
   id,
   label,
@@ -38,7 +26,6 @@ const Input = forwardRef(({
 }, ref) => {
   const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`
   const errorId = `${inputId}-error`
-
   return (
     <div className={`w-full ${className}`}>
       {label && (
@@ -50,16 +37,14 @@ const Input = forwardRef(({
           {required && <span className="text-error-500 ml-1">*</span>}
         </label>
       )}
-
       <div className="relative">
-        {/* Left Icon */}
+        {}
         {LeftIcon && (
           <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
             <LeftIcon className="w-5 h-5 text-neutral-400 dark:text-neutral-500" />
           </div>
         )}
-
-        {/* Input Field */}
+        {}
         <input
           ref={ref}
           id={inputId}
@@ -102,8 +87,7 @@ const Input = forwardRef(({
           `}
           {...rest}
         />
-
-        {/* Right Icon */}
+        {}
         {RightIcon && (
           <button
             type="button"
@@ -117,8 +101,7 @@ const Input = forwardRef(({
           </button>
         )}
       </div>
-
-      {/* Error Message */}
+      {}
       {error && (
         <p
           id={errorId}
@@ -131,7 +114,5 @@ const Input = forwardRef(({
     </div>
   )
 })
-
 Input.displayName = 'Input'
-
 export default Input

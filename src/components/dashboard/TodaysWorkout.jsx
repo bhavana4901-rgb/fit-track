@@ -3,9 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Check, Play, Flame } from 'lucide-react'
 import { dashboardCard, dashboardCardPadding, dashboardSectionTitle } from './dashboardStyles'
 import { dashboardItem } from './dashboardMotion'
-
 export default function TodaysWorkout() {
-  // Sample exercises data
   const initialExercises = [
     { id: 1, name: 'Push-ups', sets: 3, reps: 15, completed: false },
     { id: 2, name: 'Squats', sets: 4, reps: 20, completed: false },
@@ -14,32 +12,24 @@ export default function TodaysWorkout() {
     { id: 5, name: 'Dumbbell Rows', sets: 3, reps: 12, completed: false },
     { id: 6, name: 'Lunges', sets: 3, reps: 12, completed: false },
   ]
-
   const [exercises, setExercises] = useState(initialExercises)
   const [workoutStarted, setWorkoutStarted] = useState(false)
-
-  // Calculate progress percentage
   const completedCount = useMemo(
     () => exercises.filter((ex) => ex.completed).length,
     [exercises]
   )
-
   const progressPercentage = useMemo(
     () => Math.round((completedCount / exercises.length) * 100),
     [completedCount, exercises.length]
   )
-
-  // Toggle exercise completion
   const toggleExercise = (id) => {
     setExercises((prev) =>
       prev.map((ex) => (ex.id === id ? { ...ex, completed: !ex.completed } : ex))
     )
   }
-
   const handleStartWorkout = () => {
     setWorkoutStarted(true)
   }
-
   const itemVariants = {
     hidden: { opacity: 0, x: -10 },
     visible: {
@@ -48,7 +38,6 @@ export default function TodaysWorkout() {
       transition: { duration: 0.3, ease: 'easeOut' },
     },
   }
-
   const listVariants = {
     visible: {
       transition: {
@@ -57,7 +46,6 @@ export default function TodaysWorkout() {
       },
     },
   }
-
   return (
     <motion.div
       variants={dashboardItem}
@@ -66,7 +54,6 @@ export default function TodaysWorkout() {
       className={`${dashboardCard} ${dashboardCardPadding} overflow-hidden relative`}
     >
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-error-500 via-primary-500 to-secondary-500 opacity-80" />
-
       <motion.div variants={itemVariants} className="mb-6">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
@@ -84,8 +71,7 @@ export default function TodaysWorkout() {
             {completedCount} / {exercises.length}
           </motion.span>
         </div>
-
-        {/* Progress Bar */}
+        {}
         <div
           role="progressbar"
           aria-valuenow={progressPercentage}
@@ -108,8 +94,7 @@ export default function TodaysWorkout() {
           {progressPercentage}% Complete
         </motion.p>
       </motion.div>
-
-      {/* Exercise List */}
+      {}
       <motion.div variants={listVariants} className="space-y-2 mb-6">
         <AnimatePresence>
           {exercises.map((exercise) => (
@@ -130,7 +115,7 @@ export default function TodaysWorkout() {
               whileHover={{ x: 4 }}
               whileTap={{ scale: 0.98 }}
             >
-              {/* Checkbox */}
+              {}
               <motion.div
                 className={`flex-shrink-0 w-6 h-6 rounded-md border-2 flex items-center justify-center ${
                   exercise.completed
@@ -154,8 +139,7 @@ export default function TodaysWorkout() {
                   )}
                 </AnimatePresence>
               </motion.div>
-
-              {/* Exercise Details */}
+              {}
               <div className="flex-1 min-w-0">
                 <motion.p
                   className={`font-medium text-sm ${
@@ -168,8 +152,7 @@ export default function TodaysWorkout() {
                   {exercise.name}
                 </motion.p>
               </div>
-
-              {/* Sets & Reps */}
+              {}
               <motion.div
                 className={`text-xs font-semibold flex-shrink-0 ${
                   exercise.completed
@@ -184,8 +167,7 @@ export default function TodaysWorkout() {
           ))}
         </AnimatePresence>
       </motion.div>
-
-      {/* Start Workout Button */}
+      {}
       <motion.button
         variants={itemVariants}
         onClick={handleStartWorkout}
@@ -201,8 +183,7 @@ export default function TodaysWorkout() {
         <Play className="w-5 h-5" />
         {progressPercentage === 100 ? 'Workout Complete! 🎉' : 'Start Workout'}
       </motion.button>
-
-      {/* Motivation Message */}
+      {}
       {workoutStarted && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -218,4 +199,3 @@ export default function TodaysWorkout() {
     </motion.div>
   )
 }
-

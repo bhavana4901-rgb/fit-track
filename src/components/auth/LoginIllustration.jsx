@@ -2,13 +2,11 @@ import { motion } from 'framer-motion'
 import { Dumbbell, TrendingUp, Target, Lock } from 'lucide-react'
 import HeroFitnessIllustration from '../landing/HeroFitnessIllustration'
 import { viewTransitionFast } from '../landing/landingMotion'
-
 const HIGHLIGHTS = [
   { icon: Target, text: 'Personalized workout plans', color: 'text-primary-600 dark:text-primary-400', bg: 'bg-primary-100 dark:bg-primary-950' },
   { icon: TrendingUp, text: 'Track progress in real time', color: 'text-success-600 dark:text-success-400', bg: 'bg-success-100 dark:bg-success-950' },
   { icon: Dumbbell, text: '120+ exercises in your library', color: 'text-secondary-600 dark:text-secondary-400', bg: 'bg-secondary-100 dark:bg-secondary-950' },
 ]
-
 const panelVariants = {
   hidden: { opacity: 0, x: -24 },
   visible: {
@@ -17,12 +15,10 @@ const panelVariants = {
     transition: { duration: 0.45, ease: [0.25, 0.1, 0.25, 1], staggerChildren: 0.08, delayChildren: 0.12 },
   },
 }
-
 const childVariants = {
   hidden: { opacity: 0, y: 12 },
   visible: { opacity: 1, y: 0, transition: viewTransitionFast },
 }
-
 export default function LoginIllustration() {
   return (
     <motion.aside
@@ -47,7 +43,6 @@ export default function LoginIllustration() {
           Pick up where you left off — workouts, nutrition, and analytics synced across every device.
         </p>
       </motion.div>
-
       <motion.div variants={childVariants} className="relative w-full max-w-md mx-auto xl:max-w-lg mb-8">
         <motion.div
           animate={{ y: [0, -10, 0] }}
@@ -56,7 +51,6 @@ export default function LoginIllustration() {
           <HeroFitnessIllustration />
         </motion.div>
       </motion.div>
-
       <motion.ul variants={childVariants} className="space-y-3 max-w-md">
         {HIGHLIGHTS.map(({ icon: Icon, text, color, bg }) => (
           <motion.li
@@ -71,7 +65,6 @@ export default function LoginIllustration() {
           </motion.li>
         ))}
       </motion.ul>
-
       <motion.div
         variants={childVariants}
         className="mt-8 flex items-center gap-6 text-sm text-neutral-600 dark:text-neutral-400"

@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { PARTNER_LOGOS, TRUST_BADGES } from './PartnerLogos'
 import * as ls from './landingStyles'
 import { fadeUpProps } from './landingMotion'
-
 const STATS = [
   {
     key: 'users',
@@ -55,10 +54,8 @@ const STATS = [
     staticUnit: 'M',
   },
 ]
-
 const MEMBER_AVATARS = ['SC', 'MJ', 'ER', 'DK', 'JW']
 const CHART_BARS = [35, 55, 42, 70, 58, 85, 68]
-
 function useCountUp(target, duration = 650, enabled = true) {
   const [value, setValue] = useState(0)
   useEffect(() => {
@@ -74,17 +71,14 @@ function useCountUp(target, duration = 650, enabled = true) {
   }, [target, duration, enabled])
   return value
 }
-
 function formatStatValue(stat, users, rating) {
   if (stat.key === 'users') return `${Math.round(users).toLocaleString()}${stat.suffix}`
   if (stat.key === 'rating') return rating.toFixed(1)
   if (stat.staticUnit) return `${stat.staticValue}${stat.staticUnit}${stat.suffix}`
   return `${stat.staticValue}${stat.suffix}`
 }
-
 function StatCard({ stat, display, index }) {
   const Icon = stat.icon
-
   if (stat.layout === 'featured') {
     return (
       <motion.div
@@ -112,7 +106,6 @@ function StatCard({ stat, display, index }) {
       </motion.div>
     )
   }
-
   if (stat.layout === 'rating') {
     return (
       <motion.div
@@ -135,7 +128,6 @@ function StatCard({ stat, display, index }) {
       </motion.div>
     )
   }
-
   if (stat.layout === 'chart') {
     return (
       <motion.div
@@ -169,8 +161,6 @@ function StatCard({ stat, display, index }) {
       </motion.div>
     )
   }
-
-  // accent — countries
   return (
     <motion.div
       {...fadeUpProps(index * 0.03)}
@@ -191,10 +181,8 @@ function StatCard({ stat, display, index }) {
     </motion.div>
   )
 }
-
 function LogoMarquee() {
   const track = [...PARTNER_LOGOS, ...PARTNER_LOGOS]
-
   return (
     <div className="relative overflow-hidden py-8 group/marquee">
       <div className="absolute left-0 top-0 bottom-0 w-16 md:w-28 bg-gradient-to-r from-primary-50/90 dark:from-neutral-900 to-transparent z-10 pointer-events-none" />
@@ -216,20 +204,17 @@ function LogoMarquee() {
     </div>
   )
 }
-
 export default function SocialProof() {
   const [inView, setInView] = useState(false)
   const users = useCountUp(50000, 650, inView)
   const rating = useCountUp(4.9, 550, inView)
-
   return (
     <section className={`${ls.section} relative overflow-hidden bg-white dark:bg-neutral-950`}>
-      {/* Ambient depth — not a box */}
+      {}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -top-24 right-0 w-48 sm:w-[420px] h-48 sm:h-[420px] rounded-full bg-primary-400/10 dark:bg-primary-600/5 blur-3xl" />
         <div className="absolute bottom-0 -left-24 w-48 sm:w-[360px] h-48 sm:h-[360px] rounded-full bg-secondary-400/10 dark:bg-secondary-600/5 blur-3xl" />
       </div>
-
       <div className={ls.container}>
         <motion.div
           {...fadeUpProps(0)}
@@ -244,8 +229,7 @@ export default function SocialProof() {
             Real growth, real reviews, and partnerships with teams that take fitness seriously.
           </p>
         </motion.div>
-
-        {/* Bento stats — separate cards, varied layouts */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-16 md:mb-20">
           {STATS.map((stat, index) => (
             <StatCard
@@ -255,8 +239,7 @@ export default function SocialProof() {
               index={index}
             />
           ))}
-
-          {/* Live community pill — fills remaining column on md+ */}
+          {}
           <motion.div
             {...fadeUpProps(0.12)}
             className="md:col-span-4 relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px] flex flex-col justify-center"
@@ -291,16 +274,14 @@ export default function SocialProof() {
           </motion.div>
         </div>
       </div>
-
-      {/* Full-width logo band — tinted strip, not a card */}
+      {}
       <div className="relative w-full bg-gradient-to-r from-primary-50/80 via-white to-secondary-50/80 dark:from-primary-950/30 dark:via-neutral-950 dark:to-secondary-950/30 border-y border-neutral-200/60 dark:border-neutral-800">
         <p className="text-center text-xs font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 pt-8">
           Trusted by industry leaders
         </p>
         <LogoMarquee />
       </div>
-
-      {/* Trust footer — horizontal flow */}
+      {}
       <div className={`${ls.container} pt-10 md:pt-12`}>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
           <div className="flex flex-wrap items-center justify-center gap-8">

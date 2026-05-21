@@ -1,9 +1,3 @@
-// localStorage utility functions
-// - setItem(key, value)
-// - getItem(key)
-// - removeItem(key)
-// - clearAll()
-
 export const storage = {
   setItem: (key, value) => {
     try {
@@ -12,16 +6,13 @@ export const storage = {
       console.error('Failed to save to localStorage:', error)
     }
   },
-
   getItem: (key) => {
     try {
       const item = localStorage.getItem(key)
       if (!item) return null
-      
       try {
         return JSON.parse(item)
       } catch {
-        // If JSON parse fails, return the raw value (handles legacy plain strings)
         return item
       }
     } catch (error) {
@@ -29,7 +20,6 @@ export const storage = {
       return null
     }
   },
-
   removeItem: (key) => {
     try {
       localStorage.removeItem(key)
@@ -37,7 +27,6 @@ export const storage = {
       console.error('Failed to remove from localStorage:', error)
     }
   },
-
   clearAll: () => {
     try {
       localStorage.clear()

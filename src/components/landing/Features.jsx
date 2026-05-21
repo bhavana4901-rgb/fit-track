@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { BarChart3, Leaf, TrendingUp, Users, ArrowUpRight } from 'lucide-react'
 import * as ls from './landingStyles'
 import { fadeUpProps, staggerContainer, staggerItem, viewViewport } from './landingMotion'
-
 const features = [
   {
     id: 1,
@@ -49,14 +48,11 @@ const features = [
     stat: '50K+ members',
   },
 ]
-
 const containerVariants = staggerContainer
 const cardVariants = staggerItem
-
 function FeatureCard({ feature }) {
   const Icon = feature.icon
   const num = String(feature.id).padStart(2, '0')
-
   if (feature.layout === 'featured') {
     return (
       <motion.article
@@ -86,7 +82,7 @@ function FeatureCard({ feature }) {
               Explore feature <ArrowUpRight className="w-4 h-4" />
             </div>
           </div>
-          {/* Mini chart decoration */}
+          {}
           <div className="absolute bottom-5 right-5 sm:bottom-8 sm:right-8 hidden sm:flex items-end gap-1.5 opacity-40 group-hover:opacity-70 transition-opacity">
             {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
               <motion.div
@@ -103,7 +99,6 @@ function FeatureCard({ feature }) {
       </motion.article>
     )
   }
-
   if (feature.layout === 'floating-icon') {
     return (
       <motion.article variants={cardVariants} whileHover={{ y: -8 }} className="group relative pt-8">
@@ -124,7 +119,6 @@ function FeatureCard({ feature }) {
       </motion.article>
     )
   }
-
   if (feature.layout === 'accent-bar') {
     return (
       <motion.article
@@ -154,8 +148,6 @@ function FeatureCard({ feature }) {
       </motion.article>
     )
   }
-
-  // stacked — community (full-width, light card)
   return (
     <motion.article
       variants={cardVariants}
@@ -200,7 +192,6 @@ function FeatureCard({ feature }) {
     </motion.article>
   )
 }
-
 export default function Features() {
   return (
     <section id="features" className={`${ls.section} bg-white dark:bg-neutral-950`}>
@@ -217,8 +208,7 @@ export default function Features() {
             Everything you need to transform your fitness journey — one intuitive platform
           </p>
         </motion.div>
-
-        {/* Bento grid — each card a different layout */}
+        {}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -230,7 +220,6 @@ export default function Features() {
             <FeatureCard key={feature.id} feature={feature} />
           ))}
         </motion.div>
-
         <motion.div
           {...fadeUpProps(0.08)}
           className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none mx-auto"

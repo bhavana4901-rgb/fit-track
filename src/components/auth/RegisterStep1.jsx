@@ -6,66 +6,44 @@ import { Eye, EyeOff, Mail, Lock, User, CheckCircle, AlertCircle } from 'lucide-
 import { Input, ErrorDisplay } from '../ui'
 import { Button } from '../ui'
 import { registerStep1Schema } from '../../utils/validationSchemas'
-
-/**
- * Calculate password strength based on actual validation requirements
- * @param {string} password - Password string
- * @returns {Object} Strength object with score (0-4) and label
- */
 const calculatePasswordStrength = (password) => {
   let strength = 0
   const feedback = []
-
   if (!password) {
     return { score: 0, label: 'No password', color: 'bg-neutral-200', percentage: 0, feedback }
   }
-
-  // Length check (required: min 8)
   if (password.length >= 8) {
     strength++
   } else {
     feedback.push('At least 8 characters required')
   }
-
-  // Lowercase letters (required)
   if (/[a-z]/.test(password)) {
     strength++
   } else {
     feedback.push('Add lowercase letters')
   }
-
-  // Uppercase letters (required)
   if (/[A-Z]/.test(password)) {
     strength++
   } else {
     feedback.push('Add uppercase letters')
   }
-
-  // Numbers (required)
   if (/[0-9]/.test(password)) {
     strength++
   } else {
     feedback.push('Add numbers')
   }
-
-  // Special characters (required)
   if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
     strength++
   } else {
     feedback.push('Add special characters (!@#$%^&*...)')
   }
-
-  // Bonus for extra length
   if (password.length >= 12) strength++
-
-  // Determine strength level (0-5, but cap at 4 for display)
   let level = 0
   if (strength >= 5) level = 4 // Strong (all requirements + length bonus)
   else if (strength >= 4) level = 3 // Good (all requirements met)
   else if (strength >= 3) level = 2 // Fair
   else if (strength >= 2) level = 1 // Weak
   else level = 0 // Very weak
-
   const strengthLevels = {
     0: { label: 'Very Weak', color: 'bg-error-500', percentage: 10 },
     1: { label: 'Weak', color: 'bg-warning-500', percentage: 30 },
@@ -73,20 +51,8 @@ const calculatePasswordStrength = (password) => {
     3: { label: 'Good', color: 'bg-primary-500', percentage: 75 },
     4: { label: 'Strong', color: 'bg-success-500', percentage: 100 },
   }
-
   return { score: level, ...strengthLevels[level], feedback }
 }
-
-/**
- * RegisterStep1 Component
- * First step of multi-step registration form
- * - Full name, email, password, confirm password fields
- * - Real-time password strength meter
- * - Form validation with Zod + React Hook Form
- * - Sign up with Google button
- * - Continue button disabled until valid
- * - Animated background and transitions
- */
 export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -98,7 +64,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
     label: 'No password',
     color: 'bg-neutral-200'
   })
-
   const {
     register,
     handleSubmit,
@@ -109,22 +74,13 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
     mode: 'onChange',
     defaultValues: initialData,
   })
-
   const password = watch('password')
-
-  // Update password strength on password change
   useMemo(() => {
     const strength = calculatePasswordStrength(password)
     setPasswordStrength(strength)
   }, [password])
-
-  /**
-   * Handle form submission
-   * @param {Object} data - Form data
-   */
   const onSubmit = async (data) => {
     try {
-      // Call parent callback with step data
       if (onNext) {
         onNext(data)
       }
@@ -132,13 +88,10 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
       console.error('Step 1 error:', error)
     }
   }
-
   const handleGoogleSignUp = async () => {
     setIsGoogleLoading(true)
     try {
-      // Simulate Google sign-up flow
       await new Promise((resolve) => setTimeout(resolve, 1500))
-      // In production, this would handle actual OAuth flow
       if (onNext) {
         onNext({
           fullName: '',
@@ -154,8 +107,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
       setIsGoogleLoading(false)
     }
   }
-
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -166,7 +117,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
       },
     },
   }
-
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
     visible: {
@@ -175,7 +125,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
       transition: { duration: 0.4, ease: 'easeOut' },
     },
   }
-
   return (
     <motion.div
       className="space-y-6"
@@ -191,10 +140,9 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
           Start your fitness journey with FitTrack
         </p>
       </motion.div>
-
-          {/* Form */}
+          {}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Full Name */}
+            {}
             <motion.div variants={itemVariants}>
               <Input
                 label="Full Name"
@@ -206,8 +154,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 {...register('fullName')}
               />
             </motion.div>
-
-            {/* Email */}
+            {}
             <motion.div variants={itemVariants}>
               <Input
                 label="Email Address"
@@ -219,8 +166,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 {...register('email')}
               />
             </motion.div>
-
-            {/* Password */}
+            {}
             <motion.div variants={itemVariants}>
               <Input
                 label="Password"
@@ -233,8 +179,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 required
                 {...register('password')}
               />
-
-              {/* Password Strength Meter */}
+              {}
               {password && (
                 <motion.div
                   className="mt-3 space-y-2"
@@ -242,7 +187,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Strength bar */}
+                  {}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
                       <label className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -264,8 +209,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                         {passwordStrength.label}
                       </span>
                     </div>
-
-                    {/* Progress bar */}
+                    {}
                     <div className="w-full h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
                       <motion.div
                         className={`h-full rounded-full ${passwordStrength.color}`}
@@ -275,8 +219,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                       />
                     </div>
                   </div>
-
-                  {/* Feedback suggestions */}
+                  {}
                   {passwordStrength.score < 4 && passwordStrength.feedback.length > 0 && (
                     <motion.div
                       className="space-y-1"
@@ -294,8 +237,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                       ))}
                     </motion.div>
                   )}
-
-                  {/* Strength achieved */}
+                  {}
                   {passwordStrength.score >= 4 && (
                     <motion.div
                       className="flex items-center gap-2"
@@ -312,8 +254,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 </motion.div>
               )}
             </motion.div>
-
-            {/* Confirm Password */}
+            {}
             <motion.div variants={itemVariants}>
               <Input
                 label="Confirm Password"
@@ -327,8 +268,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 {...register('confirmPassword')}
               />
             </motion.div>
-
-            {/* Sign up with Google */}
+            {}
             <motion.div variants={itemVariants}>
               <button
                 type="button"
@@ -370,8 +310,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 )}
               </button>
             </motion.div>
-
-            {/* Divider */}
+            {}
             <motion.div className="relative" variants={itemVariants}>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-neutral-200 dark:border-neutral-700" />
@@ -382,8 +321,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 </span>
               </div>
             </motion.div>
-
-            {/* Buttons */}
+            {}
             <motion.div
               className="flex gap-3"
               variants={itemVariants}
@@ -415,8 +353,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
               </Button>
             </motion.div>
           </form>
-
-          {/* Password requirements info */}
+          {}
           <motion.div
             className="p-4 bg-neutral-100/50 dark:bg-neutral-900/50 rounded-lg border border-neutral-200 dark:border-neutral-800"
             variants={itemVariants}

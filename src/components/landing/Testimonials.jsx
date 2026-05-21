@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 import { fadeUpProps } from './landingMotion'
 import * as ls from './landingStyles'
-
 const testimonials = [
   {
     id: 1,
@@ -84,7 +83,6 @@ const testimonials = [
     style: 'bold',
   },
 ]
-
 function StarRow({ count, size = 'w-4 h-4' }) {
   return (
     <div className="flex gap-1 flex-shrink-0" aria-label={`${count} star rating`}>
@@ -94,11 +92,9 @@ function StarRow({ count, size = 'w-4 h-4' }) {
     </div>
   )
 }
-
 function TestimonialCard({ testimonial, isPrimary }) {
   const { style } = testimonial
   const inactive = !isPrimary ? 'opacity-85 scale-[0.98]' : ''
-
   if (style === 'bold') {
     return (
       <div
@@ -122,7 +118,6 @@ function TestimonialCard({ testimonial, isPrimary }) {
       </div>
     )
   }
-
   if (style === 'split') {
     return (
       <div
@@ -146,7 +141,6 @@ function TestimonialCard({ testimonial, isPrimary }) {
       </div>
     )
   }
-
   if (style === 'glass') {
     return (
       <div
@@ -173,8 +167,6 @@ function TestimonialCard({ testimonial, isPrimary }) {
       </div>
     )
   }
-
-  // quote — decorative mark separate from content
   return (
     <div
       className={`h-full min-h-[240px] sm:min-h-[280px] md:min-h-[300px] rounded-xl bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 flex overflow-hidden transition-all duration-500 ${inactive}`}
@@ -208,12 +200,10 @@ function TestimonialCard({ testimonial, isPrimary }) {
     </div>
   )
 }
-
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(1)
   const total = testimonials.length
-
   const visiblePair = useMemo(
     () => [
       testimonials[currentIndex],
@@ -221,7 +211,6 @@ export default function Testimonials() {
     ],
     [currentIndex, total]
   )
-
   const goTo = useCallback(
     (index) => {
       const normalized = ((index % total) + total) % total
@@ -230,21 +219,17 @@ export default function Testimonials() {
     },
     [currentIndex, total]
   )
-
   const next = useCallback(() => goTo(currentIndex + 1), [currentIndex, goTo])
   const prev = useCallback(() => goTo(currentIndex - 1), [currentIndex, goTo])
-
   useEffect(() => {
     const timer = setInterval(next, 6000)
     return () => clearInterval(timer)
   }, [next])
-
   const slideVariants = {
     enter: (d) => ({ x: d > 0 ? '8%' : '-8%', opacity: 0 }),
     center: { x: 0, opacity: 1 },
     exit: (d) => ({ x: d < 0 ? '8%' : '-8%', opacity: 0 }),
   }
-
   return (
     <section id="testimonials" className={`${ls.section} bg-white dark:bg-neutral-950`}>
       <div className={ls.container}>
@@ -260,7 +245,6 @@ export default function Testimonials() {
             Real success stories from our community
           </p>
         </motion.div>
-
         <div className="relative">
           <div className="overflow-hidden min-h-[240px] sm:min-h-[280px] md:min-h-[300px] md:px-12 lg:px-14">
             <AnimatePresence mode="wait" custom={direction}>
@@ -284,7 +268,6 @@ export default function Testimonials() {
               </motion.div>
             </AnimatePresence>
           </div>
-
           <div className="flex md:hidden justify-center items-center gap-4 mt-5">
             <button
               type="button"
@@ -303,7 +286,6 @@ export default function Testimonials() {
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
-
           <button
             type="button"
             onClick={prev}
@@ -312,7 +294,6 @@ export default function Testimonials() {
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
-
           <button
             type="button"
             onClick={next}
@@ -322,7 +303,6 @@ export default function Testimonials() {
             <ChevronRight className="w-6 h-6" />
           </button>
         </div>
-
         <div className="flex flex-col items-center gap-4 mt-8 sm:mt-10">
           <div className="flex gap-2">
             {testimonials.map((_, index) => (

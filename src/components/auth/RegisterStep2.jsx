@@ -5,8 +5,6 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Calendar, Users, Ruler, Weight } from 'lucide-react'
 import { Input, Button } from '../ui'
-
-// Validation schema for step 2
 const registerStep2Schema = z.object({
   dateOfBirth: z.string().min(1, 'Date of birth is required'),
   gender: z.enum(['male', 'female', 'other'], 'Please select a gender'),
@@ -15,19 +13,9 @@ const registerStep2Schema = z.object({
   weight: z.number().min(30, 'Weight must be at least 30kg').max(300, 'Weight must be less than 300kg'),
   weightUnit: z.enum(['kg', 'lbs']),
 })
-
-/**
- * RegisterStep2 Component
- * Second step of multi-step registration form
- * - Date of birth, gender, height, weight
- * - Unit toggles for height (cm/inches) and weight (kg/lbs)
- * - Slider + input dual interaction
- * - Form validation with Zod + React Hook Form
- */
 export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) {
   const [heightUnit, setHeightUnit] = useState(initialData.heightUnit || 'cm')
   const [weightUnit, setWeightUnit] = useState(initialData.weightUnit || 'kg')
-
   const {
     register,
     control,
@@ -47,44 +35,30 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
       weightUnit: initialData.weightUnit || 'kg',
     },
   })
-
   const height = watch('height')
   const weight = watch('weight')
-
-  // Convert height to display value (cm to inches)
   const displayHeight = useMemo(() => {
     if (heightUnit === 'inches') {
       return Math.round((height / 2.54) * 10) / 10
     }
     return height
   }, [height, heightUnit])
-
-  // Convert weight to display value (kg to lbs)
   const displayWeight = useMemo(() => {
     if (weightUnit === 'lbs') {
       return Math.round((weight * 2.20462) * 10) / 10
     }
     return weight
   }, [weight, weightUnit])
-
-  // Handle height unit toggle
   const handleHeightUnitToggle = () => {
     const newUnit = heightUnit === 'cm' ? 'inches' : 'cm'
     setHeightUnit(newUnit)
     setValue('heightUnit', newUnit)
   }
-
-  // Handle weight unit toggle
   const handleWeightUnitToggle = () => {
     const newUnit = weightUnit === 'kg' ? 'lbs' : 'kg'
     setWeightUnit(newUnit)
     setValue('weightUnit', newUnit)
   }
-
-  /**
-   * Handle form submission
-   * @param {Object} data - Form data
-   */
   const onSubmit = async (data) => {
     try {
       if (onNext) {
@@ -94,8 +68,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
       console.error('Step 2 error:', error)
     }
   }
-
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -106,7 +78,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
       },
     },
   }
-
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
     visible: {
@@ -115,7 +86,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
       transition: { duration: 0.4, ease: 'easeOut' },
     },
   }
-
   return (
     <motion.div
       className="space-y-6"
@@ -131,10 +101,9 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
           Tell us about yourself
         </p>
       </motion.div>
-
-          {/* Form */}
+          {}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Date of Birth */}
+            {}
             <motion.div variants={itemVariants}>
               <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                 Date of Birth *
@@ -151,8 +120,7 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 <p className="text-xs text-error-600 dark:text-error-400 mt-1">{errors.dateOfBirth.message}</p>
               )}
             </motion.div>
-
-            {/* Gender */}
+            {}
             <motion.div variants={itemVariants}>
               <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-3">
                 Gender *
@@ -186,8 +154,7 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 <p className="text-xs text-error-600 dark:text-error-400 mt-1">{errors.gender.message}</p>
               )}
             </motion.div>
-
-            {/* Height */}
+            {}
             <motion.div variants={itemVariants}>
               <div className="flex items-center justify-between mb-3">
                 <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
@@ -201,9 +168,8 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                   {heightUnit === 'cm' ? 'Switch to Inches' : 'Switch to CM'}
                 </button>
               </div>
-
               <div className="space-y-4">
-                {/* Slider */}
+                {}
                 <div className="relative">
                   <Ruler className="absolute left-0 top-0 w-5 h-5 text-success-600 dark:text-success-400 pointer-events-none" />
                   <Controller
@@ -222,8 +188,7 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                     )}
                   />
                 </div>
-
-                {/* Number Input & Display */}
+                {}
                 <div className="flex items-center gap-2">
                   <Controller
                     name="height"
@@ -254,13 +219,11 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                   )}
                 </div>
               </div>
-
               {errors.height && (
                 <p className="text-xs text-error-600 dark:text-error-400 mt-1">{errors.height.message}</p>
               )}
             </motion.div>
-
-            {/* Weight */}
+            {}
             <motion.div variants={itemVariants}>
               <div className="flex items-center justify-between mb-3">
                 <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
@@ -274,9 +237,8 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                   {weightUnit === 'kg' ? 'Switch to LBS' : 'Switch to KG'}
                 </button>
               </div>
-
               <div className="space-y-4">
-                {/* Slider */}
+                {}
                 <div className="relative">
                   <Weight className="absolute left-0 top-0 w-5 h-5 text-accent-600 dark:text-accent-400 pointer-events-none" />
                   <Controller
@@ -295,8 +257,7 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                     )}
                   />
                 </div>
-
-                {/* Number Input & Display */}
+                {}
                 <div className="flex items-center gap-2">
                   <Controller
                     name="weight"
@@ -327,13 +288,11 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                   )}
                 </div>
               </div>
-
               {errors.weight && (
                 <p className="text-xs text-error-600 dark:text-error-400 mt-1">{errors.weight.message}</p>
               )}
             </motion.div>
-
-            {/* Summary Card */}
+            {}
             <motion.div
               className="p-4 bg-success-50 dark:bg-success-950/20 border border-success-200 dark:border-success-900/30 rounded-lg space-y-2"
               variants={itemVariants}
@@ -348,8 +307,7 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 <p>• Weight: {weight}{weightUnit} {weightUnit === 'kg' && `(${Math.round((weight * 2.20462) * 10) / 10}lbs)`} {weightUnit === 'lbs' && `(${Math.round((weight * 0.453592) * 10) / 10}kg)`}</p>
               </div>
             </motion.div>
-
-            {/* Buttons */}
+            {}
             <motion.div
               className="flex gap-3 pt-4"
               variants={itemVariants}

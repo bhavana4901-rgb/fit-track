@@ -3,12 +3,10 @@ import { Users, Star, PlayCircle } from 'lucide-react'
 import Button from '../ui/Button'
 import HeroFitnessIllustration from './HeroFitnessIllustration'
 import HeroAnimatedBackground from './HeroAnimatedBackground'
-
 export default function Hero() {
   return (
     <section className="relative isolate w-full overflow-hidden bg-white dark:bg-neutral-950 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-24 min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)]">
       <HeroAnimatedBackground />
-
       <div className="relative z-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center min-h-[inherit] py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           <motion.div
@@ -24,7 +22,6 @@ export default function Hero() {
               <br />
               <span className="text-neutral-900 dark:text-white">Fitness Journey</span>
             </h1>
-
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -33,7 +30,6 @@ export default function Hero() {
             >
               Get personalized workouts, track your progress, and connect with a community of fitness enthusiasts. Start achieving your goals today.
             </motion.p>
-
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -52,7 +48,6 @@ export default function Hero() {
                 Watch Demo
               </Button>
             </motion.div>
-
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -68,7 +63,6 @@ export default function Hero() {
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">Active Users</p>
                 </div>
               </div>
-
               <div className="flex items-center gap-3 justify-center lg:justify-start">
                 <div className="w-10 h-10 shrink-0 rounded-full bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center">
                   <Star className="w-5 h-5 text-accent-600 dark:text-accent-400 fill-current" />
@@ -80,7 +74,6 @@ export default function Hero() {
               </div>
             </motion.div>
           </motion.div>
-
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

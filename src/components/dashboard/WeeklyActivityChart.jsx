@@ -14,9 +14,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from 'recharts'
-
 const WeeklyActivityChart = () => {
-  // Mock data for 7 days of workout data
   const chartData = useMemo(() => [
     { day: 'Mon', minutes: 45, intensity: 75 },
     { day: 'Tue', minutes: 60, intensity: 85 },
@@ -26,8 +24,6 @@ const WeeklyActivityChart = () => {
     { day: 'Sat', minutes: 85, intensity: 95 },
     { day: 'Sun', minutes: 40, intensity: 65 },
   ], [])
-
-  // Custom tooltip component
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -50,8 +46,6 @@ const WeeklyActivityChart = () => {
     }
     return null
   }
-
-  // Bar colors array with gradient effect
   const barColors = [
     '#3B82F6', // primary-500
     '#3B82F6',
@@ -61,8 +55,6 @@ const WeeklyActivityChart = () => {
     '#10B981', // success-500
     '#F59E0B', // warning-500
   ]
-
-  // Calculate stats
   const totalMinutes = useMemo(() => 
     chartData.reduce((sum, day) => sum + day.minutes, 0), 
     [chartData]
@@ -71,7 +63,6 @@ const WeeklyActivityChart = () => {
     Math.round(totalMinutes / chartData.length), 
     [totalMinutes, chartData]
   )
-
   return (
     <motion.div
       variants={dashboardItem}
@@ -80,7 +71,6 @@ const WeeklyActivityChart = () => {
       className={`${dashboardCard} ${dashboardCardPadding} overflow-hidden relative`}
     >
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-success-500 opacity-80" />
-
       <div className="mb-6">
         <div className="flex items-center justify-between gap-3 mb-2">
           <div className="flex items-center gap-2 min-w-0">
@@ -99,8 +89,7 @@ const WeeklyActivityChart = () => {
           Workout minutes and intensity tracking
         </p>
       </div>
-
-      {/* Stats row */}
+      {}
       <div className="grid grid-cols-2 gap-4 mb-6">
         <motion.div
           initial={{ opacity: 0, x: -10 }}
@@ -129,8 +118,7 @@ const WeeklyActivityChart = () => {
           </p>
         </motion.div>
       </div>
-
-      {/* Chart container */}
+      {}
       <motion.div
         role="img"
         aria-labelledby="weekly-activity-heading"
@@ -194,8 +182,7 @@ const WeeklyActivityChart = () => {
           </BarChart>
         </ResponsiveContainer>
       </motion.div>
-
-      {/* Footer info */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -209,5 +196,4 @@ const WeeklyActivityChart = () => {
     </motion.div>
   )
 }
-
 export default WeeklyActivityChart

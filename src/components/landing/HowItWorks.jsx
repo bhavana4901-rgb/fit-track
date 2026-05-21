@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { UserPlus, Target, TrendingUp, ArrowRight } from 'lucide-react'
 import * as ls from './landingStyles'
 import { fadeUpProps, viewTransitionFast } from './landingMotion'
-
 const steps = [
   {
     id: 1,
@@ -35,7 +34,6 @@ const steps = [
     pathColor: '#10B981',
   },
 ]
-
 function StepNode({ step, index }) {
   const Icon = step.icon
   return (
@@ -43,7 +41,7 @@ function StepNode({ step, index }) {
       {...fadeUpProps(index * 0.05)}
       className="relative flex flex-col items-center text-center z-10"
     >
-      {/* Timeline node */}
+      {}
       <motion.div
         whileHover={{ scale: 1.08 }}
         className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl rotate-45 bg-gradient-to-br ${step.gradient} flex items-center justify-center ring-2 ${step.ring}`}
@@ -55,8 +53,7 @@ function StepNode({ step, index }) {
           {step.id}
         </span>
       </motion.div>
-
-      {/* Step card */}
+      {}
       <motion.div
         whileHover={{ y: -4 }}
         className={`mt-6 sm:mt-8 w-full max-w-[280px] mx-auto p-5 sm:p-6 rounded-xl ${ls.card} ${ls.cardHover}`}
@@ -70,8 +67,6 @@ function StepNode({ step, index }) {
     </motion.div>
   )
 }
-
-/** Desktop curved connectors with animated flow */
 function DesktopConnectors() {
   return (
     <svg
@@ -97,8 +92,7 @@ function DesktopConnectors() {
           <path d="M0,0 L10,5 L0,10 Z" fill="#10B981" />
         </marker>
       </defs>
-
-      {/* Step 1 → 2 curved path */}
+      {}
       <motion.path
         d="M 200 60 Q 400 20, 600 60"
         stroke="url(#flowGrad1)"
@@ -127,8 +121,7 @@ function DesktopConnectors() {
         }}
         opacity={0.5}
       />
-
-      {/* Step 2 → 3 curved path */}
+      {}
       <motion.path
         d="M 600 60 Q 800 100, 1000 60"
         stroke="url(#flowGrad2)"
@@ -157,8 +150,7 @@ function DesktopConnectors() {
         }}
         opacity={0.5}
       />
-
-      {/* Glow nodes at path junctions */}
+      {}
       {[
         { cx: 400, cy: 20, color: '#8B5CF6', delay: 1.4 },
         { cx: 800, cy: 100, color: '#10B981', delay: 1.8 },
@@ -179,8 +171,6 @@ function DesktopConnectors() {
     </svg>
   )
 }
-
-/** Tablet horizontal simple connectors */
 function TabletConnectors() {
   return (
     <div className="hidden md:flex lg:hidden absolute top-[52px] left-[16.67%] right-[16.67%] items-center justify-between pointer-events-none px-4" aria-hidden="true">
@@ -207,8 +197,6 @@ function TabletConnectors() {
     </div>
   )
 }
-
-/** Mobile vertical timeline */
 function MobileTimeline() {
   return (
     <div className="md:hidden relative pl-2 sm:pl-4">
@@ -221,7 +209,6 @@ function MobileTimeline() {
         style={{ originY: 0 }}
         aria-hidden="true"
       />
-
       <div className="space-y-0">
         {steps.map((step, index) => {
           const Icon = step.icon
@@ -235,7 +222,7 @@ function MobileTimeline() {
               transition={{ ...viewTransitionFast, delay: index * 0.05 }}
               className="relative flex gap-4 sm:gap-6 pb-10 sm:pb-12 last:pb-0"
             >
-              {/* Node on rail */}
+              {}
               <div className="relative z-10 flex-shrink-0">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -256,8 +243,7 @@ function MobileTimeline() {
                   </motion.div>
                 )}
               </div>
-
-              {/* Card */}
+              {}
               <div className="flex-1 pt-2">
                 <div className={`p-5 rounded-xl ${ls.card}`}>
                   <span className={`text-2xl font-bold bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent`}>
@@ -274,7 +260,6 @@ function MobileTimeline() {
     </div>
   )
 }
-
 export default function HowItWorks() {
   return (
     <section id="how-it-works" className={`${ls.section} bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800`}>
@@ -291,8 +276,7 @@ export default function HowItWorks() {
             Three steps from sign-up to transformation — follow the path below
           </p>
         </motion.div>
-
-        {/* Desktop + tablet timeline */}
+        {}
         <div className="hidden md:block relative">
           <DesktopConnectors />
           <TabletConnectors />
@@ -302,10 +286,8 @@ export default function HowItWorks() {
             ))}
           </div>
         </div>
-
-        {/* Mobile vertical flow */}
+        {}
         <MobileTimeline />
-
         <motion.div
           {...fadeUpProps(0.1)}
           className="mt-14 text-center"

@@ -1,4 +1,3 @@
-// Export all auth components
 export { default as RegisterStep1 } from './RegisterStep1'
 export { default as RegisterStep2 } from './RegisterStep2'
 export { default as RegisterStep3 } from './RegisterStep3'

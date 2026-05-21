@@ -1,6 +1,4 @@
 import { z } from 'zod'
-
-// Step 1: Account Creation
 export const registerStep1Schema = z.object({
   fullName: z
     .string()
@@ -20,8 +18,6 @@ export const registerStep1Schema = z.object({
   message: 'Passwords do not match',
   path: ['confirmPassword'],
 })
-
-// Step 2: Personal Details
 export const registerStep2Schema = z.object({
   dateOfBirth: z.string().min(1, 'Date of birth is required'),
   gender: z.enum(['male', 'female', 'other'], {
@@ -38,16 +34,12 @@ export const registerStep2Schema = z.object({
     .max(300, 'Weight must be at most 300 kg'),
   weightUnit: z.enum(['kg', 'lbs']).default('kg'),
 })
-
-// Step 3: Fitness Goals
 export const registerStep3Schema = z.object({
   goals: z
     .array(z.string())
     .min(1, 'Select at least one goal')
     .max(3, 'Select up to 3 goals'),
 })
-
-// Step 4: Activity Level
 export const registerStep4Schema = z.object({
   activityLevel: z.enum(
     ['sedentary', 'lightly-active', 'moderately-active', 'very-active', 'athlete'],
@@ -56,8 +48,6 @@ export const registerStep4Schema = z.object({
     }
   ),
 })
-
-// Step 5: Profile Setup
 export const registerStep5Schema = z.object({
   avatar: z.string().optional().nullable(),
   username: z
@@ -70,15 +60,11 @@ export const registerStep5Schema = z.object({
   pushNotifications: z.boolean().default(false),
   weeklyDigest: z.boolean().default(true),
 })
-
-// Complete Registration Schema (all steps combined)
 export const completeRegistrationSchema = registerStep1Schema
   .and(registerStep2Schema)
   .and(registerStep3Schema)
   .and(registerStep4Schema)
   .and(registerStep5Schema)
-
-// Schema validation utilities
 export const validateStep = (step, data) => {
   const schemas = {
     1: registerStep1Schema,
@@ -87,17 +73,14 @@ export const validateStep = (step, data) => {
     4: registerStep4Schema,
     5: registerStep5Schema,
   }
-
   const schema = schemas[step]
   if (!schema) return { valid: true, errors: {} }
-
   try {
     schema.parse(data)
     return { valid: true, errors: {} }
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors = {}
-      // Safely handle errors array
       if (error.errors && Array.isArray(error.errors)) {
         error.errors.forEach((err) => {
           const path = err.path.join('.')

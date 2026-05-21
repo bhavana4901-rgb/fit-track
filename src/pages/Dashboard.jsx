@@ -3,9 +3,7 @@ import { Sparkles, Trophy, Target, Zap } from 'lucide-react'
 import { DashboardLayout, DashboardHeader, StatsCard, TodaysWorkout, WeeklyActivityChart, QuickActions } from '../components/dashboard'
 import { dashboardContainer, dashboardItem } from '../components/dashboard/dashboardMotion'
 import { dashboardCard, dashboardCardPadding } from '../components/dashboard/dashboardStyles'
-
 export default function Dashboard() {
-
   return (
     <DashboardLayout>
       <motion.div
@@ -17,8 +15,7 @@ export default function Dashboard() {
         variants={dashboardContainer}
       >
         <DashboardHeader />
-
-        {/* Stats Grid with Enhanced Layout */}
+        {}
         <motion.div variants={dashboardItem} className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           <StatsCard
             value={0}
@@ -58,27 +55,23 @@ export default function Dashboard() {
             delay={0.15}
           />
         </motion.div>
-
-        {/* Two Column Layout for Better Visual Hierarchy */}
+        {}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - Main Content (2/3 width) */}
+          {}
           <div className="lg:col-span-2 space-y-6">
             <motion.div variants={dashboardItem}>
               <TodaysWorkout />
             </motion.div>
-
             <motion.div variants={dashboardItem}>
               <WeeklyActivityChart />
             </motion.div>
           </div>
-
-          {/* Right Column - Sidebar (1/3 width) */}
+          {}
           <div className="space-y-6">
             <motion.div variants={dashboardItem}>
               <QuickActions />
             </motion.div>
-
-            {/* Achievements Card */}
+            {}
             <motion.div
               variants={dashboardItem}
               className={`${dashboardCard} ${dashboardCardPadding} overflow-hidden relative`}
@@ -128,8 +121,7 @@ export default function Dashboard() {
                 </motion.div>
               </div>
             </motion.div>
-
-            {/* Daily Goal Card */}
+            {}
             <motion.div
               variants={dashboardItem}
               className={`${dashboardCard} ${dashboardCardPadding} overflow-hidden relative`}
@@ -190,8 +182,7 @@ export default function Dashboard() {
             </motion.div>
           </div>
         </div>
-
-        {/* Coming Soon Section - Full Width at Bottom */}
+        {}
         <motion.div
           variants={dashboardItem}
           className={`${dashboardCard} ${dashboardCardPadding} overflow-hidden relative`}
