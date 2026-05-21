@@ -46,10 +46,10 @@ function StepNode({ step, index }) {
       {/* Timeline node */}
       <motion.div
         whileHover={{ scale: 1.08 }}
-        className={`relative w-20 h-20 md:w-24 md:h-24 rounded-xl rotate-45 bg-gradient-to-br ${step.gradient} flex items-center justify-center ring-2 ${step.ring}`}
+        className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl rotate-45 bg-gradient-to-br ${step.gradient} flex items-center justify-center ring-2 ${step.ring}`}
       >
         <div className="-rotate-45">
-          <Icon className="w-9 h-9 md:w-11 md:h-11 text-white" strokeWidth={2} />
+          <Icon className="w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 text-white" strokeWidth={2} />
         </div>
         <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-xs font-black text-neutral-800 dark:text-white -rotate-45">
           {step.id}
@@ -59,7 +59,7 @@ function StepNode({ step, index }) {
       {/* Step card */}
       <motion.div
         whileHover={{ y: -4 }}
-        className={`mt-8 w-full max-w-[280px] p-6 rounded-xl ${ls.card} ${ls.cardHover}`}
+        className={`mt-6 sm:mt-8 w-full max-w-[280px] mx-auto p-5 sm:p-6 rounded-xl ${ls.card} ${ls.cardHover}`}
       >
         <span className={`text-3xl font-bold bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent opacity-40`}>
           {step.number}
@@ -211,9 +211,9 @@ function TabletConnectors() {
 /** Mobile vertical timeline */
 function MobileTimeline() {
   return (
-    <div className="md:hidden relative pl-4">
+    <div className="md:hidden relative pl-2 sm:pl-4">
       <motion.div
-        className="absolute left-[39px] top-10 bottom-16 w-1 rounded-full bg-gradient-to-b from-primary-500 via-secondary-500 to-success-500"
+        className="absolute left-[27px] sm:left-[39px] top-10 bottom-16 w-1 rounded-full bg-gradient-to-b from-primary-500 via-secondary-500 to-success-500"
         initial={{ scaleY: 0 }}
         whileInView={{ scaleY: 1 }}
         viewport={{ once: true }}
@@ -233,16 +233,16 @@ function MobileTimeline() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ ...viewTransitionFast, delay: index * 0.05 }}
-              className="relative flex gap-6 pb-12 last:pb-0"
+              className="relative flex gap-4 sm:gap-6 pb-10 sm:pb-12 last:pb-0"
             >
               {/* Node on rail */}
               <div className="relative z-10 flex-shrink-0">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className={`w-[72px] h-[72px] rounded-xl rotate-45 bg-gradient-to-br ${step.gradient} flex items-center justify-center ring-2 ${step.ring}`}
+                  className={`w-14 h-14 sm:w-[72px] sm:h-[72px] rounded-xl rotate-45 bg-gradient-to-br ${step.gradient} flex items-center justify-center ring-2 ${step.ring}`}
                 >
                   <div className="-rotate-45">
-                    <Icon className="w-8 h-8 text-white" />
+                    <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
                 </motion.div>
                 {!isLast && (
@@ -296,7 +296,7 @@ export default function HowItWorks() {
         <div className="hidden md:block relative">
           <DesktopConnectors />
           <TabletConnectors />
-          <div className="grid grid-cols-3 gap-6 lg:gap-10 pt-4">
+          <div className="grid grid-cols-3 gap-4 md:gap-6 lg:gap-10 pt-4">
             {steps.map((step, index) => (
               <StepNode key={step.id} step={step} index={index} />
             ))}
@@ -310,7 +310,7 @@ export default function HowItWorks() {
           {...fadeUpProps(0.1)}
           className="mt-14 text-center"
         >
-          <p className="text-neutral-600 dark:text-neutral-400 mb-6 text-lg">
+          <p className="text-neutral-600 dark:text-neutral-400 mb-6 text-base sm:text-lg px-2 sm:px-0">
             It&apos;s that simple. Start your transformation today.
           </p>
           <motion.button

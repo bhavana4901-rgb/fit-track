@@ -55,7 +55,7 @@ export default function Navbar({ onMobileMenuToggle }) {
             <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center transition-opacity group-hover:opacity-90">
               <span className="text-white font-bold text-lg md:text-xl">F</span>
             </div>
-            <span className="hidden sm:inline font-bold text-lg md:text-xl text-neutral-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+            <span className="font-bold text-base sm:text-lg md:text-xl text-neutral-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
               FitTrack
             </span>
           </Link>

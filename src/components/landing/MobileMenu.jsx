@@ -38,7 +38,7 @@ export default function MobileMenu({ isOpen, onClose }) {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: '100%', opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed right-0 top-0 h-full w-72 bg-white dark:bg-neutral-950 z-50 md:hidden border-l border-neutral-200 dark:border-neutral-800 shadow-sm"
+            className="fixed right-0 top-0 h-full w-full max-w-[min(100%,20rem)] sm:w-72 bg-white dark:bg-neutral-950 z-50 md:hidden border-l border-neutral-200 dark:border-neutral-800 shadow-sm"
           >
             {/* Menu Content */}
             <div className="h-full flex flex-col">

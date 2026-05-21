@@ -119,8 +119,8 @@ export default function Footer() {
         </motion.div>
 
         {/* Main grid */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-10 md:gap-8 mb-14">
-          <motion.div className="col-span-2" {...fadeUpProps(0)}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-8 sm:gap-10 md:gap-8 mb-14">
+          <motion.div className="sm:col-span-2 md:col-span-2" {...fadeUpProps(0)}>
             <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
               <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center group-hover:opacity-90 transition-opacity">
                 <Home className="w-5 h-5 text-white" />

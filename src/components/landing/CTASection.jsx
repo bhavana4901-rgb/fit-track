@@ -41,7 +41,7 @@ export default function CTASection() {
           {/* Animated mesh */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_0%_0%,rgba(59,130,246,0.12),transparent_50%),radial-gradient(ellipse_at_100%_100%,rgba(139,92,246,0.1),transparent_50%)]" />
 
-          <div className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 p-8 md:p-12 lg:p-16 items-center">
+          <div className="relative z-10 grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 p-5 sm:p-8 md:p-12 lg:p-16 items-center">
             {/* Left — copy + perks */}
             <motion.div
               initial={{ opacity: 0, x: -16 }}
@@ -53,13 +53,13 @@ export default function CTASection() {
                 <span className="w-2 h-2 rounded-full bg-success-400 animate-pulse" />
                 Limited time — free trial
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
                 Ready to transform{' '}
                 <span className="bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400 bg-clip-text text-transparent">
                   your fitness?
                 </span>
               </h2>
-              <p className="text-neutral-400 text-lg mb-8 max-w-md">
+              <p className="text-neutral-400 text-base sm:text-lg mb-6 sm:mb-8 max-w-md">
                 Join thousands crushing their goals. Start free — upgrade when you&apos;re ready.
               </p>
               <div className="flex flex-wrap gap-3">

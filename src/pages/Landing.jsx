@@ -2,7 +2,7 @@ import { Navbar, Hero, SocialProof, Features, HowItWorks, Testimonials, Pricing,
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
+    <div className="min-h-screen overflow-x-hidden bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
       <Navbar />
       <main>
         <Hero />

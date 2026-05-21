@@ -23,15 +23,15 @@ const pulseRing = {
 
 export default function HeroFitnessIllustration() {
   const badges = [
-    { Icon: Dumbbell, color: 'text-primary-500', bg: 'bg-primary-500/15', pos: 'top-8 left-4 md:top-12 md:left-8', delay: 0 },
-    { Icon: Heart, color: 'text-accent-500', bg: 'bg-accent-500/15', pos: 'top-16 right-4 md:top-20 md:right-10', delay: 0.3 },
-    { Icon: Flame, color: 'text-error-500', bg: 'bg-error-500/15', pos: 'bottom-20 left-6 md:bottom-24 md:left-12', delay: 0.6 },
-    { Icon: Activity, color: 'text-success-500', bg: 'bg-success-500/15', pos: 'bottom-12 right-6 md:bottom-16 md:right-8', delay: 0.9 },
-    { Icon: Zap, color: 'text-secondary-500', bg: 'bg-secondary-500/15', pos: 'top-1/2 -translate-y-1/2 right-0 md:right-2', delay: 1.2 },
+    { Icon: Dumbbell, color: 'text-primary-500', pos: 'top-6 left-2 sm:top-8 sm:left-4 md:top-12 md:left-8', delay: 0, hideOnMobile: false },
+    { Icon: Heart, color: 'text-accent-500', pos: 'top-12 right-2 sm:top-16 sm:right-4 md:top-20 md:right-10', delay: 0.3, hideOnMobile: false },
+    { Icon: Flame, color: 'text-error-500', pos: 'bottom-24 left-3 sm:bottom-20 sm:left-6 md:bottom-24 md:left-12', delay: 0.6, hideOnMobile: false },
+    { Icon: Activity, color: 'text-success-500', pos: 'bottom-14 right-3 sm:bottom-12 sm:right-6 md:bottom-16 md:right-8', delay: 0.9, hideOnMobile: false },
+    { Icon: Zap, color: 'text-secondary-500', pos: 'top-1/2 -translate-y-1/2 right-0 md:right-2', delay: 1.2, hideOnMobile: true },
   ]
 
   return (
-    <div className="relative w-full max-w-lg mx-auto aspect-square" aria-hidden="true">
+    <div className="relative w-full max-w-[min(100%,20rem)] sm:max-w-md lg:max-w-lg mx-auto aspect-square" aria-hidden="true">
       {/* Glow backdrop */}
       <motion.div
         className="absolute inset-8 rounded-full bg-gradient-to-br from-primary-400/30 via-secondary-400/25 to-accent-400/20 blur-2xl"
@@ -166,16 +166,16 @@ export default function HeroFitnessIllustration() {
       </motion.div>
 
       {/* Floating icon badges */}
-      {badges.map(({ Icon, color, bg, pos, delay }, i) => (
+      {badges.map(({ Icon, color, pos, delay, hideOnMobile }, i) => (
         <motion.div
           key={i}
           custom={i}
           variants={floatVariants}
           animate="animate"
           transition={{ delay }}
-          className={`absolute ${pos} w-11 h-11 md:w-12 md:h-12 rounded-lg ${bg} border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-sm flex items-center justify-center`}
+          className={`absolute ${pos} w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-sm flex items-center justify-center ${hideOnMobile ? 'hidden sm:flex' : ''}`}
         >
-          <Icon className={`w-5 h-5 md:w-6 md:h-6 ${color}`} strokeWidth={2.5} />
+          <Icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${color}`} strokeWidth={2.5} />
         </motion.div>
       ))}
 
@@ -184,21 +184,21 @@ export default function HeroFitnessIllustration() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center gap-4"
+        className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] max-w-[240px] sm:max-w-none sm:w-auto px-3 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center justify-center gap-2 sm:gap-4"
       >
-        <div className="text-center">
-          <p className="text-lg font-bold text-primary-600 dark:text-primary-400">2.4k</p>
-          <p className="text-[10px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Calories</p>
+        <div className="text-center flex-1 min-w-0">
+          <p className="text-sm sm:text-lg font-bold text-primary-600 dark:text-primary-400">2.4k</p>
+          <p className="text-[9px] sm:text-[10px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Calories</p>
         </div>
-        <div className="w-px h-8 bg-neutral-200 dark:bg-neutral-700" />
-        <div className="text-center">
-          <p className="text-lg font-bold text-secondary-600 dark:text-secondary-400">45m</p>
-          <p className="text-[10px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Active</p>
+        <div className="w-px h-6 sm:h-8 bg-neutral-200 dark:bg-neutral-700 shrink-0" />
+        <div className="text-center flex-1 min-w-0">
+          <p className="text-sm sm:text-lg font-bold text-secondary-600 dark:text-secondary-400">45m</p>
+          <p className="text-[9px] sm:text-[10px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Active</p>
         </div>
-        <div className="w-px h-8 bg-neutral-200 dark:bg-neutral-700" />
-        <div className="text-center">
-          <p className="text-lg font-bold text-accent-600 dark:text-accent-400">12</p>
-          <p className="text-[10px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Streak</p>
+        <div className="w-px h-6 sm:h-8 bg-neutral-200 dark:bg-neutral-700 shrink-0" />
+        <div className="text-center flex-1 min-w-0">
+          <p className="text-sm sm:text-lg font-bold text-accent-600 dark:text-accent-400">12</p>
+          <p className="text-[9px] sm:text-[10px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Streak</p>
         </div>
       </motion.div>
     </div>

@@ -96,7 +96,7 @@ function StatCard({ stat, display, index }) {
         <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.gradient}`} />
         <div className="relative flex items-start justify-between gap-4">
           <div>
-            <p className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tabular-nums tracking-tight">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tabular-nums tracking-tight">
               {display}
             </p>
             <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mt-2">{stat.label}</p>
@@ -128,7 +128,7 @@ function StatCard({ stat, display, index }) {
               <Star key={i} className="w-5 h-5 text-warning-500 fill-warning-500" />
             ))}
           </div>
-          <p className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tabular-nums">{display}</p>
+          <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tabular-nums">{display}</p>
           <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">{stat.label}</p>
           <p className="text-xs text-neutral-500 mt-1">10,000+ verified reviews</p>
         </div>
@@ -208,7 +208,7 @@ function LogoMarquee() {
               className="flex-shrink-0 px-3 py-2 rounded-xl bg-white/60 dark:bg-neutral-800/40 border border-neutral-200/50 dark:border-neutral-700/50 backdrop-blur-sm"
               title={partner.name}
             >
-              <Logo className={`h-7 w-[120px] ${partner.color}`} />
+              <Logo className={`h-6 sm:h-7 w-[100px] sm:w-[120px] ${partner.color}`} />
             </div>
           )
         })}
@@ -226,8 +226,8 @@ export default function SocialProof() {
     <section className={`${ls.section} relative overflow-hidden bg-white dark:bg-neutral-950`}>
       {/* Ambient depth — not a box */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-24 right-0 w-[420px] h-[420px] rounded-full bg-primary-400/10 dark:bg-primary-600/5 blur-3xl" />
-        <div className="absolute bottom-0 -left-24 w-[360px] h-[360px] rounded-full bg-secondary-400/10 dark:bg-secondary-600/5 blur-3xl" />
+        <div className="absolute -top-24 right-0 w-48 sm:w-[420px] h-48 sm:h-[420px] rounded-full bg-primary-400/10 dark:bg-primary-600/5 blur-3xl" />
+        <div className="absolute bottom-0 -left-24 w-48 sm:w-[360px] h-48 sm:h-[360px] rounded-full bg-secondary-400/10 dark:bg-secondary-600/5 blur-3xl" />
       </div>
 
       <div className={`${ls.container} relative z-10`}>

@@ -62,13 +62,13 @@ function FeatureCard({ feature }) {
       <motion.article
         variants={cardVariants}
         whileHover={{ y: -6 }}
-        className={`md:col-span-2 lg:col-span-2 lg:row-span-2 group relative overflow-hidden rounded-xl min-h-[280px] border border-neutral-200 dark:border-neutral-800 shadow-sm ${ls.cardHover}`}
+        className={`md:col-span-2 lg:col-span-2 lg:row-span-2 group relative overflow-hidden rounded-xl min-h-[220px] sm:min-h-[260px] md:min-h-[280px] border border-neutral-200 dark:border-neutral-800 shadow-sm ${ls.cardHover}`}
       >
         <div className={`absolute inset-0 bg-gradient-to-br ${feature.lightBg}`} />
         <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.gradient}`} />
-        <div className="relative h-full p-8 md:p-10 flex flex-col justify-between">
-          <div className="flex justify-between items-start">
-            <span className="text-5xl font-bold text-primary-200/60 dark:text-primary-800/60 leading-none">{num}</span>
+        <div className="relative h-full p-5 sm:p-8 md:p-10 flex flex-col justify-between">
+          <div className="flex justify-between items-start gap-2">
+            <span className="text-4xl sm:text-5xl font-bold text-primary-200/60 dark:text-primary-800/60 leading-none">{num}</span>
             <motion.div
               whileHover={{ rotate: 12 }}
               className={`p-3.5 rounded-xl bg-gradient-to-br ${feature.gradient}`}
@@ -80,14 +80,14 @@ function FeatureCard({ feature }) {
             <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 mb-3">
               {feature.stat}
             </span>
-            <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-3">{feature.title}</h3>
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-3">{feature.title}</h3>
             <p className="text-neutral-600 dark:text-neutral-400 max-w-md leading-relaxed">{feature.description}</p>
             <div className="mt-6 flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
               Explore feature <ArrowUpRight className="w-4 h-4" />
             </div>
           </div>
           {/* Mini chart decoration */}
-          <div className="absolute bottom-8 right-8 flex items-end gap-1.5 opacity-40 group-hover:opacity-70 transition-opacity">
+          <div className="absolute bottom-5 right-5 sm:bottom-8 sm:right-8 hidden sm:flex items-end gap-1.5 opacity-40 group-hover:opacity-70 transition-opacity">
             {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
               <motion.div
                 key={i}
@@ -233,19 +233,19 @@ export default function Features() {
 
         <motion.div
           {...fadeUpProps(0.08)}
-          className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none mx-auto"
         >
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-sm transition-colors"
+            className="w-full sm:w-auto px-8 py-3.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-sm transition-colors"
           >
             Get Started Free
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3.5 rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
           >
             Learn More
           </motion.button>

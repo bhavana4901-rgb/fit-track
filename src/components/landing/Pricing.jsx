@@ -120,7 +120,7 @@ function PricingCard({ tier, index }) {
           </p>
 
           <div className="flex items-baseline gap-1 mb-6">
-            <span className={`text-5xl font-bold tracking-tight ${isFeatured ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
+            <span className={`text-4xl sm:text-5xl font-bold tracking-tight ${isFeatured ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
               ${tier.price}
             </span>
             <span className={`text-sm ${isFeatured ? 'text-neutral-400' : 'text-neutral-500'}`}>{tier.period}</span>
@@ -220,7 +220,7 @@ export default function Pricing() {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mt-10 sm:mt-14 max-w-md md:max-w-none mx-auto md:mx-0">
           {pricingTiers.map((tier, index) => (
             <PricingCard
               key={tier.id}

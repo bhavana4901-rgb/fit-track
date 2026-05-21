@@ -102,7 +102,7 @@ function TestimonialCard({ testimonial, isPrimary }) {
   if (style === 'bold') {
     return (
       <div
-        className={`h-full min-h-[300px] rounded-xl p-6 md:p-8 flex flex-col bg-gradient-to-br ${testimonial.gradient} text-white border border-white/20 shadow-sm transition-all duration-500 ${inactive}`}
+        className={`h-full min-h-[240px] sm:min-h-[280px] md:min-h-[300px] rounded-xl p-6 md:p-8 flex flex-col bg-gradient-to-br ${testimonial.gradient} text-white border border-white/20 shadow-sm transition-all duration-500 ${inactive}`}
       >
         <div className="flex flex-col flex-1 gap-4">
           <StarRow count={testimonial.rating} size="w-4 h-4" />
@@ -126,7 +126,7 @@ function TestimonialCard({ testimonial, isPrimary }) {
   if (style === 'split') {
     return (
       <div
-        className={`h-full min-h-[300px] rounded-xl overflow-hidden border ${testimonial.accent} bg-white dark:bg-neutral-900 shadow-sm flex flex-col transition-all duration-500 ${inactive}`}
+        className={`h-full min-h-[240px] sm:min-h-[280px] md:min-h-[300px] rounded-xl overflow-hidden border ${testimonial.accent} bg-white dark:bg-neutral-900 shadow-sm flex flex-col transition-all duration-500 ${inactive}`}
       >
         <div className={`p-5 flex flex-col items-center bg-gradient-to-br ${testimonial.bg} flex-shrink-0`}>
           <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white font-bold text-lg mb-3`}>
@@ -150,7 +150,7 @@ function TestimonialCard({ testimonial, isPrimary }) {
   if (style === 'glass') {
     return (
       <div
-        className={`h-full min-h-[300px] rounded-xl p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-sm relative overflow-hidden flex flex-col transition-all duration-500 ${inactive}`}
+        className={`h-full min-h-[240px] sm:min-h-[280px] md:min-h-[300px] rounded-xl p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-sm relative overflow-hidden flex flex-col transition-all duration-500 ${inactive}`}
       >
         <div className="relative z-10 flex flex-col flex-1 gap-4">
           <div className="flex items-center gap-3 flex-shrink-0">
@@ -177,7 +177,7 @@ function TestimonialCard({ testimonial, isPrimary }) {
   // quote — decorative mark separate from content
   return (
     <div
-      className={`h-full min-h-[300px] rounded-xl bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 flex overflow-hidden transition-all duration-500 ${inactive}`}
+      className={`h-full min-h-[240px] sm:min-h-[280px] md:min-h-[300px] rounded-xl bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 flex overflow-hidden transition-all duration-500 ${inactive}`}
     >
       <div className={`w-1.5 flex-shrink-0 bg-gradient-to-b ${testimonial.gradient}`} />
       <div className="flex-1 p-6 flex flex-col justify-between min-w-0">
@@ -257,30 +257,12 @@ export default function Testimonials() {
             Loved by <span className={ls.headingAccent}>thousands</span>
           </h2>
           <p className={`${ls.subheading} mx-auto`}>
-            Real success stories from our community — two at a time
+            Real success stories from our community
           </p>
         </motion.div>
 
-        <div className="relative px-10 md:px-14">
-          <button
-            type="button"
-            onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
-            aria-label="Previous testimonials"
-          >
-            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-          </button>
-
-          <button
-            type="button"
-            onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
-            aria-label="Next testimonials"
-          >
-            <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-          </button>
-
-          <div className="overflow-hidden min-h-[300px]">
+        <div className="relative">
+          <div className="overflow-hidden min-h-[240px] sm:min-h-[280px] md:min-h-[300px] md:px-12 lg:px-14">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={currentIndex}
@@ -302,9 +284,46 @@ export default function Testimonials() {
               </motion.div>
             </AnimatePresence>
           </div>
+
+          <div className="flex md:hidden justify-center items-center gap-4 mt-5">
+            <button
+              type="button"
+              onClick={prev}
+              className="w-11 h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
+              aria-label="Previous testimonials"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              className="w-11 h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
+              aria-label="Next testimonials"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={prev}
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
+            aria-label="Previous testimonials"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+
+          <button
+            type="button"
+            onClick={next}
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
+            aria-label="Next testimonials"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
         </div>
 
-        <div className="flex flex-col items-center gap-4 mt-10">
+        <div className="flex flex-col items-center gap-4 mt-8 sm:mt-10">
           <div className="flex gap-2">
             {testimonials.map((_, index) => (
               <button
