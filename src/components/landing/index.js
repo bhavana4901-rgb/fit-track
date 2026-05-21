@@ -2,6 +2,8 @@
 export { default as Navbar } from './Navbar'
 export { default as MobileMenu } from './MobileMenu'
 export { default as Hero } from './Hero'
+export { default as HeroFitnessIllustration } from './HeroFitnessIllustration'
+export { default as HeroAnimatedBackground } from './HeroAnimatedBackground'
 export { default as SocialProof } from './SocialProof'
 export { default as Features } from './Features'
 export { default as HowItWorks } from './HowItWorks'

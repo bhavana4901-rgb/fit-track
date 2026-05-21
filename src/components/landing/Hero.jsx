@@ -1,92 +1,29 @@
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDown, Users, Star, PlayCircle } from 'lucide-react'
 import Button from '../ui/Button'
+import HeroFitnessIllustration from './HeroFitnessIllustration'
+import HeroAnimatedBackground from './HeroAnimatedBackground'
 
 /**
- * Premium Hero section with animations and parallax
- * - Gradient headline text
- * - 2 CTA buttons
- * - Animated background blobs
- * - Trust indicators
- * - Scroll-down indicator
- * - Responsive layout
+ * Premium Hero section with animated fitness illustration
+ * - Gradient background with subtle motion
+ * - Animated fitness illustration (SVG + Framer Motion)
+ * - 2 CTA buttons, trust indicators, scroll indicator
  */
 export default function Hero() {
-  const [offsetY, setOffsetY] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setOffsetY(window.scrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20 dark:from-neutral-950 dark:via-blue-950/20 dark:to-purple-950/10 pt-32 md:pt-40 pb-20 md:pb-32">
-      {/* Animated Background Blobs */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        {/* Blob 1 - Top Left */}
-        <motion.div
-          initial={{ opacity: 0.5 }}
-          animate={{ 
-            y: [0, 40, 0],
-            x: [0, 20, 0],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{ 
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut'
-          }}
-          className="absolute -top-40 -left-40 w-80 h-80 bg-gradient-to-r from-primary-500/30 to-primary-600/20 rounded-full blur-3xl"
-        />
+    <section className="relative isolate min-h-screen w-full overflow-hidden bg-white dark:bg-neutral-950 pt-32 md:pt-30 pb-20 md:pb-32">
+      <HeroAnimatedBackground />
 
-        {/* Blob 2 - Top Right */}
-        <motion.div
-          initial={{ opacity: 0.5 }}
-          animate={{ 
-            y: [40, 0, 40],
-            x: [0, -20, 0],
-            opacity: [0.6, 0.3, 0.6]
-          }}
-          transition={{ 
-            duration: 10,
-            repeat: Infinity,
-            ease: 'easeInOut'
-          }}
-          className="absolute -top-60 -right-40 w-96 h-96 bg-gradient-to-l from-secondary-500/30 to-secondary-600/20 rounded-full blur-3xl"
-        />
-
-        {/* Blob 3 - Bottom Center */}
-        <motion.div
-          initial={{ opacity: 0.4 }}
-          animate={{ 
-            y: [-40, 40, -40],
-            scale: [1, 1.1, 1],
-            opacity: [0.4, 0.5, 0.4]
-          }}
-          transition={{ 
-            duration: 12,
-            repeat: Infinity,
-            ease: 'easeInOut'
-          }}
-          className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-t from-accent-500/20 to-accent-600/10 rounded-full blur-3xl"
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-8rem)] flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="space-y-6 md:space-y-8"
+            className="space-y-6 md:space-y-8 text-center lg:text-left"
           >
-            {/* Gradient Headline */}
             <div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600">
@@ -99,22 +36,20 @@ export default function Hero() {
               </h1>
             </div>
 
-            {/* Subheading */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-300 max-w-lg leading-relaxed"
+              className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-300 max-w-lg mx-auto lg:mx-0 leading-relaxed"
             >
               Get personalized workouts, track your progress, and connect with a community of fitness enthusiasts. Start achieving your goals today.
             </motion.p>
 
-            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 pt-4"
+              className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start"
             >
               <Button size="lg" className="w-full sm:w-auto">
                 Get Started Free
@@ -125,14 +60,12 @@ export default function Hero() {
               </Button>
             </motion.div>
 
-            {/* Trust Indicators */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-6 pt-4 border-t border-neutral-200 dark:border-neutral-800 mt-8 pt-8"
+              className="flex flex-col sm:flex-row gap-6 pt-4 border-t border-neutral-200 dark:border-neutral-800 mt-8 pt-8 justify-center lg:justify-start"
             >
-              {/* Users Indicator */}
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
                   <Users className="w-5 h-5 text-primary-600 dark:text-primary-400" />
@@ -143,7 +76,6 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Rating Indicator */}
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center">
                   <Star className="w-5 h-5 text-accent-600 dark:text-accent-400 fill-current" />
@@ -156,85 +88,20 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Dashboard Mockup */}
+          {/* Right — Animated fitness illustration */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{
-              y: offsetY * 0.5 // Parallax effect
-            }}
-            className="hidden lg:block relative"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+            className="relative flex justify-center lg:justify-end"
           >
-            {/* Dashboard Mockup Card */}
-            <div className="relative">
-              {/* Glow Effect */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 -z-10" />
-
-              {/* Card */}
-              <div className="relative bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800">
-                {/* Header */}
-                <div className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-900 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
-                  <p className="text-sm font-semibold text-neutral-900 dark:text-white">Your Dashboard</p>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 space-y-6">
-                  {/* Stats Row */}
-                  <div className="grid grid-cols-3 gap-4">
-                    {[
-                      { label: 'Calories', value: '620', unit: 'kcal' },
-                      { label: 'Duration', value: '45', unit: 'min' },
-                      { label: 'Streak', value: '12', unit: 'days' },
-                    ].map((stat, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 + idx * 0.1 }}
-                        className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3"
-                      >
-                        <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium">{stat.label}</p>
-                        <p className="text-lg font-bold text-neutral-900 dark:text-white mt-1">{stat.value}</p>
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400">{stat.unit}</p>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Progress Bar */}
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Weekly Goal</p>
-                      <p className="text-sm text-primary-600 dark:text-primary-400 font-semibold">75%</p>
-                    </div>
-                    <div className="w-full h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: '75%' }}
-                        transition={{ duration: 1, delay: 0.5 }}
-                        className="h-full bg-gradient-to-r from-primary-500 to-primary-600"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Activity List */}
-                  <div className="space-y-3">
-                    {['Running', 'Strength', 'Yoga'].map((activity, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.6 + idx * 0.1 }}
-                        className="flex items-center justify-between p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg"
-                      >
-                        <p className="text-sm font-medium text-neutral-900 dark:text-white">{activity}</p>
-                        <div className="w-2 h-2 rounded-full bg-primary-500" />
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <motion.div
+              animate={{ y: [0, -14, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-full max-w-md lg:max-w-lg"
+            >
+              <HeroFitnessIllustration />
+            </motion.div>
           </motion.div>
         </div>
       </div>
