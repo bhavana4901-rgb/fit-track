@@ -128,13 +128,16 @@ export default {
       6: '1.5rem',
       8: '2rem',
       10: '2.5rem',
+      11: '2.75rem', // 44px for touch targets
       12: '3rem',
       14: '3.5rem',
       16: '4rem',
       20: '5rem',
       24: '6rem',
+      25: '6.25rem', // 100px
       28: '7rem',
       32: '8rem',
+      35: '8.75rem', // 140px
       36: '9rem',
       40: '10rem',
       44: '11rem',
@@ -143,6 +146,62 @@ export default {
       56: '14rem',
       60: '15rem',
       64: '16rem',
+      70: '17.5rem', // 280px
+      80: '20rem', // 320px
+      90: '22.5rem', // 360px
+      100: '25rem', // 400px
+      110: '27.5rem', // 440px
+      112: '28rem', // 448px
+      120: '30rem', // 480px
+      125: '31.25rem', // 500px
+    },
+    minWidth: {
+      0: '0',
+      11: '2.75rem', // 44px
+      full: '100%',
+      min: 'min-content',
+      max: 'max-content',
+      fit: 'fit-content',
+    },
+    minHeight: {
+      0: '0',
+      35: '8.75rem', // 140px
+      40: '10rem', // 160px
+      60: '15rem', // 240px
+      70: '17.5rem', // 280px
+      75: '18.75rem', // 300px
+      full: '100%',
+      screen: '100vh',
+      min: 'min-content',
+      max: 'max-content',
+      fit: 'fit-content',
+    },
+    maxWidth: {
+      0: '0',
+      xs: '20rem',
+      sm: '24rem',
+      md: '28rem',
+      lg: '32rem',
+      xl: '36rem',
+      '2xl': '42rem',
+      '3xl': '48rem',
+      '4xl': '56rem',
+      '5xl': '64rem',
+      '6xl': '72rem',
+      '7xl': '80rem',
+      '110': '27.5rem', // 440px
+      full: '100%',
+      min: 'min-content',
+      max: 'max-content',
+      fit: 'fit-content',
+      prose: '65ch',
+      screen: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
     },
     borderRadius: {
       none: '0',
@@ -156,6 +215,7 @@ export default {
       full: '9999px',
     },
     fontSize: {
+      '2xs': ['0.625rem', { lineHeight: '0.875rem' }], // 10px
       xs: ['0.75rem', { lineHeight: '1rem' }],
       sm: ['0.875rem', { lineHeight: '1.25rem' }],
       base: ['1rem', { lineHeight: '1.5rem' }],

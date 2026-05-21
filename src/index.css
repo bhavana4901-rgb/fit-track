@@ -28,6 +28,46 @@ body {
   color: rgb(17 24 39);
 }
 
+/* Enhanced Focus States for Accessibility */
+*:focus-visible {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+html.dark *:focus-visible {
+  outline-color: rgb(147 197 253);
+}
+
+/* High Contrast Focus for Buttons */
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgb(59 130 246);
+  outline-offset: 3px;
+}
+
+html.dark button:focus-visible,
+html.dark a:focus-visible {
+  outline-color: rgb(147 197 253);
+}
+
+/* Skip to main content link for screen readers */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1rem 1.5rem;
+  background-color: rgb(59 130 246);
+  color: white;
+  text-decoration: none;
+  border-radius: 0.5rem;
+}
+
+.skip-to-main:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html,
   body,
