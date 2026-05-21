@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, LayoutDashboard, Dumbbell, Apple, TrendingUp, Settings, LogOut, ChevronDown, Moon, Sun } from 'lucide-react'
+import { Menu, ChevronLeft, ChevronRight, LayoutDashboard, Dumbbell, Apple, TrendingUp, Settings, Moon, Sun } from 'lucide-react'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useTheme } from '../../hooks/useTheme'
 import DashboardAmbientBackground from './DashboardAmbientBackground'
@@ -16,29 +16,10 @@ const navigationItems = [
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(true)
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false)
-  const { user, logout } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const { isDark, toggleTheme } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
-
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') setProfileMenuOpen(false)
-    }
-    if (profileMenuOpen) {
-      document.addEventListener('keydown', handleEscape)
-      return () => document.removeEventListener('keydown', handleEscape)
-    }
-  }, [profileMenuOpen])
-
-  const handleLogout = () => {
-    const confirmed = window.confirm('Are you sure you want to logout?')
-    if (confirmed) {
-      logout()
-      navigate('/login')
-    }
-  }
 
   const isActive = (href) => location.pathname === href
 
@@ -52,31 +33,33 @@ export default function DashboardLayout({ children }) {
         initial={false}
         animate={{ width: sidebarOpen ? 256 : 80 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="hidden md:flex flex-col bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border-r border-neutral-200/80 dark:border-neutral-800/80 shadow-sm"
+        className="hidden md:flex flex-col bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border-r border-neutral-200/80 dark:border-neutral-800/80 shadow-sm relative"
       >
         {/* Logo Section */}
         <motion.div
-          className="p-4 border-b border-neutral-200 dark:border-neutral-800"
+          className="p-4 border-b border-neutral-200 dark:border-neutral-800 flex items-center"
           animate={{ justifyContent: sidebarOpen ? 'flex-start' : 'center' }}
         >
           <motion.div
-            animate={{ scale: sidebarOpen ? 1 : 0.8 }}
+            animate={{ scale: sidebarOpen ? 1 : 0.9 }}
             className="flex items-center gap-3"
           >
             <div className="w-9 h-9 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center shadow-md shadow-primary-500/20">
               <span className="text-white font-bold text-sm">F</span>
             </div>
-            {sidebarOpen && (
-              <motion.h1
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ delay: 0.1 }}
-                className="font-bold text-lg text-neutral-900 dark:text-white whitespace-nowrap"
-              >
-                FitTrack
-              </motion.h1>
-            )}
+            <AnimatePresence>
+              {sidebarOpen && (
+                <motion.h1
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: 'auto' }}
+                  exit={{ opacity: 0, width: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="font-bold text-lg text-neutral-900 dark:text-white whitespace-nowrap overflow-hidden"
+                >
+                  FitTrack
+                </motion.h1>
+              )}
+            </AnimatePresence>
           </motion.div>
         </motion.div>
 
@@ -89,28 +72,31 @@ export default function DashboardLayout({ children }) {
               <motion.button
                 key={item.id}
                 onClick={() => navigate(item.href)}
-                whileHover={{ x: 4 }}
+                whileHover={{ x: sidebarOpen ? 4 : 0, scale: sidebarOpen ? 1 : 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 aria-label={`Navigate to ${item.label}`}
                 aria-current={active ? 'page' : undefined}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900 ${
+                title={!sidebarOpen ? item.label : ''}
+                className={`w-full flex items-center ${sidebarOpen ? 'gap-3 px-4' : 'justify-center px-0'} py-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900 ${
                   active
                     ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-950/40 dark:to-primary-900/20 text-primary-700 dark:text-primary-300 shadow-sm border border-primary-100 dark:border-primary-900/50'
                     : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80'
                 }`}
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
-                {sidebarOpen && (
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="font-medium text-sm whitespace-nowrap"
-                  >
-                    {item.label}
-                  </motion.span>
-                )}
+                <AnimatePresence>
+                  {sidebarOpen && (
+                    <motion.span
+                      initial={{ opacity: 0, width: 0 }}
+                      animate={{ opacity: 1, width: 'auto' }}
+                      exit={{ opacity: 0, width: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="font-medium text-sm whitespace-nowrap overflow-hidden"
+                    >
+                      {item.label}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </motion.button>
             )
           })}
@@ -118,92 +104,56 @@ export default function DashboardLayout({ children }) {
 
         {/* User Profile Section */}
         <motion.div
-          className="p-4 border-t border-neutral-200 dark:border-neutral-800 space-y-2"
+          className="p-4 border-t border-neutral-200 dark:border-neutral-800"
           animate={{ justifyContent: sidebarOpen ? 'flex-start' : 'center' }}
         >
-          <div className="relative">
-            <motion.button
-              onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+          <div className="relative group">
+            <motion.div
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              aria-label="User profile menu"
-              aria-expanded={profileMenuOpen}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
+              className={`flex items-center ${sidebarOpen ? 'gap-3 px-4' : 'justify-center px-0'} py-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700`}
             >
               <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                 {user?.name?.charAt(0) || 'U'}
               </div>
-              {sidebarOpen && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="flex-1 text-left"
-                >
-                  <p className="font-medium text-sm text-neutral-900 dark:text-white truncate">
-                    {user?.name || 'User'}
-                  </p>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate">
-                    {user?.email || 'user@example.com'}
-                  </p>
-                </motion.div>
-              )}
-              {sidebarOpen && (
-                <motion.div
-                  animate={{ rotate: profileMenuOpen ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ChevronDown className="w-4 h-4 text-neutral-400" />
-                </motion.div>
-              )}
-            </motion.button>
-
-            {/* Profile Dropdown Menu */}
-            <AnimatePresence>
-              {profileMenuOpen && sidebarOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute bottom-full left-0 right-0 mb-2 bg-white dark:bg-neutral-800 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 z-50"
-                >
-                  <button
-                    onClick={handleLogout}
-                    aria-label="Logout from your account"
-                    className="w-full flex items-center gap-3 px-4 py-3 text-error-600 dark:text-error-400 hover:bg-error-50 dark:hover:bg-error-950/20 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-error-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-800"
+              <AnimatePresence>
+                {sidebarOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: 'auto' }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex-1 text-left overflow-hidden"
                   >
-                    <LogOut className="w-4 h-4" />
-                    <span className="text-sm font-medium">Logout</span>
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    <p className="font-medium text-sm text-neutral-900 dark:text-white truncate">
+                      {user?.name || 'User'}
+                    </p>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate" title={user?.email || 'user@example.com'}>
+                      {user?.email || 'user@example.com'}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+            
+            {/* Tooltip for collapsed state */}
+            {!sidebarOpen && (
+              <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-neutral-900 dark:bg-neutral-800 text-white text-xs rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-50">
+                <div className="font-medium">{user?.name || 'User'}</div>
+                <div className="text-neutral-300 dark:text-neutral-400">{user?.email || 'user@example.com'}</div>
+                <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-neutral-900 dark:border-r-neutral-800"></div>
+              </div>
+            )}
           </div>
-
-          {sidebarOpen && (
-            <motion.button
-              onClick={handleLogout}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              aria-label="Logout from your account"
-              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-error-50 dark:bg-error-950/20 text-error-600 dark:text-error-400 rounded-lg hover:bg-error-100 dark:hover:bg-error-950/40 transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-error-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
-            >
-              <LogOut className="w-4 h-4" />
-              <span>Logout</span>
-            </motion.button>
-          )}
         </motion.div>
 
-        {/* Theme Toggle & Collapse */}
-        <motion.div className="p-4 border-t border-neutral-200 dark:border-neutral-800 space-y-2">
+        {/* Theme Toggle */}
+        <motion.div className="p-4 border-t border-neutral-200 dark:border-neutral-800">
           <motion.button
             onClick={toggleTheme}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="w-full flex items-center justify-center gap-2 p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
+            className={`w-full flex items-center ${sidebarOpen ? 'gap-2 justify-start px-4' : 'justify-center px-0'} py-2.5 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900`}
             title={isDark ? 'Light mode' : 'Dark mode'}
           >
             {isDark ? (
@@ -211,28 +161,38 @@ export default function DashboardLayout({ children }) {
             ) : (
               <Moon className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
             )}
-            {sidebarOpen && (
-              <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-                {isDark ? 'Light mode' : 'Dark mode'}
-              </span>
-            )}
-          </motion.button>
-          <motion.button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
-            aria-controls="main-sidebar"
-            className="w-full flex items-center justify-center p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
-            title={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
-          >
-            {sidebarOpen ? (
-              <X className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
-            ) : (
-              <Menu className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
-            )}
+            <AnimatePresence>
+              {sidebarOpen && (
+                <motion.span
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: 'auto' }}
+                  exit={{ opacity: 0, width: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-sm font-medium text-neutral-600 dark:text-neutral-400 whitespace-nowrap overflow-hidden"
+                >
+                  {isDark ? 'Light mode' : 'Dark mode'}
+                </motion.span>
+              )}
+            </AnimatePresence>
           </motion.button>
         </motion.div>
+
+        {/* Collapse/Expand Button - Styled Better */}
+        <motion.button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+          aria-controls="main-sidebar"
+          className="absolute -right-3 top-20 w-6 h-6 bg-white dark:bg-neutral-800 border-2 border-neutral-200 dark:border-neutral-700 rounded-full flex items-center justify-center shadow-md hover:shadow-lg hover:border-primary-400 dark:hover:border-primary-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-950 z-10"
+          title={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+        >
+          {sidebarOpen ? (
+            <ChevronLeft className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400" />
+          ) : (
+            <ChevronRight className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400" />
+          )}
+        </motion.button>
       </motion.aside>
 
       {/* Main Content */}
@@ -252,14 +212,6 @@ export default function DashboardLayout({ children }) {
               ) : (
                 <Moon className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
               )}
-            </button>
-            <button
-              onClick={handleLogout}
-              aria-label="Logout from your account"
-              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-error-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
-              title="Logout"
-            >
-              <LogOut className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
             </button>
           </div>
         </motion.header>
