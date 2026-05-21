@@ -47,11 +47,8 @@ export default function StepIndicator({
   const isStepFuture = (step) => step > currentStep
   return (
     <div className={`w-full ${className}`}>
-      {}
       <div className="space-y-6">
-        {}
         <div className="space-y-2">
-          {}
           <div className="flex items-center justify-between">
             <motion.div
               initial={{ opacity: 0 }}
@@ -71,7 +68,6 @@ export default function StepIndicator({
               {Math.round(progress)}%
             </motion.div>
           </div>
-          {}
           <div className={`w-full bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden ${currentSizeClasses.progressHeight}`}>
             <motion.div
               className="h-full bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full"
@@ -81,10 +77,8 @@ export default function StepIndicator({
             />
           </div>
         </div>
-        {}
         {variant === 'default' && (
           <div className="space-y-4 relative">
-            {}
             <div className="flex items-center justify-between">
               {stepList.map((step, index) => {
                 const stepNumber = index + 1
@@ -93,7 +87,6 @@ export default function StepIndicator({
                 const isFuture = isStepFuture(stepNumber)
                 return (
                   <div key={stepNumber} className="flex flex-col items-center gap-2">
-                    {}
                     <motion.div
                       initial={false}
                       animate={{
@@ -135,7 +128,6 @@ export default function StepIndicator({
                         </motion.span>
                       )}
                     </motion.div>
-                    {}
                     {showLabels && (
                       <motion.div
                         className="text-center"
@@ -169,10 +161,8 @@ export default function StepIndicator({
             </div>
           </div>
         )}
-        {}
         {variant === 'compact' && (
           <div className="space-y-2">
-            {}
             <div className="flex items-center justify-between gap-1">
               {stepList.map((step, index) => {
                 const stepNumber = index + 1

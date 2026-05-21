@@ -140,9 +140,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
           Start your fitness journey with FitTrack
         </p>
       </motion.div>
-          {}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {}
             <motion.div variants={itemVariants}>
               <Input
                 label="Full Name"
@@ -154,7 +152,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 {...register('fullName')}
               />
             </motion.div>
-            {}
             <motion.div variants={itemVariants}>
               <Input
                 label="Email Address"
@@ -166,7 +163,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 {...register('email')}
               />
             </motion.div>
-            {}
             <motion.div variants={itemVariants}>
               <Input
                 label="Password"
@@ -179,7 +175,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 required
                 {...register('password')}
               />
-              {}
               {password && (
                 <motion.div
                   className="mt-3 space-y-2"
@@ -187,7 +182,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
                       <label className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -209,7 +203,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                         {passwordStrength.label}
                       </span>
                     </div>
-                    {}
                     <div className="w-full h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
                       <motion.div
                         className={`h-full rounded-full ${passwordStrength.color}`}
@@ -219,7 +212,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                       />
                     </div>
                   </div>
-                  {}
                   {passwordStrength.score < 4 && passwordStrength.feedback.length > 0 && (
                     <motion.div
                       className="space-y-1"
@@ -237,7 +229,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                       ))}
                     </motion.div>
                   )}
-                  {}
                   {passwordStrength.score >= 4 && (
                     <motion.div
                       className="flex items-center gap-2"
@@ -254,7 +245,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 </motion.div>
               )}
             </motion.div>
-            {}
             <motion.div variants={itemVariants}>
               <Input
                 label="Confirm Password"
@@ -268,7 +258,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 {...register('confirmPassword')}
               />
             </motion.div>
-            {}
             <motion.div variants={itemVariants}>
               <button
                 type="button"
@@ -310,7 +299,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 )}
               </button>
             </motion.div>
-            {}
             <motion.div className="relative" variants={itemVariants}>
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-neutral-200 dark:border-neutral-700" />
@@ -321,7 +309,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
                 </span>
               </div>
             </motion.div>
-            {}
             <motion.div
               className="flex gap-3"
               variants={itemVariants}
@@ -353,7 +340,6 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
               </Button>
             </motion.div>
           </form>
-          {}
           <motion.div
             className="p-4 bg-neutral-100/50 dark:bg-neutral-900/50 rounded-lg border border-neutral-200 dark:border-neutral-800"
             variants={itemVariants}

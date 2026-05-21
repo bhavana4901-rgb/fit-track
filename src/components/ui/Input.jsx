@@ -38,13 +38,11 @@ const Input = forwardRef(({
         </label>
       )}
       <div className="relative">
-        {}
         {LeftIcon && (
           <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
             <LeftIcon className="w-5 h-5 text-neutral-400 dark:text-neutral-500" />
           </div>
         )}
-        {}
         <input
           ref={ref}
           id={inputId}
@@ -87,7 +85,6 @@ const Input = forwardRef(({
           `}
           {...rest}
         />
-        {}
         {RightIcon && (
           <button
             type="button"
@@ -101,7 +98,6 @@ const Input = forwardRef(({
           </button>
         )}
       </div>
-      {}
       {error && (
         <p
           id={errorId}

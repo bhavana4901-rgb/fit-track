@@ -33,10 +33,8 @@ export default function CTASection() {
     <section className={`${ls.section} bg-white dark:bg-neutral-950`}>
       <div className={`${ls.container} max-w-6xl`}>
         <div className="relative rounded-2xl overflow-hidden bg-neutral-950 border border-neutral-800 shadow-sm">
-          {}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_0%_0%,rgba(59,130,246,0.12),transparent_50%),radial-gradient(ellipse_at_100%_100%,rgba(139,92,246,0.1),transparent_50%)]" />
           <div className="relative z-10 grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 p-5 sm:p-8 md:p-12 lg:p-16 items-center">
-            {}
             <motion.div
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -72,7 +70,6 @@ export default function CTASection() {
                 ))}
               </div>
             </motion.div>
-            {}
             <motion.div
               initial={{ opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}

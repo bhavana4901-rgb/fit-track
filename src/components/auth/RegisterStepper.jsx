@@ -7,7 +7,6 @@ export default function RegisterStepper({ currentStep = 1, steps = [] }) {
   const progressPercentage = Math.round((currentStep / total) * 100)
   return (
     <nav aria-label="Registration progress" className="w-full">
-      {}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
@@ -26,7 +25,6 @@ export default function RegisterStepper({ currentStep = 1, steps = [] }) {
           />
         </div>
       </div>
-      {}
       <ol className="flex items-center w-full list-none m-0 p-0">
         {steps.map((step, index) => {
           const stepNumber = index + 1

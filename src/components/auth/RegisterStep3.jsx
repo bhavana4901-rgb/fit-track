@@ -120,7 +120,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
           Select 1 to 3 fitness goals to personalize your experience
         </p>
       </motion.div>
-          {}
           <motion.div
             className="flex items-center justify-between px-4 py-3 rounded-lg bg-warning-50/50 dark:bg-warning-950/20 border border-warning-200 dark:border-warning-900/50"
             variants={itemVariants}
@@ -132,7 +131,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
               {selectedGoals.length} / 3
             </span>
           </motion.div>
-          {}
           <motion.form onSubmit={handleSubmit(onSubmit)} className="space-y-6" variants={itemVariants}>
             <Controller
               name="goals"
@@ -174,7 +172,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                         initial="hidden"
                         animate="visible"
                       >
-                        {}
                         {isSelected && (
                           <motion.div
                             className="absolute inset-0 rounded-xl bg-gradient-to-br from-warning-100/50 to-error-100/50 dark:from-warning-900/20 dark:to-error-900/20 pointer-events-none"
@@ -185,7 +182,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                             transition={{ duration: 0.2 }}
                           />
                         )}
-                        {}
                         <AnimatePresence>
                           {isSelected && (
                             <motion.div
@@ -199,7 +195,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                             </motion.div>
                           )}
                         </AnimatePresence>
-                        {}
                         <div className="relative space-y-3">
                           <div className="flex items-start justify-between">
                             <div
@@ -239,7 +234,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                 </div>
               )}
             />
-            {}
             {errors.goals && (
               <motion.div
                 className="p-4 rounded-lg bg-error-50 dark:bg-error-950/20 border border-error-200 dark:border-error-900/50"
@@ -252,7 +246,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                 </p>
               </motion.div>
             )}
-            {}
             {selectedGoals.length > 0 && (
               <motion.div
                 className="p-4 rounded-lg bg-primary-50 dark:bg-primary-950/20 border border-primary-200 dark:border-primary-900/50"
@@ -269,7 +262,6 @@ export default function RegisterStep3({ onNext, onPrevious, initialData }) {
                 </p>
               </motion.div>
             )}
-            {}
             <motion.div
               className="flex gap-3 pt-6"
               variants={itemVariants}

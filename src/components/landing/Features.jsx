@@ -82,7 +82,6 @@ function FeatureCard({ feature }) {
               Explore feature <ArrowUpRight className="w-4 h-4" />
             </div>
           </div>
-          {}
           <div className="absolute bottom-5 right-5 sm:bottom-8 sm:right-8 hidden sm:flex items-end gap-1.5 opacity-40 group-hover:opacity-70 transition-opacity">
             {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
               <motion.div
@@ -208,7 +207,6 @@ export default function Features() {
             Everything you need to transform your fitness journey — one intuitive platform
           </p>
         </motion.div>
-        {}
         <motion.div
           variants={containerVariants}
           initial="hidden"

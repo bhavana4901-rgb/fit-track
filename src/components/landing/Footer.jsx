@@ -69,11 +69,9 @@ export default function Footer() {
   }
   return (
     <footer className="relative bg-neutral-950 text-neutral-400 overflow-hidden">
-      {}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/50 to-transparent" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-24 bg-gradient-to-b from-primary-500/5 to-transparent pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20 pb-8 relative z-10">
-        {}
         <motion.div {...fadeUpProps(0)} className="relative -mt-2 mb-16 md:mb-20">
           <div className="relative rounded-xl bg-neutral-900 border border-neutral-800 p-6 md:p-10 overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 w-48 h-48 bg-primary-500/5 rounded-full blur-2xl pointer-events-none" />
@@ -110,7 +108,6 @@ export default function Footer() {
             </div>
           </div>
         </motion.div>
-        {}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-8 sm:gap-10 md:gap-8 mb-14">
           <motion.div className="sm:col-span-2 md:col-span-2" {...fadeUpProps(0)}>
             <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
@@ -149,7 +146,6 @@ export default function Footer() {
             <FooterLinkColumn title="Legal" links={navigationLinks.legal} />
           </motion.div>
         </div>
-        {}
         <div className="pt-8 border-t border-neutral-800/80 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-neutral-600">
             © {new Date().getFullYear()} FitTrack. All rights reserved.

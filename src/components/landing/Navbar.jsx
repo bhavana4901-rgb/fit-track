@@ -44,7 +44,6 @@ export default function Navbar({ onMobileMenuToggle }) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {}
           <Link
             to="/"
             className="flex items-center gap-2 group"
@@ -56,7 +55,6 @@ export default function Navbar({ onMobileMenuToggle }) {
               FitTrack
             </span>
           </Link>
-          {}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -68,9 +66,7 @@ export default function Navbar({ onMobileMenuToggle }) {
               </a>
             ))}
           </div>
-          {}
           <div className="flex items-center gap-2 md:gap-4">
-            {}
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200"
@@ -82,7 +78,6 @@ export default function Navbar({ onMobileMenuToggle }) {
                 <Moon className="w-5 h-5 text-neutral-600" />
               )}
             </button>
-            {}
             <div className="hidden md:flex items-center gap-3">
               {user ? (
                 <>
@@ -112,7 +107,6 @@ export default function Navbar({ onMobileMenuToggle }) {
                 </>
               )}
             </div>
-            {}
             <button
               onClick={toggleMobileMenu}
               className="md:hidden p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200"
@@ -126,7 +120,6 @@ export default function Navbar({ onMobileMenuToggle }) {
             </button>
           </div>
         </div>
-        {}
         <MobileMenu 
           isOpen={isMobileMenuOpen} 
           onClose={() => setIsMobileMenuOpen(false)} 

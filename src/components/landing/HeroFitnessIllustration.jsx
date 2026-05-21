@@ -28,13 +28,11 @@ export default function HeroFitnessIllustration() {
   ]
   return (
     <div className="relative w-full max-w-[min(100%,20rem)] sm:max-w-md lg:max-w-lg mx-auto aspect-square" aria-hidden="true">
-      {}
       <motion.div
         className="absolute inset-8 rounded-full bg-gradient-to-br from-primary-400/30 via-secondary-400/25 to-accent-400/20 blur-2xl"
         animate={{ scale: [1, 1.08, 1], opacity: [0.6, 0.85, 0.6] }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
       />
-      {}
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
@@ -44,7 +42,6 @@ export default function HeroFitnessIllustration() {
           className="absolute inset-12 md:inset-10 rounded-full border-2 border-primary-400/30 dark:border-primary-500/25"
         />
       ))}
-      {}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -68,23 +65,18 @@ export default function HeroFitnessIllustration() {
               <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.1" />
             </linearGradient>
           </defs>
-          {}
           <ellipse cx="160" cy="268" rx="90" ry="12" fill="url(#heroFloorGrad)" />
-          {}
           <motion.g
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            {}
             <circle cx="160" cy="72" r="22" fill="url(#heroBodyGrad)" opacity="0.9" />
-            {}
             <path
               d="M160 94 L160 168"
               stroke="url(#heroBodyGrad)"
               strokeWidth="14"
               strokeLinecap="round"
             />
-            {}
             <motion.path
               d="M160 110 L120 140"
               stroke="url(#heroBodyGrad)"
@@ -101,7 +93,6 @@ export default function HeroFitnessIllustration() {
               animate={{ d: ['M160 110 L200 130', 'M160 110 L120 140', 'M160 110 L200 130'] }}
               transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
             />
-            {}
             <motion.path
               d="M160 168 L130 220"
               stroke="url(#heroBodyGrad)"
@@ -119,7 +110,6 @@ export default function HeroFitnessIllustration() {
               transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
             />
           </motion.g>
-          {}
           <motion.path
             d="M40 200 L70 200 L85 170 L100 230 L115 190 L130 200 L160 200"
             stroke="#10B981"
@@ -142,7 +132,6 @@ export default function HeroFitnessIllustration() {
             animate={{ pathLength: 1, opacity: 1 }}
             transition={{ duration: 1.5, delay: 0.7 }}
           />
-          {}
           <motion.g
             animate={{ rotate: [0, 8, 0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -154,7 +143,6 @@ export default function HeroFitnessIllustration() {
           </motion.g>
         </svg>
       </motion.div>
-      {}
       {badges.map(({ Icon, color, pos, delay, hideOnMobile }, i) => (
         <motion.div
           key={i}
@@ -167,7 +155,6 @@ export default function HeroFitnessIllustration() {
           <Icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${color}`} strokeWidth={2.5} />
         </motion.div>
       ))}
-      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

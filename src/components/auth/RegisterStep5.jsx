@@ -127,7 +127,7 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
           Add your avatar, username, and notification preferences
         </p>
       </motion.div>
-          {}
+
           <motion.div variants={itemVariants} className="space-y-4">
             <label className="block text-sm font-semibold text-neutral-900 dark:text-white">
               Profile Avatar
@@ -222,7 +222,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               )}
             </AnimatePresence>
           </motion.div>
-          {}
           <motion.div variants={itemVariants} className="space-y-4">
             <label className="block text-sm font-semibold text-neutral-900 dark:text-white">
               Bio <span className="text-neutral-400 dark:text-neutral-500">(Optional)</span>
@@ -264,13 +263,11 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               )}
             </AnimatePresence>
           </motion.div>
-          {}
           <motion.div variants={itemVariants} className="space-y-4">
             <label className="block text-sm font-semibold text-neutral-900 dark:text-white">
               Notification Preferences <span className="text-neutral-400 dark:text-neutral-500">(Optional)</span>
             </label>
             <div className="space-y-3">
-              {}
               <Controller
                 name="emailNotifications"
                 control={control}
@@ -298,7 +295,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
                   </motion.label>
                 )}
               />
-              {}
               <Controller
                 name="pushNotifications"
                 control={control}
@@ -326,7 +322,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
                   </motion.label>
                 )}
               />
-              {}
               <Controller
                 name="weeklyDigest"
                 control={control}
@@ -356,7 +351,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               />
             </div>
           </motion.div>
-          {}
           <motion.div
             variants={itemVariants}
             className="p-4 rounded-lg bg-primary-50 dark:bg-primary-950/30 border border-primary-200 dark:border-primary-900/50"
@@ -376,7 +370,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               </div>
             </div>
           </motion.div>
-          {}
           <motion.div variants={itemVariants} className="flex gap-3 pt-4">
             <Button
               type="button"
@@ -402,7 +395,6 @@ export default function RegisterStep5({ onNext, onPrevious, initialData = {}, on
               )}
             </Button>
           </motion.div>
-          {}
           <motion.div variants={itemVariants} className="text-center">
             <button
               type="button"

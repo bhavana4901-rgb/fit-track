@@ -71,7 +71,6 @@ export default function TodaysWorkout() {
             {completedCount} / {exercises.length}
           </motion.span>
         </div>
-        {}
         <div
           role="progressbar"
           aria-valuenow={progressPercentage}
@@ -94,7 +93,6 @@ export default function TodaysWorkout() {
           {progressPercentage}% Complete
         </motion.p>
       </motion.div>
-      {}
       <motion.div variants={listVariants} className="space-y-2 mb-6">
         <AnimatePresence>
           {exercises.map((exercise) => (
@@ -115,7 +113,6 @@ export default function TodaysWorkout() {
               whileHover={{ x: 4 }}
               whileTap={{ scale: 0.98 }}
             >
-              {}
               <motion.div
                 className={`flex-shrink-0 w-6 h-6 rounded-md border-2 flex items-center justify-center ${
                   exercise.completed
@@ -139,7 +136,6 @@ export default function TodaysWorkout() {
                   )}
                 </AnimatePresence>
               </motion.div>
-              {}
               <div className="flex-1 min-w-0">
                 <motion.p
                   className={`font-medium text-sm ${
@@ -152,7 +148,6 @@ export default function TodaysWorkout() {
                   {exercise.name}
                 </motion.p>
               </div>
-              {}
               <motion.div
                 className={`text-xs font-semibold flex-shrink-0 ${
                   exercise.completed
@@ -167,7 +162,6 @@ export default function TodaysWorkout() {
           ))}
         </AnimatePresence>
       </motion.div>
-      {}
       <motion.button
         variants={itemVariants}
         onClick={handleStartWorkout}
@@ -183,7 +177,6 @@ export default function TodaysWorkout() {
         <Play className="w-5 h-5" />
         {progressPercentage === 100 ? 'Workout Complete! 🎉' : 'Start Workout'}
       </motion.button>
-      {}
       {workoutStarted && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}

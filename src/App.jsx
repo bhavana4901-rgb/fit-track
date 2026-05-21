@@ -11,11 +11,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
         <Route path="/register" element={!user ? <Register /> : <Navigate to="/dashboard" />} />
-        {}
         <Route
           path="/dashboard"
           element={
@@ -24,7 +22,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

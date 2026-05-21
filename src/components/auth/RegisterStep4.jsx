@@ -125,7 +125,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
           Help us tailor workouts to your current fitness habits
         </p>
       </motion.div>
-          {}
           <motion.form onSubmit={handleSubmit(onSubmit)} className="space-y-6" variants={itemVariants}>
             <Controller
               name="activityLevel"
@@ -158,7 +157,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                         initial="hidden"
                         animate="visible"
                       >
-                        {}
                         {isSelected && (
                           <motion.div
                             className={`absolute inset-0 rounded-xl bg-gradient-to-r ${option.color}/10 dark:${option.color}/5 pointer-events-none`}
@@ -169,7 +167,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                             transition={{ duration: 0.2 }}
                           />
                         )}
-                        {}
                         <div className="absolute top-6 right-6 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300">
                           <div
                             className={`w-4 h-4 rounded-full transition-all duration-300 ${
@@ -179,7 +176,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                             }`}
                           />
                         </div>
-                        {}
                         <div className="relative space-y-3">
                           <div className="flex items-start gap-4">
                             <div
@@ -228,7 +224,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                 </div>
               )}
             />
-            {}
             {errors.activityLevel && (
               <motion.div
                 className="p-4 rounded-lg bg-error-50 dark:bg-error-950/20 border border-error-200 dark:border-error-900/50"
@@ -241,7 +236,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                 </p>
               </motion.div>
             )}
-            {}
             {selectedOption && (
               <motion.div
                 className="p-5 rounded-lg bg-primary-50 dark:bg-primary-950/20 border border-primary-200 dark:border-primary-900/50"
@@ -266,7 +260,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                 </div>
               </motion.div>
             )}
-            {}
             <motion.div
               className="flex flex-col gap-4 pt-6"
               variants={itemVariants}
@@ -299,7 +292,6 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
                   )}
                 </Button>
               </div>
-              {}
               <button
                 type="button"
                 onClick={handleSkip}

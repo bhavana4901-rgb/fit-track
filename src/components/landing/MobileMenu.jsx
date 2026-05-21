@@ -26,7 +26,6 @@ export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[200] md:hidden" role="dialog" aria-modal="true" aria-label="Navigation menu">
-          {}
           <motion.div
             key="backdrop"
             initial={{ opacity: 0 }}
@@ -36,7 +35,6 @@ export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
             onClick={onClose}
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           />
-          {}
           <motion.div
             key="menu"
             initial={{ x: '100%', opacity: 0 }}

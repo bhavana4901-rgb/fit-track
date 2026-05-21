@@ -101,9 +101,7 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
           Tell us about yourself
         </p>
       </motion.div>
-          {}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {}
             <motion.div variants={itemVariants}>
               <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                 Date of Birth *
@@ -120,7 +118,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 <p className="text-xs text-error-600 dark:text-error-400 mt-1">{errors.dateOfBirth.message}</p>
               )}
             </motion.div>
-            {}
             <motion.div variants={itemVariants}>
               <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-3">
                 Gender *
@@ -154,7 +151,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 <p className="text-xs text-error-600 dark:text-error-400 mt-1">{errors.gender.message}</p>
               )}
             </motion.div>
-            {}
             <motion.div variants={itemVariants}>
               <div className="flex items-center justify-between mb-3">
                 <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
@@ -169,7 +165,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 </button>
               </div>
               <div className="space-y-4">
-                {}
                 <div className="relative">
                   <Ruler className="absolute left-0 top-0 w-5 h-5 text-success-600 dark:text-success-400 pointer-events-none" />
                   <Controller
@@ -188,7 +183,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                     )}
                   />
                 </div>
-                {}
                 <div className="flex items-center gap-2">
                   <Controller
                     name="height"
@@ -223,7 +217,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 <p className="text-xs text-error-600 dark:text-error-400 mt-1">{errors.height.message}</p>
               )}
             </motion.div>
-            {}
             <motion.div variants={itemVariants}>
               <div className="flex items-center justify-between mb-3">
                 <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
@@ -238,7 +231,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 </button>
               </div>
               <div className="space-y-4">
-                {}
                 <div className="relative">
                   <Weight className="absolute left-0 top-0 w-5 h-5 text-accent-600 dark:text-accent-400 pointer-events-none" />
                   <Controller
@@ -257,7 +249,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                     )}
                   />
                 </div>
-                {}
                 <div className="flex items-center gap-2">
                   <Controller
                     name="weight"
@@ -292,7 +283,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 <p className="text-xs text-error-600 dark:text-error-400 mt-1">{errors.weight.message}</p>
               )}
             </motion.div>
-            {}
             <motion.div
               className="p-4 bg-success-50 dark:bg-success-950/20 border border-success-200 dark:border-success-900/30 rounded-lg space-y-2"
               variants={itemVariants}
@@ -307,7 +297,6 @@ export default function RegisterStep2({ onNext, onPrevious, initialData = {} }) 
                 <p>• Weight: {weight}{weightUnit} {weightUnit === 'kg' && `(${Math.round((weight * 2.20462) * 10) / 10}lbs)`} {weightUnit === 'lbs' && `(${Math.round((weight * 0.453592) * 10) / 10}kg)`}</p>
               </div>
             </motion.div>
-            {}
             <motion.div
               className="flex gap-3 pt-4"
               variants={itemVariants}

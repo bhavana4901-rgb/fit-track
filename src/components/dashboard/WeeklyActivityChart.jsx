@@ -89,7 +89,6 @@ const WeeklyActivityChart = () => {
           Workout minutes and intensity tracking
         </p>
       </div>
-      {}
       <div className="grid grid-cols-2 gap-4 mb-6">
         <motion.div
           initial={{ opacity: 0, x: -10 }}
@@ -118,7 +117,6 @@ const WeeklyActivityChart = () => {
           </p>
         </motion.div>
       </div>
-      {}
       <motion.div
         role="img"
         aria-labelledby="weekly-activity-heading"
@@ -182,7 +180,6 @@ const WeeklyActivityChart = () => {
           </BarChart>
         </ResponsiveContainer>
       </motion.div>
-      {}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

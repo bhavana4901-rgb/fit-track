@@ -65,11 +65,9 @@ function PricingCard({ tier, index }) {
           </span>
         </div>
       )}
-      {}
       {isFeatured && (
         <div className={`absolute -inset-px rounded-[1.75rem] bg-gradient-to-br ${tier.gradient} opacity-40`} />
       )}
-      {}
       {isPremium && (
         <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${tier.gradient} opacity-20 rounded-bl-[4rem]`} />
       )}
@@ -82,7 +80,6 @@ function PricingCard({ tier, index }) {
               : 'bg-white dark:bg-neutral-900 border border-dashed border-neutral-200 dark:border-neutral-800 shadow-sm hover:border-neutral-300 dark:hover:border-neutral-700'
         }`}
       >
-        {}
         <div className={`p-6 md:p-8 ${isFeatured ? 'bg-gradient-to-br from-primary-600/20 to-blue-600/10' : ''}`}>
           <div className="flex items-start justify-between mb-6">
             <div
@@ -132,7 +129,6 @@ function PricingCard({ tier, index }) {
             <ArrowRight className="w-4 h-4" />
           </motion.button>
         </div>
-        {}
         <div
           className={`flex-1 p-6 md:px-8 md:pb-8 border-t ${
             isFeatured ? 'border-white/10' : 'border-neutral-200/80 dark:border-neutral-700/80'
@@ -181,7 +177,6 @@ export default function Pricing() {
           <p className={`${ls.subheading} mx-auto mb-8`}>
             Choose your plan. Upgrade or downgrade anytime — no commitment.
           </p>
-          {}
           <div className="inline-flex items-center gap-3 p-1.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800">
             <button
               type="button"

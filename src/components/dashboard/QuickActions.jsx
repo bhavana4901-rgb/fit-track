@@ -117,7 +117,6 @@ const QuickActions = () => {
               aria-label={`${action.label}: ${action.description}`}
               className={`group w-full p-4 rounded-xl border-2 text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-neutral-900 ${colorClasses.focusRing} ${colorClasses.bg} ${colorClasses.border} ${colorClasses.hover} relative overflow-hidden`}
             >
-              {}
               <div className={`absolute inset-0 bg-gradient-to-r ${action.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
               <div className="relative flex items-center gap-4">
                 <motion.div

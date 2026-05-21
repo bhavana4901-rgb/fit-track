@@ -105,7 +105,6 @@ export default function Login() {
   return (
     <div className="min-h-screen min-h-[100dvh] relative overflow-hidden bg-white dark:bg-neutral-950">
       <LoginAnimatedBackground />
-      {}
       <motion.header
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -136,7 +135,6 @@ export default function Login() {
           </Link>
         </div>
       </motion.header>
-      {}
       <div className="relative z-10 px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-10 sm:pb-12">
         <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
           <LoginIllustration />
@@ -304,7 +302,6 @@ export default function Login() {
               </motion.p>
             </div>
           </motion.div>
-          {}
           <motion.div
             variants={itemVariants}
             className="mt-6 grid grid-cols-3 gap-2 sm:gap-3"

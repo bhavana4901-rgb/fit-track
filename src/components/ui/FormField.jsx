@@ -18,7 +18,6 @@ const FormField = forwardRef(({
         required={required}
         {...inputProps}
       />
-      {}
       {hint && !error && (
         <p className={`mt-1.5 text-sm text-neutral-500 dark:text-neutral-400 ${hintClassName}`}>
           {hint}

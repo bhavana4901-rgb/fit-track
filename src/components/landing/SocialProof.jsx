@@ -210,7 +210,6 @@ export default function SocialProof() {
   const rating = useCountUp(4.9, 550, inView)
   return (
     <section className={`${ls.section} relative overflow-hidden bg-white dark:bg-neutral-950`}>
-      {}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -top-24 right-0 w-48 sm:w-[420px] h-48 sm:h-[420px] rounded-full bg-primary-400/10 dark:bg-primary-600/5 blur-3xl" />
         <div className="absolute bottom-0 -left-24 w-48 sm:w-[360px] h-48 sm:h-[360px] rounded-full bg-secondary-400/10 dark:bg-secondary-600/5 blur-3xl" />
@@ -229,7 +228,6 @@ export default function SocialProof() {
             Real growth, real reviews, and partnerships with teams that take fitness seriously.
           </p>
         </motion.div>
-        {}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-16 md:mb-20">
           {STATS.map((stat, index) => (
             <StatCard
@@ -239,7 +237,6 @@ export default function SocialProof() {
               index={index}
             />
           ))}
-          {}
           <motion.div
             {...fadeUpProps(0.12)}
             className="md:col-span-4 relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px] flex flex-col justify-center"
@@ -274,14 +271,12 @@ export default function SocialProof() {
           </motion.div>
         </div>
       </div>
-      {}
       <div className="relative w-full bg-gradient-to-r from-primary-50/80 via-white to-secondary-50/80 dark:from-primary-950/30 dark:via-neutral-950 dark:to-secondary-950/30 border-y border-neutral-200/60 dark:border-neutral-800">
         <p className="text-center text-xs font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 pt-8">
           Trusted by industry leaders
         </p>
         <LogoMarquee />
       </div>
-      {}
       <div className={`${ls.container} pt-10 md:pt-12`}>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
           <div className="flex flex-wrap items-center justify-center gap-8">

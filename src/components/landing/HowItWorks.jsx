@@ -41,7 +41,6 @@ function StepNode({ step, index }) {
       {...fadeUpProps(index * 0.05)}
       className="relative flex flex-col items-center text-center z-10"
     >
-      {}
       <motion.div
         whileHover={{ scale: 1.08 }}
         className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl rotate-45 bg-gradient-to-br ${step.gradient} flex items-center justify-center ring-2 ${step.ring}`}
@@ -53,7 +52,6 @@ function StepNode({ step, index }) {
           {step.id}
         </span>
       </motion.div>
-      {}
       <motion.div
         whileHover={{ y: -4 }}
         className={`mt-6 sm:mt-8 w-full max-w-[280px] mx-auto p-5 sm:p-6 rounded-xl ${ls.card} ${ls.cardHover}`}
@@ -92,7 +90,6 @@ function DesktopConnectors() {
           <path d="M0,0 L10,5 L0,10 Z" fill="#10B981" />
         </marker>
       </defs>
-      {}
       <motion.path
         d="M 200 60 Q 400 20, 600 60"
         stroke="url(#flowGrad1)"
@@ -121,7 +118,6 @@ function DesktopConnectors() {
         }}
         opacity={0.5}
       />
-      {}
       <motion.path
         d="M 600 60 Q 800 100, 1000 60"
         stroke="url(#flowGrad2)"
@@ -150,7 +146,6 @@ function DesktopConnectors() {
         }}
         opacity={0.5}
       />
-      {}
       {[
         { cx: 400, cy: 20, color: '#8B5CF6', delay: 1.4 },
         { cx: 800, cy: 100, color: '#10B981', delay: 1.8 },
@@ -222,7 +217,6 @@ function MobileTimeline() {
               transition={{ ...viewTransitionFast, delay: index * 0.05 }}
               className="relative flex gap-4 sm:gap-6 pb-10 sm:pb-12 last:pb-0"
             >
-              {}
               <div className="relative z-10 flex-shrink-0">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -243,7 +237,6 @@ function MobileTimeline() {
                   </motion.div>
                 )}
               </div>
-              {}
               <div className="flex-1 pt-2">
                 <div className={`p-5 rounded-xl ${ls.card}`}>
                   <span className={`text-2xl font-bold bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent`}>
@@ -276,7 +269,6 @@ export default function HowItWorks() {
             Three steps from sign-up to transformation — follow the path below
           </p>
         </motion.div>
-        {}
         <div className="hidden md:block relative">
           <DesktopConnectors />
           <TabletConnectors />
@@ -286,7 +278,6 @@ export default function HowItWorks() {
             ))}
           </div>
         </div>
-        {}
         <MobileTimeline />
         <motion.div
           {...fadeUpProps(0.1)}
