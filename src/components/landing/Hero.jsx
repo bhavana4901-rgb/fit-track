@@ -21,7 +21,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.35, delay: 0.05 }}
             className="space-y-6 md:space-y-8 text-center lg:text-left"
           >
             <div>
@@ -39,7 +39,7 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.35, delay: 0.08 }}
               className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-300 max-w-lg mx-auto lg:mx-0 leading-relaxed"
             >
               Get personalized workouts, track your progress, and connect with a community of fitness enthusiasts. Start achieving your goals today.
@@ -48,7 +48,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.35, delay: 0.1 }}
               className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start"
             >
               <Button size="lg" className="w-full sm:w-auto">
@@ -63,7 +63,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.35, delay: 0.12 }}
               className="flex flex-col sm:flex-row gap-6 pt-4 border-t border-neutral-200 dark:border-neutral-800 mt-8 pt-8 justify-center lg:justify-start"
             >
               <div className="flex items-center gap-3">
@@ -92,7 +92,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="relative flex justify-center lg:justify-end"
           >
             <motion.div

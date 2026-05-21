@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { BarChart3, Leaf, TrendingUp, Users, ArrowUpRight } from 'lucide-react'
 import * as ls from './landingStyles'
+import { fadeUpProps, staggerContainer, staggerItem, viewViewport } from './landingMotion'
 
 const features = [
   {
@@ -49,15 +50,8 @@ const features = [
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-}
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
-}
+const containerVariants = staggerContainer
+const cardVariants = staggerItem
 
 function FeatureCard({ feature }) {
   const Icon = feature.icon
@@ -101,7 +95,7 @@ function FeatureCard({ feature }) {
                 initial={{ height: 0 }}
                 whileInView={{ height: h * 0.5 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 + i * 0.05, duration: 0.4 }}
+                transition={{ delay: 0.05 + i * 0.02, duration: 0.22 }}
               />
             ))}
           </div>
@@ -212,10 +206,7 @@ export default function Features() {
     <section id="features" className={`${ls.section} bg-white dark:bg-neutral-950`}>
       <div className={ls.container}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.55 }}
+          {...fadeUpProps(0)}
           className="text-center mb-12 md:mb-14"
         >
           <span className={ls.eyebrow}>Features</span>
@@ -232,7 +223,7 @@ export default function Features() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={viewViewport}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 auto-rows-fr"
         >
           {features.map((feature) => (
@@ -241,10 +232,7 @@ export default function Features() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          {...fadeUpProps(0.08)}
           className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <motion.button

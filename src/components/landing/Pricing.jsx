@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, ArrowRight, Sparkles, Zap, Crown } from 'lucide-react'
 import * as ls from './landingStyles'
+import { fadeUpProps, viewTransitionFast } from './landingMotion'
 
 const pricingTiers = [
   {
@@ -54,10 +55,7 @@ function PricingCard({ tier, index }) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.55, delay: index * 0.1 }}
+      {...fadeUpProps(index * 0.04)}
       whileHover={{ y: isFeatured ? -4 : -2 }}
       className={`relative flex flex-col h-full ${
         isFeatured ? 'md:-mt-4 md:mb-4 z-10' : ''
@@ -157,7 +155,7 @@ function PricingCard({ tier, index }) {
                 initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 + i * 0.04 }}
+                transition={{ ...viewTransitionFast, delay: 0.04 + i * 0.02 }}
                 className="flex items-start gap-3 text-sm"
               >
                 <span
@@ -187,13 +185,7 @@ export default function Pricing() {
   return (
     <section id="pricing" className={`${ls.section} bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800`}>
       <div className={ls.container}>
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-        >
+        <motion.div {...fadeUpProps(0)} className="text-center mb-12">
           <span className={ls.eyebrow}>Pricing</span>
           <h2 className={`${ls.heading} mb-4`}>
             Simple, <span className={ls.headingAccent}>transparent</span> pricing

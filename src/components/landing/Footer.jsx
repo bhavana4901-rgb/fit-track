@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, ArrowRight, Share2, Heart, Globe, Link2, Home } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { fadeUpProps, viewTransitionFast } from './landingMotion'
 
 const navigationLinks = {
   product: [
@@ -80,13 +81,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20 pb-8 relative z-10">
         {/* Newsletter — elevated card */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-          className="relative -mt-2 mb-16 md:mb-20"
-        >
+        <motion.div {...fadeUpProps(0)} className="relative -mt-2 mb-16 md:mb-20">
           <div className="relative rounded-xl bg-neutral-900 border border-neutral-800 p-6 md:p-10 overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 w-48 h-48 bg-primary-500/5 rounded-full blur-2xl pointer-events-none" />
             <div className="relative grid md:grid-cols-2 gap-8 items-center">
@@ -125,13 +120,7 @@ export default function Footer() {
 
         {/* Main grid */}
         <div className="grid grid-cols-2 md:grid-cols-6 gap-10 md:gap-8 mb-14">
-          <motion.div
-            className="col-span-2"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <motion.div className="col-span-2" {...fadeUpProps(0)}>
             <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
               <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center group-hover:opacity-90 transition-opacity">
                 <Home className="w-5 h-5 text-white" />
@@ -156,16 +145,16 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }}>
+          <motion.div {...fadeUpProps(0.02)}>
             <FooterLinkColumn title="Product" links={navigationLinks.product} />
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+          <motion.div {...fadeUpProps(0.04)}>
             <FooterLinkColumn title="Company" links={navigationLinks.company} />
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
+          <motion.div {...fadeUpProps(0.06)}>
             <FooterLinkColumn title="Resources" links={navigationLinks.resources} />
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+          <motion.div {...fadeUpProps(0.08)}>
             <FooterLinkColumn title="Legal" links={navigationLinks.legal} />
           </motion.div>
         </div>

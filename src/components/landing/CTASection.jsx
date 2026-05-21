@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, ArrowRight, CheckCircle, Dumbbell, Flame, Trophy } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import * as ls from './landingStyles'
+import { fadeUpProps, viewTransitionFast } from './landingMotion'
 
 const perks = [
   { icon: Dumbbell, label: 'Unlimited workouts' },
@@ -43,10 +44,10 @@ export default function CTASection() {
           <div className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 p-8 md:p-12 lg:p-16 items-center">
             {/* Left — copy + perks */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
+              viewport={{ once: true, margin: '-48px 0px' }}
+              transition={viewTransitionFast}
             >
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-primary-300 text-sm font-medium mb-6">
                 <span className="w-2 h-2 rounded-full bg-success-400 animate-pulse" />
@@ -67,7 +68,7 @@ export default function CTASection() {
                     key={label}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + i * 0.1 }}
+                    transition={{ ...viewTransitionFast, delay: 0.04 + i * 0.03 }}
                     viewport={{ once: true }}
                     className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-neutral-300"
                   >
@@ -80,10 +81,10 @@ export default function CTASection() {
 
             {/* Right — glass form card */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: 0.1 }}
+              viewport={{ once: true, margin: '-48px 0px' }}
+              transition={{ ...viewTransitionFast, delay: 0.04 }}
               className="relative"
             >
               <div className="relative p-6 md:p-8 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">

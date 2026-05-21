@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { fadeUpProps } from './landingMotion'
 import * as ls from './landingStyles'
 
 const testimonials = [
@@ -249,10 +250,7 @@ export default function Testimonials() {
       <div className={ls.container}>
         <motion.div
           className="text-center mb-12 md:mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
+          {...fadeUpProps(0)}
         >
           <span className={ls.eyebrow}>Testimonials</span>
           <h2 className={`${ls.heading} mb-4`}>
@@ -291,7 +289,7 @@ export default function Testimonials() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+                transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
                 className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6"
               >
                 {visiblePair.map((testimonial, i) => (

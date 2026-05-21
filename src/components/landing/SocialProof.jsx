@@ -3,6 +3,7 @@ import { Star, Users, Globe, Activity, TrendingUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { PARTNER_LOGOS, TRUST_BADGES } from './PartnerLogos'
 import * as ls from './landingStyles'
+import { fadeUpProps } from './landingMotion'
 
 const STATS = [
   {
@@ -58,7 +59,7 @@ const STATS = [
 const MEMBER_AVATARS = ['SC', 'MJ', 'ER', 'DK', 'JW']
 const CHART_BARS = [35, 55, 42, 70, 58, 85, 68]
 
-function useCountUp(target, duration = 1200, enabled = true) {
+function useCountUp(target, duration = 650, enabled = true) {
   const [value, setValue] = useState(0)
   useEffect(() => {
     if (!enabled) return
@@ -87,10 +88,7 @@ function StatCard({ stat, display, index }) {
   if (stat.layout === 'featured') {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.08 }}
+        {...fadeUpProps(index * 0.03)}
         whileHover={{ y: -4 }}
         className={`${stat.col} relative overflow-hidden rounded-2xl border border-primary-200/60 dark:border-primary-800/50 p-6 md:p-8 min-h-[160px] flex flex-col justify-between`}
       >
@@ -118,10 +116,7 @@ function StatCard({ stat, display, index }) {
   if (stat.layout === 'rating') {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.08 }}
+        {...fadeUpProps(index * 0.03)}
         whileHover={{ y: -4 }}
         className={`${stat.col} relative overflow-hidden rounded-2xl border border-warning-200/50 dark:border-warning-900/40 p-6 md:p-8 min-h-[160px]`}
       >
@@ -144,10 +139,7 @@ function StatCard({ stat, display, index }) {
   if (stat.layout === 'chart') {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.08 }}
+        {...fadeUpProps(index * 0.03)}
         whileHover={{ y: -4 }}
         className={`${stat.col} relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px]`}
       >
@@ -169,7 +161,7 @@ function StatCard({ stat, display, index }) {
                 initial={{ height: 0 }}
                 whileInView={{ height: `${h}%` }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
+                transition={{ delay: 0.05 + i * 0.02, duration: 0.22 }}
               />
             ))}
           </div>
@@ -181,10 +173,7 @@ function StatCard({ stat, display, index }) {
   // accent — countries
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08 }}
+      {...fadeUpProps(index * 0.03)}
       whileHover={{ y: -4 }}
       className={`${stat.col} relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px]`}
     >
@@ -230,8 +219,8 @@ function LogoMarquee() {
 
 export default function SocialProof() {
   const [inView, setInView] = useState(false)
-  const users = useCountUp(50000, 1400, inView)
-  const rating = useCountUp(4.9, 1200, inView)
+  const users = useCountUp(50000, 650, inView)
+  const rating = useCountUp(4.9, 550, inView)
 
   return (
     <section className={`${ls.section} relative overflow-hidden bg-white dark:bg-neutral-950`}>
@@ -243,10 +232,8 @@ export default function SocialProof() {
 
       <div className={`${ls.container} relative z-10`}>
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          {...fadeUpProps(0)}
           onViewportEnter={() => setInView(true)}
-          viewport={{ once: true }}
           className="text-center mb-12 md:mb-14"
         >
           <span className={ls.eyebrow}>Trusted worldwide</span>
@@ -271,10 +258,7 @@ export default function SocialProof() {
 
           {/* Live community pill — fills remaining column on md+ */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.35 }}
+            {...fadeUpProps(0.12)}
             className="md:col-span-4 relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px] flex flex-col justify-center"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-950/20" />

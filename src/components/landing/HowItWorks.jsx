@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { UserPlus, Target, TrendingUp, ArrowRight } from 'lucide-react'
 import * as ls from './landingStyles'
+import { fadeUpProps, viewTransitionFast } from './landingMotion'
 
 const steps = [
   {
@@ -39,10 +40,7 @@ function StepNode({ step, index }) {
   const Icon = step.icon
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.55, delay: index * 0.15 }}
+      {...fadeUpProps(index * 0.05)}
       className="relative flex flex-col items-center text-center z-10"
     >
       {/* Timeline node */}
@@ -111,7 +109,7 @@ function DesktopConnectors() {
         initial={{ pathLength: 0, opacity: 0 }}
         whileInView={{ pathLength: 1, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1.2, delay: 0.4, ease: 'easeInOut' }}
+        transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
       />
       <motion.path
         d="M 200 60 Q 400 20, 600 60"
@@ -124,7 +122,7 @@ function DesktopConnectors() {
         whileInView={{ pathLength: 1, strokeDashoffset: -40 }}
         viewport={{ once: true }}
         transition={{
-          pathLength: { duration: 1.2, delay: 0.4 },
+          pathLength: { duration: 0.5, delay: 0.1 },
           strokeDashoffset: { duration: 2, repeat: Infinity, ease: 'linear', delay: 1.6 },
         }}
         opacity={0.5}
@@ -141,7 +139,7 @@ function DesktopConnectors() {
         initial={{ pathLength: 0, opacity: 0 }}
         whileInView={{ pathLength: 1, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1.2, delay: 0.7, ease: 'easeInOut' }}
+        transition={{ duration: 0.5, delay: 0.15, ease: 'easeOut' }}
       />
       <motion.path
         d="M 600 60 Q 800 100, 1000 60"
@@ -154,7 +152,7 @@ function DesktopConnectors() {
         whileInView={{ pathLength: 1, strokeDashoffset: -40 }}
         viewport={{ once: true }}
         transition={{
-          pathLength: { duration: 1.2, delay: 0.7 },
+          pathLength: { duration: 0.5, delay: 0.15 },
           strokeDashoffset: { duration: 2, repeat: Infinity, ease: 'linear', delay: 1.9 },
         }}
         opacity={0.5}
@@ -193,14 +191,14 @@ function TabletConnectors() {
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.5 + i * 0.3 }}
+            transition={{ duration: 0.35, delay: 0.08 + i * 0.06 }}
             style={{ originX: 0 }}
           />
           <motion.div
             initial={{ opacity: 0, x: -8 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 1 + i * 0.3 }}
+            transition={{ ...viewTransitionFast, delay: 0.15 + i * 0.06 }}
           >
             <ArrowRight className={`w-6 h-6 ${i === 0 ? 'text-secondary-500' : 'text-success-500'}`} />
           </motion.div>
@@ -219,7 +217,7 @@ function MobileTimeline() {
         initial={{ scaleY: 0 }}
         whileInView={{ scaleY: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1.2, ease: 'easeInOut' }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
         style={{ originY: 0 }}
         aria-hidden="true"
       />
@@ -234,7 +232,7 @@ function MobileTimeline() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
+              transition={{ ...viewTransitionFast, delay: index * 0.05 }}
               className="relative flex gap-6 pb-12 last:pb-0"
             >
               {/* Node on rail */}
@@ -251,7 +249,7 @@ function MobileTimeline() {
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.3 + index * 0.2 }}
+                    transition={{ ...viewTransitionFast, delay: 0.08 + index * 0.05 }}
                     className="absolute -bottom-8 left-1/2 -translate-x-1/2"
                   >
                     <ArrowRight className="w-5 h-5 text-secondary-500 rotate-90" />
@@ -282,10 +280,7 @@ export default function HowItWorks() {
     <section id="how-it-works" className={`${ls.section} bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800`}>
       <div className={ls.container}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
+          {...fadeUpProps(0)}
           className="text-center mb-14 md:mb-16"
         >
           <span className={ls.eyebrow}>How it works</span>
@@ -312,10 +307,7 @@ export default function HowItWorks() {
         <MobileTimeline />
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          {...fadeUpProps(0.1)}
           className="mt-14 text-center"
         >
           <p className="text-neutral-600 dark:text-neutral-400 mb-6 text-lg">
