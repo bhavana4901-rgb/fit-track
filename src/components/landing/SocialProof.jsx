@@ -1,212 +1,344 @@
 import { motion } from 'framer-motion'
-import { Star, Users, Sparkles } from 'lucide-react'
+import { Star, Users, Globe, Activity, TrendingUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { PARTNER_LOGOS } from './PartnerLogos'
+import { PARTNER_LOGOS, TRUST_BADGES } from './PartnerLogos'
+import * as ls from './landingStyles'
 
-export default function SocialProof() {
-  const [userCount, setUserCount] = useState(0)
-  const [rating, setRating] = useState(0)
-  const finalUserCount = 50000
-  const finalRating = 4.9
+const STATS = [
+  {
+    key: 'users',
+    label: 'Active members',
+    suffix: '+',
+    icon: Users,
+    layout: 'featured',
+    gradient: 'from-primary-500 to-blue-600',
+    surface: 'from-primary-50/90 via-white to-blue-50/60 dark:from-primary-950/50 dark:via-neutral-900 dark:to-blue-950/30',
+    iconBg: 'bg-gradient-to-br from-primary-500 to-blue-600',
+    col: 'md:col-span-6',
+  },
+  {
+    key: 'rating',
+    label: 'App Store rating',
+    suffix: '',
+    icon: Star,
+    layout: 'rating',
+    gradient: 'from-warning-500 to-amber-500',
+    surface: 'from-warning-50/80 to-amber-50/40 dark:from-warning-950/30 dark:to-neutral-900',
+    iconBg: 'bg-gradient-to-br from-warning-500 to-amber-500',
+    col: 'md:col-span-6',
+    isRating: true,
+  },
+  {
+    key: 'countries',
+    label: 'Countries worldwide',
+    suffix: '+',
+    icon: Globe,
+    layout: 'accent',
+    gradient: 'from-secondary-500 to-violet-600',
+    surface: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-gradient-to-br from-secondary-500 to-violet-600',
+    col: 'md:col-span-4',
+    staticValue: 40,
+  },
+  {
+    key: 'workouts',
+    label: 'Workouts logged',
+    suffix: '+',
+    icon: Activity,
+    layout: 'chart',
+    gradient: 'from-success-500 to-emerald-600',
+    surface: 'bg-white dark:bg-neutral-900',
+    iconBg: 'bg-gradient-to-br from-success-500 to-emerald-600',
+    col: 'md:col-span-4',
+    staticValue: 12,
+    staticUnit: 'M',
+  },
+]
 
+const MEMBER_AVATARS = ['SC', 'MJ', 'ER', 'DK', 'JW']
+const CHART_BARS = [35, 55, 42, 70, 58, 85, 68]
+
+function useCountUp(target, duration = 1200, enabled = true) {
+  const [value, setValue] = useState(0)
   useEffect(() => {
-    const userInterval = setInterval(() => {
-      setUserCount((prev) => (prev < finalUserCount ? Math.min(prev + finalUserCount / 60, finalUserCount) : prev))
-    }, 30)
-    const ratingInterval = setInterval(() => {
-      setRating((prev) => (prev < finalRating ? Math.min(prev + finalRating / 60, finalRating) : prev))
-    }, 30)
-    return () => {
-      clearInterval(userInterval)
-      clearInterval(ratingInterval)
+    if (!enabled) return
+    const start = performance.now()
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1)
+      const eased = 1 - (1 - t) ** 3
+      setValue(target * eased)
+      if (t < 1) requestAnimationFrame(tick)
     }
-  }, [])
+    requestAnimationFrame(tick)
+  }, [target, duration, enabled])
+  return value
+}
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
+function formatStatValue(stat, users, rating) {
+  if (stat.key === 'users') return `${Math.round(users).toLocaleString()}${stat.suffix}`
+  if (stat.key === 'rating') return rating.toFixed(1)
+  if (stat.staticUnit) return `${stat.staticValue}${stat.staticUnit}${stat.suffix}`
+  return `${stat.staticValue}${stat.suffix}`
+}
+
+function StatCard({ stat, display, index }) {
+  const Icon = stat.icon
+
+  if (stat.layout === 'featured') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.08 }}
+        whileHover={{ y: -4 }}
+        className={`${stat.col} relative overflow-hidden rounded-2xl border border-primary-200/60 dark:border-primary-800/50 p-6 md:p-8 min-h-[160px] flex flex-col justify-between`}
+      >
+        <div className={`absolute inset-0 bg-gradient-to-br ${stat.surface}`} />
+        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.gradient}`} />
+        <div className="relative flex items-start justify-between gap-4">
+          <div>
+            <p className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tabular-nums tracking-tight">
+              {display}
+            </p>
+            <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mt-2">{stat.label}</p>
+            <p className="text-xs text-primary-600 dark:text-primary-400 mt-3 flex items-center gap-1.5">
+              <TrendingUp className="w-3.5 h-3.5" />
+              +18% this quarter
+            </p>
+          </div>
+          <div className={`p-4 rounded-xl ${stat.iconBg} shrink-0`}>
+            <Icon className="w-7 h-7 text-white" />
+          </div>
+        </div>
+      </motion.div>
+    )
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 24 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+  if (stat.layout === 'rating') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.08 }}
+        whileHover={{ y: -4 }}
+        className={`${stat.col} relative overflow-hidden rounded-2xl border border-warning-200/50 dark:border-warning-900/40 p-6 md:p-8 min-h-[160px]`}
+      >
+        <div className={`absolute inset-0 bg-gradient-to-br ${stat.surface}`} />
+        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.gradient}`} />
+        <div className="relative h-full flex flex-col items-center justify-center text-center">
+          <div className="flex gap-1 mb-3">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="w-5 h-5 text-warning-500 fill-warning-500" />
+            ))}
+          </div>
+          <p className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tabular-nums">{display}</p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">{stat.label}</p>
+          <p className="text-xs text-neutral-500 mt-1">10,000+ verified reviews</p>
+        </div>
+      </motion.div>
+    )
   }
+
+  if (stat.layout === 'chart') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.08 }}
+        whileHover={{ y: -4 }}
+        className={`${stat.col} relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px]`}
+      >
+        <div className={`absolute inset-0 bg-gradient-to-br ${stat.surface}`} />
+        <div className={`absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b ${stat.gradient}`} />
+        <div className="relative flex items-end justify-between gap-3 h-full">
+          <div>
+            <div className={`inline-flex p-2.5 rounded-lg ${stat.iconBg} mb-3`}>
+              <Icon className="w-5 h-5 text-white" />
+            </div>
+            <p className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white tabular-nums">{display}</p>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{stat.label}</p>
+          </div>
+          <div className="flex items-end gap-1 h-16 opacity-50">
+            {CHART_BARS.map((h, i) => (
+              <motion.div
+                key={i}
+                className={`w-1.5 rounded-full bg-gradient-to-t ${stat.gradient}`}
+                initial={{ height: 0 }}
+                whileInView={{ height: `${h}%` }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
+              />
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    )
+  }
+
+  // accent — countries
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.08 }}
+      whileHover={{ y: -4 }}
+      className={`${stat.col} relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px]`}
+    >
+      <div className={`absolute inset-0 bg-gradient-to-br ${stat.surface}`} />
+      <div className={`absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b ${stat.gradient}`} />
+      <div className="relative flex items-center gap-4 h-full">
+        <div className={`p-3 rounded-xl ${stat.iconBg}`}>
+          <Icon className="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <p className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white tabular-nums">{display}</p>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{stat.label}</p>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function LogoMarquee() {
+  const track = [...PARTNER_LOGOS, ...PARTNER_LOGOS]
 
   return (
-    <section className="w-full py-16 md:py-24 relative overflow-hidden bg-neutral-950">
-      {/* Dark trust-section atmosphere */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.15),_transparent_50%),radial-gradient(ellipse_at_bottom_right,_rgba(139,92,246,0.12),_transparent_50%)]" />
-      <div className="absolute inset-0 opacity-30 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+    <div className="relative overflow-hidden py-8 group/marquee">
+      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-28 bg-gradient-to-r from-primary-50/90 dark:from-neutral-900 to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-28 bg-gradient-to-l from-primary-50/90 dark:from-neutral-900 to-transparent z-10 pointer-events-none" />
+      <div className="flex w-max gap-14 md:gap-20 animate-logo-marquee group-hover/marquee:[animation-play-state:paused]">
+        {track.map((partner, i) => {
+          const Logo = partner.Logo
+          return (
+            <div
+              key={`${partner.name}-${i}`}
+              className="flex-shrink-0 px-3 py-2 rounded-xl bg-white/60 dark:bg-neutral-800/40 border border-neutral-200/50 dark:border-neutral-700/50 backdrop-blur-sm"
+              title={partner.name}
+            >
+              <Logo className={`h-7 w-[120px] ${partner.color}`} />
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+export default function SocialProof() {
+  const [inView, setInView] = useState(false)
+  const users = useCountUp(50000, 1400, inView)
+  const rating = useCountUp(4.9, 1200, inView)
+
+  return (
+    <section className={`${ls.section} relative overflow-hidden bg-white dark:bg-neutral-950`}>
+      {/* Ambient depth — not a box */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-24 right-0 w-[420px] h-[420px] rounded-full bg-primary-400/10 dark:bg-primary-600/5 blur-3xl" />
+        <div className="absolute bottom-0 -left-24 w-[360px] h-[360px] rounded-full bg-secondary-400/10 dark:bg-secondary-600/5 blur-3xl" />
+      </div>
+
+      <div className={`${ls.container} relative z-10`}>
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          className="space-y-14 md:space-y-16"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          onViewportEnter={() => setInView(true)}
+          viewport={{ once: true }}
+          className="text-center mb-12 md:mb-14"
         >
-          <motion.div variants={itemVariants} className="text-center space-y-3">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-primary-300 text-sm font-medium">
-              <Sparkles className="w-4 h-4" />
-              Social proof
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Trusted by{' '}
-              <span className="bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400 bg-clip-text text-transparent">
-                thousands
-              </span>
-            </h2>
-            <p className="text-neutral-400 max-w-2xl mx-auto">
-              Join our growing community of fitness enthusiasts achieving their goals every day
-            </p>
-          </motion.div>
-
-          {/* Stats — asymmetric glass panels (not box cards) */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-5 gap-5 md:gap-6">
-            {/* Users — wide glass panel with ring */}
-            <motion.div
-              whileHover={{ scale: 1.01 }}
-              className="lg:col-span-3 relative overflow-hidden rounded-3xl p-8 md:p-10 backdrop-blur-xl bg-white/5 border border-white/10"
-            >
-              <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-transparent" />
-              <div className="relative flex flex-col sm:flex-row items-center sm:items-start gap-8">
-                <div className="relative flex-shrink-0">
-                  <svg className="w-32 h-32 -rotate-90" viewBox="0 0 120 120">
-                    <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="8" />
-                    <motion.circle
-                      cx="60" cy="60" r="52" fill="none" stroke="url(#userRingGrad)" strokeWidth="8"
-                      strokeLinecap="round" strokeDasharray="327" strokeDashoffset="65"
-                      initial={{ strokeDashoffset: 327 }}
-                      whileInView={{ strokeDashoffset: 65 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.5, ease: 'easeOut' }}
-                    />
-                    <defs>
-                      <linearGradient id="userRingGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#3B82F6" />
-                        <stop offset="100%" stopColor="#8B5CF6" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Users className="w-10 h-10 text-primary-400" />
-                  </div>
-                </div>
-                <div className="text-center sm:text-left">
-                  <p className="text-5xl md:text-6xl font-black text-white tracking-tight">
-                    {Math.round(userCount).toLocaleString()}
-                    <span className="text-primary-400">+</span>
-                  </p>
-                  <p className="text-lg font-semibold text-neutral-200 mt-1">Active Users</p>
-                  <p className="text-sm text-neutral-500 mt-2">Growing every single day</p>
-                  <div className="flex gap-2 mt-4 justify-center sm:justify-start">
-                    {['#3B82F6', '#8B5CF6', '#EC4899', '#10B981'].map((c, i) => (
-                      <motion.div
-                        key={c}
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        transition={{ delay: 0.3 + i * 0.1 }}
-                        className="w-8 h-8 rounded-full border-2 border-neutral-950"
-                        style={{ backgroundColor: c, marginLeft: i > 0 ? -12 : 0 }}
-                      />
-                    ))}
-                    <span className="text-xs text-neutral-500 self-center ml-2">+50K joined</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Rating — compact gold-accent panel */}
-            <motion.div
-              whileHover={{ scale: 1.02, rotate: 0.5 }}
-              className="lg:col-span-2 relative overflow-hidden rounded-3xl p-8 flex flex-col items-center justify-center text-center bg-gradient-to-br from-warning-500/20 via-neutral-900 to-neutral-950 border border-warning-500/30"
-            >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(251,191,36,0.25),transparent_60%)]" />
-              <div className="relative">
-                <div className="flex gap-1 mb-3 justify-center">
-                  {[...Array(5)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.2 + i * 0.08, type: 'spring' }}
-                    >
-                      <Star className="w-7 h-7 text-warning-400 fill-warning-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
-                    </motion.div>
-                  ))}
-                </div>
-                <p className="text-6xl font-black text-white">{rating.toFixed(1)}</p>
-                <p className="text-warning-300 font-semibold mt-1">App Store Rating</p>
-                <p className="text-xs text-neutral-500 mt-2">10,000+ verified reviews</p>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Partners — hexagon logo strip */}
-          <motion.div variants={itemVariants} className="space-y-5">
-            <p className="text-center text-neutral-500 text-sm uppercase tracking-widest font-medium">
-              Trusted by leading companies
-            </p>
-            <div className="relative rounded-2xl py-8 px-4 bg-white/[0.03] border border-white/5 overflow-hidden">
-              <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-neutral-950 to-transparent z-10 pointer-events-none" />
-              <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-neutral-950 to-transparent z-10 pointer-events-none" />
-              <motion.div
-                className="flex gap-8 md:gap-12 items-center justify-center flex-wrap"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                {PARTNER_LOGOS.map((partner, i) => {
-                  const Logo = partner.Logo
-                  return (
-                    <motion.div
-                      key={partner.name}
-                      initial={{ opacity: 0, y: 12 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.06 }}
-                      whileHover={{ y: -6, scale: 1.05 }}
-                      className="group flex-shrink-0"
-                      title={partner.name}
-                    >
-                      <div
-                        className="w-[88px] h-[88px] flex items-center justify-center transition-all duration-300"
-                        style={{
-                          clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                          background: 'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))',
-                        }}
-                      >
-                        <div
-                          className="w-[80px] h-[80px] flex items-center justify-center bg-neutral-900/80 group-hover:bg-neutral-800/90 transition-colors px-3"
-                          style={{
-                            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                          }}
-                        >
-                          <Logo className={`h-7 w-full ${partner.color}`} />
-                        </div>
-                      </div>
-                    </motion.div>
-                  )
-                })}
-              </motion.div>
-            </div>
-
-
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="text-center">
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary-600/20 to-secondary-600/20 border border-primary-500/30">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-500" />
-              </span>
-              <p className="text-sm font-medium text-primary-200">
-                Join 50,000+ members transforming their lives
-              </p>
-            </div>
-          </motion.div>
+          <span className={ls.eyebrow}>Trusted worldwide</span>
+          <h2 className={ls.heading}>
+            The numbers <span className={ls.headingAccent}>speak for themselves</span>
+          </h2>
+          <p className={`${ls.subheading} mx-auto mt-4`}>
+            Real growth, real reviews, and partnerships with teams that take fitness seriously.
+          </p>
         </motion.div>
+
+        {/* Bento stats — separate cards, varied layouts */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-16 md:mb-20">
+          {STATS.map((stat, index) => (
+            <StatCard
+              key={stat.key}
+              stat={stat}
+              display={formatStatValue(stat, users, rating)}
+              index={index}
+            />
+          ))}
+
+          {/* Live community pill — fills remaining column on md+ */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.35 }}
+            className="md:col-span-4 relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 min-h-[140px] flex flex-col justify-center"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-950/20" />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-success-500" />
+                </span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-success-700 dark:text-success-400">
+                  Growing now
+                </span>
+              </div>
+              <div className="flex -space-x-2.5 mb-3">
+                {MEMBER_AVATARS.map((initials, i) => (
+                  <div
+                    key={initials}
+                    className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 border-2 border-white dark:border-neutral-900 flex items-center justify-center text-[10px] font-bold text-white"
+                    style={{ zIndex: MEMBER_AVATARS.length - i }}
+                  >
+                    {initials}
+                  </div>
+                ))}
+                <div className="w-9 h-9 rounded-full bg-neutral-800 dark:bg-neutral-700 border-2 border-white dark:border-neutral-900 flex items-center justify-center text-[10px] font-semibold text-white">
+                  +50K
+                </div>
+              </div>
+              <p className="text-sm font-medium text-neutral-800 dark:text-neutral-200">Members active today</p>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Full-width logo band — tinted strip, not a card */}
+      <div className="relative w-full bg-gradient-to-r from-primary-50/80 via-white to-secondary-50/80 dark:from-primary-950/30 dark:via-neutral-950 dark:to-secondary-950/30 border-y border-neutral-200/60 dark:border-neutral-800">
+        <p className="text-center text-xs font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 pt-8">
+          Trusted by industry leaders
+        </p>
+        <LogoMarquee />
+      </div>
+
+      {/* Trust footer — horizontal flow */}
+      <div className={`${ls.container} relative z-10 pt-10 md:pt-12`}>
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
+          <div className="flex flex-wrap items-center justify-center gap-8">
+            {TRUST_BADGES.map((badge) => {
+              const Logo = badge.Logo
+              return (
+                <motion.div
+                  key={badge.name}
+                  whileHover={{ y: -2 }}
+                  className="opacity-75 hover:opacity-100 transition-opacity"
+                  title={badge.name}
+                >
+                  <Logo className="h-8 w-[115px] text-neutral-700 dark:text-neutral-300" />
+                </motion.div>
+              )
+            })}
+          </div>
+          <div className="hidden lg:block w-px h-10 bg-neutral-200 dark:bg-neutral-700" />
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 text-center lg:text-left max-w-xs">
+            Rated highly on every major platform — start free and see why athletes and coaches choose FitTrack.
+          </p>
+        </div>
       </div>
     </section>
   )

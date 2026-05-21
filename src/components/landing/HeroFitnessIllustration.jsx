@@ -59,7 +59,7 @@ export default function HeroFitnessIllustration() {
       >
         <svg
           viewBox="0 0 320 320"
-          className="w-full h-full drop-shadow-2xl"
+          className="w-full h-full"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -173,7 +173,7 @@ export default function HeroFitnessIllustration() {
           variants={floatVariants}
           animate="animate"
           transition={{ delay }}
-          className={`absolute ${pos} w-11 h-11 md:w-12 md:h-12 rounded-xl ${bg} backdrop-blur-sm border border-white/40 dark:border-neutral-700/50 shadow-lg flex items-center justify-center`}
+          className={`absolute ${pos} w-11 h-11 md:w-12 md:h-12 rounded-lg ${bg} border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-sm flex items-center justify-center`}
         >
           <Icon className={`w-5 h-5 md:w-6 md:h-6 ${color}`} strokeWidth={2.5} />
         </motion.div>
@@ -184,7 +184,7 @@ export default function HeroFitnessIllustration() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-700/80 shadow-xl flex items-center gap-4"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center gap-4"
       >
         <div className="text-center">
           <p className="text-lg font-bold text-primary-600 dark:text-primary-400">2.4k</p>

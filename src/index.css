@@ -99,6 +99,29 @@ html.dark body {
   animation: hero-light-shift 14s ease infinite;
 }
 
+/* Social proof — partner logo marquee */
+@keyframes logo-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-logo-marquee {
+  animation: logo-marquee 35s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-logo-marquee {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100% !important;
+  }
+}
+
 html.dark .hero-light-base {
   background: linear-gradient(
     160deg,

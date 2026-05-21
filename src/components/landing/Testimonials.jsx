@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import * as ls from './landingStyles'
 
 const testimonials = [
   {
@@ -100,7 +101,7 @@ function TestimonialCard({ testimonial, isPrimary }) {
   if (style === 'bold') {
     return (
       <div
-        className={`h-full min-h-[300px] rounded-3xl p-6 md:p-8 flex flex-col bg-gradient-to-br ${testimonial.gradient} text-white shadow-2xl transition-all duration-500 ${inactive}`}
+        className={`h-full min-h-[300px] rounded-xl p-6 md:p-8 flex flex-col bg-gradient-to-br ${testimonial.gradient} text-white border border-white/20 shadow-sm transition-all duration-500 ${inactive}`}
       >
         <div className="flex flex-col flex-1 gap-4">
           <StarRow count={testimonial.rating} size="w-4 h-4" />
@@ -124,10 +125,10 @@ function TestimonialCard({ testimonial, isPrimary }) {
   if (style === 'split') {
     return (
       <div
-        className={`h-full min-h-[300px] rounded-3xl overflow-hidden border-2 ${testimonial.accent} bg-white dark:bg-neutral-900 shadow-xl flex flex-col transition-all duration-500 ${inactive}`}
+        className={`h-full min-h-[300px] rounded-xl overflow-hidden border ${testimonial.accent} bg-white dark:bg-neutral-900 shadow-sm flex flex-col transition-all duration-500 ${inactive}`}
       >
         <div className={`p-5 flex flex-col items-center bg-gradient-to-br ${testimonial.bg} flex-shrink-0`}>
-          <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white font-bold text-lg shadow-lg mb-3`}>
+          <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white font-bold text-lg mb-3`}>
             {testimonial.initials}
           </div>
           <p className="font-bold text-neutral-900 dark:text-white text-center text-sm">{testimonial.name}</p>
@@ -148,9 +149,8 @@ function TestimonialCard({ testimonial, isPrimary }) {
   if (style === 'glass') {
     return (
       <div
-        className={`h-full min-h-[300px] rounded-3xl p-6 backdrop-blur-xl bg-white/70 dark:bg-neutral-900/70 border border-white/50 dark:border-neutral-700/50 shadow-xl relative overflow-hidden flex flex-col transition-all duration-500 ${inactive}`}
+        className={`h-full min-h-[300px] rounded-xl p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-sm relative overflow-hidden flex flex-col transition-all duration-500 ${inactive}`}
       >
-        <div className={`absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br ${testimonial.gradient} opacity-20 rounded-full blur-2xl pointer-events-none`} />
         <div className="relative z-10 flex flex-col flex-1 gap-4">
           <div className="flex items-center gap-3 flex-shrink-0">
             <Quote className="w-8 h-8 text-primary-400/40 flex-shrink-0" />
@@ -176,7 +176,7 @@ function TestimonialCard({ testimonial, isPrimary }) {
   // quote — decorative mark separate from content
   return (
     <div
-      className={`h-full min-h-[300px] rounded-3xl bg-white dark:bg-neutral-900 shadow-lg border border-neutral-200 dark:border-neutral-800 flex overflow-hidden transition-all duration-500 ${inactive}`}
+      className={`h-full min-h-[300px] rounded-xl bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 flex overflow-hidden transition-all duration-500 ${inactive}`}
     >
       <div className={`w-1.5 flex-shrink-0 bg-gradient-to-b ${testimonial.gradient}`} />
       <div className="flex-1 p-6 flex flex-col justify-between min-w-0">
@@ -245,13 +245,8 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="py-20 md:py-28 px-4 relative overflow-hidden bg-gradient-to-b from-neutral-50 via-pink-50/20 to-white dark:from-neutral-950 dark:via-pink-950/10 dark:to-neutral-950">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-pink-200/20 dark:bg-pink-900/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-200/20 dark:bg-primary-900/10 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-7xl mx-auto">
+    <section id="testimonials" className={`${ls.section} bg-white dark:bg-neutral-950`}>
+      <div className={ls.container}>
         <motion.div
           className="text-center mb-12 md:mb-14"
           initial={{ opacity: 0, y: 20 }}
@@ -259,12 +254,11 @@ export default function Testimonials() {
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent">
-              Loved by Thousands
-            </span>
+          <span className={ls.eyebrow}>Testimonials</span>
+          <h2 className={`${ls.heading} mb-4`}>
+            Loved by <span className={ls.headingAccent}>thousands</span>
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 text-lg max-w-2xl mx-auto">
+          <p className={`${ls.subheading} mx-auto`}>
             Real success stories from our community — two at a time
           </p>
         </motion.div>
@@ -273,7 +267,7 @@ export default function Testimonials() {
           <button
             type="button"
             onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-lg flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
             aria-label="Previous testimonials"
           >
             <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
@@ -282,7 +276,7 @@ export default function Testimonials() {
           <button
             type="button"
             onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-lg flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/50 hover:text-primary-600 transition-colors"
             aria-label="Next testimonials"
           >
             <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />

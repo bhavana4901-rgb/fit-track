@@ -1,17 +1,18 @@
-import { Link } from 'react-router-dom'
 import { Navbar, Hero, SocialProof, Features, HowItWorks, Testimonials, Pricing, CTASection, Footer } from '../components/landing'
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-neutral-950 dark:to-neutral-900">
+    <div className="min-h-screen bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
       <Navbar />
-      <Hero />
-      <SocialProof />
-      <Features />
-      <HowItWorks />
-      <Testimonials />
-      <Pricing />
-      <CTASection />
+      <main>
+        <Hero />
+        <SocialProof />
+        <Features />
+        <HowItWorks />
+        <Testimonials />
+        <Pricing />
+        <CTASection />
+      </main>
       <Footer />
     </div>
   )

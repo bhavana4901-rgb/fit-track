@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { UserPlus, Target, TrendingUp, ArrowRight, Sparkles } from 'lucide-react'
+import { UserPlus, Target, TrendingUp, ArrowRight } from 'lucide-react'
+import * as ls from './landingStyles'
 
 const steps = [
   {
@@ -9,8 +10,7 @@ const steps = [
     description: 'Create your account in seconds. Basic info and you\'re ready to go.',
     icon: UserPlus,
     gradient: 'from-primary-500 to-blue-600',
-    glow: 'shadow-primary-500/40',
-    ring: 'ring-primary-400/50',
+    ring: 'ring-primary-200 dark:ring-primary-800',
     pathColor: '#3B82F6',
   },
   {
@@ -20,8 +20,7 @@ const steps = [
     description: 'Pick fitness goals, activity level, and preferences — fully personalized.',
     icon: Target,
     gradient: 'from-secondary-500 to-violet-600',
-    glow: 'shadow-secondary-500/40',
-    ring: 'ring-secondary-400/50',
+    ring: 'ring-secondary-200 dark:ring-secondary-800',
     pathColor: '#8B5CF6',
   },
   {
@@ -31,8 +30,7 @@ const steps = [
     description: 'Log workouts, track metrics, and watch your transformation with analytics.',
     icon: TrendingUp,
     gradient: 'from-success-500 to-emerald-600',
-    glow: 'shadow-success-500/40',
-    ring: 'ring-success-400/50',
+    ring: 'ring-success-200 dark:ring-success-800',
     pathColor: '#10B981',
   },
 ]
@@ -50,7 +48,7 @@ function StepNode({ step, index }) {
       {/* Timeline node */}
       <motion.div
         whileHover={{ scale: 1.08 }}
-        className={`relative w-20 h-20 md:w-24 md:h-24 rounded-2xl rotate-45 bg-gradient-to-br ${step.gradient} ${step.glow} shadow-xl flex items-center justify-center ring-4 ${step.ring}`}
+        className={`relative w-20 h-20 md:w-24 md:h-24 rounded-xl rotate-45 bg-gradient-to-br ${step.gradient} flex items-center justify-center ring-2 ${step.ring}`}
       >
         <div className="-rotate-45">
           <Icon className="w-9 h-9 md:w-11 md:h-11 text-white" strokeWidth={2} />
@@ -63,9 +61,9 @@ function StepNode({ step, index }) {
       {/* Step card */}
       <motion.div
         whileHover={{ y: -4 }}
-        className="mt-8 w-full max-w-[280px] p-6 rounded-2xl bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200/80 dark:border-neutral-700/80 shadow-lg hover:shadow-xl transition-shadow"
+        className={`mt-8 w-full max-w-[280px] p-6 rounded-xl ${ls.card} ${ls.cardHover}`}
       >
-        <span className={`text-4xl font-black bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent opacity-30`}>
+        <span className={`text-3xl font-bold bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent opacity-40`}>
           {step.number}
         </span>
         <h3 className="text-xl font-bold text-neutral-900 dark:text-white -mt-2 mb-2">{step.title}</h3>
@@ -243,7 +241,7 @@ function MobileTimeline() {
               <div className="relative z-10 flex-shrink-0">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className={`w-[72px] h-[72px] rounded-2xl rotate-45 bg-gradient-to-br ${step.gradient} shadow-lg flex items-center justify-center`}
+                  className={`w-[72px] h-[72px] rounded-xl rotate-45 bg-gradient-to-br ${step.gradient} flex items-center justify-center ring-2 ${step.ring}`}
                 >
                   <div className="-rotate-45">
                     <Icon className="w-8 h-8 text-white" />
@@ -263,8 +261,8 @@ function MobileTimeline() {
 
               {/* Card */}
               <div className="flex-1 pt-2">
-                <div className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-md">
-                  <span className={`text-3xl font-black bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent`}>
+                <div className={`p-5 rounded-xl ${ls.card}`}>
+                  <span className={`text-2xl font-bold bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent`}>
                     {step.number}
                   </span>
                   <h3 className="text-lg font-bold text-neutral-900 dark:text-white mt-1 mb-2">{step.title}</h3>
@@ -281,30 +279,20 @@ function MobileTimeline() {
 
 export default function HowItWorks() {
   return (
-    <section className="w-full py-16 md:py-24 relative overflow-hidden bg-gradient-to-b from-neutral-50 via-primary-50/30 to-white dark:from-neutral-950 dark:via-primary-950/20 dark:to-neutral-950">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-primary-200/20 via-secondary-200/15 to-success-200/20 dark:from-primary-900/10 dark:via-secondary-900/10 dark:to-success-900/10 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="how-it-works" className={`${ls.section} bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800`}>
+      <div className={ls.container}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="text-center mb-14 md:mb-20"
+          className="text-center mb-14 md:mb-16"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-primary-100 dark:bg-primary-950/50 text-primary-700 dark:text-primary-300 text-sm font-semibold border border-primary-200 dark:border-primary-800">
-            <Sparkles className="w-4 h-4" />
-            Simple process
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
-            How It{' '}
-            <span className="bg-gradient-to-r from-primary-600 via-secondary-600 to-success-600 bg-clip-text text-transparent">
-              Works
-            </span>
+          <span className={ls.eyebrow}>How it works</span>
+          <h2 className={`${ls.heading} mb-4`}>
+            How it <span className={ls.headingAccent}>works</span>
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto text-lg">
+          <p className={`${ls.subheading} mx-auto`}>
             Three steps from sign-up to transformation — follow the path below
           </p>
         </motion.div>
@@ -336,7 +324,7 @@ export default function HowItWorks() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gradient-to-r from-primary-600 via-secondary-600 to-success-600 text-white font-semibold rounded-2xl shadow-lg shadow-primary-500/25 inline-flex items-center gap-2"
+            className="px-8 py-3.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-sm inline-flex items-center gap-2 transition-colors"
           >
             Begin Your Journey
             <ArrowRight className="w-5 h-5" />

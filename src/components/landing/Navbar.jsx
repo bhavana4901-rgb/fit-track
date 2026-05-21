@@ -41,7 +41,7 @@ export default function Navbar({ onMobileMenuToggle }) {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ease-out ${
         isScrolled
-          ? 'bg-white/95 dark:bg-neutral-950/95 backdrop-blur-lg shadow-lg shadow-neutral-200/50 dark:shadow-neutral-900/50 border-b border-neutral-200/50 dark:border-neutral-800/50'
+          ? 'bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 shadow-sm'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
@@ -52,7 +52,7 @@ export default function Navbar({ onMobileMenuToggle }) {
             to="/"
             className="flex items-center gap-2 group"
           >
-            <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary-500/50 transition-all duration-300">
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center transition-opacity group-hover:opacity-90">
               <span className="text-white font-bold text-lg md:text-xl">F</span>
             </div>
             <span className="hidden sm:inline font-bold text-lg md:text-xl text-neutral-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">

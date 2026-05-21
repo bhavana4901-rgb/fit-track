@@ -69,6 +69,38 @@ export function HealthSyncLogo({ className = 'w-full h-full' }) {
 
 
 
+export function AppStoreBadge({ className = 'w-full h-full' }) {
+  return (
+    <svg viewBox="0 0 120 36" className={className} fill="none" aria-hidden="true">
+      <rect x="1" y="1" width="118" height="34" rx="6" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M24 10l-4 16h3l1-4h6l1 4h3L29 10h-5zm-1.5 10l2.5-7 2.5 7h-5z" fill="currentColor" />
+      <text x="44" y="14" fill="currentColor" fontSize="7" fontFamily="system-ui,sans-serif">Download on the</text>
+      <text x="44" y="26" fill="currentColor" fontSize="11" fontWeight="600" fontFamily="system-ui,sans-serif">App Store</text>
+    </svg>
+  )
+}
+
+export function GooglePlayBadge({ className = 'w-full h-full' }) {
+  return (
+    <svg viewBox="0 0 120 36" className={className} fill="none" aria-hidden="true">
+      <rect x="1" y="1" width="118" height="34" rx="6" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M14 10l10 8-10 8V10z" fill="currentColor" opacity="0.8" />
+      <text x="32" y="14" fill="currentColor" fontSize="7" fontFamily="system-ui,sans-serif">GET IT ON</text>
+      <text x="32" y="26" fill="currentColor" fontSize="11" fontWeight="600" fontFamily="system-ui,sans-serif">Google Play</text>
+    </svg>
+  )
+}
+
+export function TrustpilotBadge({ className = 'w-full h-full' }) {
+  return (
+    <svg viewBox="0 0 120 36" className={className} fill="none" aria-hidden="true">
+      <rect x="1" y="1" width="118" height="34" rx="6" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M14 24l3-8 3 8H14zm3-12l3 8h-6l3-8z" fill="currentColor" />
+      <text x="36" y="22" fill="currentColor" fontSize="10" fontWeight="600" fontFamily="system-ui,sans-serif">Trustpilot</text>
+    </svg>
+  )
+}
+
 export const PARTNER_LOGOS = [
   { name: 'TechFlow', Logo: TechFlowLogo, color: 'text-primary-600 dark:text-primary-400' },
   { name: 'FitnessHub', Logo: FitnessHubLogo, color: 'text-secondary-600 dark:text-secondary-400' },
@@ -76,5 +108,11 @@ export const PARTNER_LOGOS = [
   { name: 'ActiveLife', Logo: ActiveLifeLogo, color: 'text-success-600 dark:text-success-400' },
   { name: 'TrackPro', Logo: TrackProLogo, color: 'text-warning-600 dark:text-warning-500' },
   { name: 'HealthSync', Logo: HealthSyncLogo, color: 'text-primary-600 dark:text-primary-400' },
+]
+
+export const TRUST_BADGES = [
+  { name: 'App Store', Logo: AppStoreBadge },
+  { name: 'Google Play', Logo: GooglePlayBadge },
+  { name: 'Trustpilot', Logo: TrustpilotBadge },
 ]
 

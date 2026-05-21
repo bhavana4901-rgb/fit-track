@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, ArrowRight, Sparkles, Zap, Crown } from 'lucide-react'
+import * as ls from './landingStyles'
 
 const pricingTiers = [
   {
@@ -121,7 +122,7 @@ function PricingCard({ tier, index }) {
           </p>
 
           <div className="flex items-baseline gap-1 mb-6">
-            <span className={`text-5xl font-black tracking-tight ${isFeatured ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
+            <span className={`text-5xl font-bold tracking-tight ${isFeatured ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
               ${tier.price}
             </span>
             <span className={`text-sm ${isFeatured ? 'text-neutral-400' : 'text-neutral-500'}`}>{tier.period}</span>
@@ -184,11 +185,8 @@ export default function Pricing() {
   const [annual, setAnnual] = useState(false)
 
   return (
-    <section id="pricing" className="py-20 md:py-28 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-cyan-50/30 to-primary-50/20 dark:from-neutral-950 dark:via-cyan-950/10 dark:to-neutral-950" />
-      <div className="absolute inset-0 opacity-40 bg-[radial-gradient(ellipse_at_30%_20%,rgba(6,182,212,0.15),transparent_50%),radial-gradient(ellipse_at_70%_80%,rgba(59,130,246,0.12),transparent_50%)]" />
-
-      <div className="max-w-7xl mx-auto relative z-10">
+    <section id="pricing" className={`${ls.section} bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800`}>
+      <div className={ls.container}>
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -196,15 +194,11 @@ export default function Pricing() {
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
         >
-          <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold text-cyan-700 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-950/50 rounded-full border border-cyan-200 dark:border-cyan-800">
-            Pricing
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-primary-600 via-cyan-600 to-secondary-600 bg-clip-text text-transparent">
-              Simple, transparent pricing
-            </span>
+          <span className={ls.eyebrow}>Pricing</span>
+          <h2 className={`${ls.heading} mb-4`}>
+            Simple, <span className={ls.headingAccent}>transparent</span> pricing
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 text-lg max-w-2xl mx-auto mb-8">
+          <p className={`${ls.subheading} mx-auto mb-8`}>
             Choose your plan. Upgrade or downgrade anytime — no commitment.
           </p>
 

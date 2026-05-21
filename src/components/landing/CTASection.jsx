@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, ArrowRight, CheckCircle, Dumbbell, Flame, Trophy } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import * as ls from './landingStyles'
 
 const perks = [
   { icon: Dumbbell, label: 'Unlimited workouts' },
@@ -33,23 +34,11 @@ export default function CTASection() {
   }
 
   return (
-    <section className="py-16 md:py-24 px-4 relative overflow-hidden">
-      {/* Outer glow frame */}
-      <div className="max-w-6xl mx-auto relative">
+    <section className={`${ls.section} bg-white dark:bg-neutral-950`}>
+      <div className={`${ls.container} max-w-6xl`}>
         <div className="relative rounded-2xl overflow-hidden bg-neutral-950 border border-neutral-800 shadow-sm">
           {/* Animated mesh */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_0%_0%,rgba(59,130,246,0.35),transparent_50%),radial-gradient(ellipse_at_100%_100%,rgba(139,92,246,0.3),transparent_50%),radial-gradient(ellipse_at_50%_50%,rgba(236,72,153,0.15),transparent_60%)]" />
-          <motion.div
-            className="absolute top-0 right-0 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl"
-            animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <motion.div
-            className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-500/10 rounded-full blur-3xl"
-            animate={{ x: [0, -20, 0], y: [0, 25, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(rgba(255,255,255,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.5)_1px,transparent_1px)] bg-[size:40px_40px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_0%_0%,rgba(59,130,246,0.12),transparent_50%),radial-gradient(ellipse_at_100%_100%,rgba(139,92,246,0.1),transparent_50%)]" />
 
           <div className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 p-8 md:p-12 lg:p-16 items-center">
             {/* Left — copy + perks */}
@@ -63,7 +52,7 @@ export default function CTASection() {
                 <span className="w-2 h-2 rounded-full bg-success-400 animate-pulse" />
                 Limited time — free trial
               </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
                 Ready to transform{' '}
                 <span className="bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400 bg-clip-text text-transparent">
                   your fitness?
