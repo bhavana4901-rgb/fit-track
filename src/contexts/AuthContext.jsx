@@ -15,8 +15,14 @@ export function AuthProvider({ children }) {
     setIsLoading(false)
   }, [])
 
-  const login = (email, name) => {
-    const userData = { email, name, id: Date.now() }
+  const login = (email, name, avatar = null) => {
+    const userData = { 
+      email, 
+      name, 
+      avatar,
+      id: Date.now(),
+      createdAt: new Date().toISOString()
+    }
     setUser(userData)
     storage.setItem('fittrack_user', userData)
   }
@@ -26,8 +32,14 @@ export function AuthProvider({ children }) {
     storage.removeItem('fittrack_user')
   }
 
+  const updateUser = (updates) => {
+    const updatedUser = { ...user, ...updates }
+    setUser(updatedUser)
+    storage.setItem('fittrack_user', updatedUser)
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   )

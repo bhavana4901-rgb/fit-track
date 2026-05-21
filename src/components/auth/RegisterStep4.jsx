@@ -98,10 +98,9 @@ export default function RegisterStep4({ onNext, onPrevious, initialData, onSkip 
   }
 
   const handleSkip = () => {
+    // Call the onSkip prop which will advance to next step
     if (onSkip) {
       onSkip()
-    } else {
-      onNext({ activityLevel: null })
     }
   }
 

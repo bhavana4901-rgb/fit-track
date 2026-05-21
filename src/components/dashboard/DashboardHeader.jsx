@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { LogOut, Settings } from 'lucide-react'
+import { LogOut, Settings, Home } from 'lucide-react'
 import { AuthContext } from '../../contexts/AuthContext'
 import { dashboardCard, dashboardCardPadding } from './dashboardStyles'
 import { dashboardItem } from './dashboardMotion'
@@ -20,6 +20,10 @@ export default function DashboardHeader() {
 
   const handleSettings = () => {
     navigate('/settings')
+  }
+
+  const handleGoHome = () => {
+    navigate('/')
   }
 
   const currentDate = useMemo(() => {
@@ -48,11 +52,21 @@ export default function DashboardHeader() {
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3 sm:gap-4 min-w-0">
             <motion.div
-              className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-500/25 ring-2 ring-white/50 dark:ring-neutral-800/50"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg ring-2 ring-white/50 dark:ring-neutral-800/50 overflow-hidden"
               whileHover={{ scale: 1.04, rotate: 2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="text-lg font-bold text-white">{userInitial}</span>
+              {user?.avatar ? (
+                <img 
+                  src={user.avatar} 
+                  alt={user.name || 'User'} 
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                  <span className="text-lg font-bold text-white">{userInitial}</span>
+                </div>
+              )}
             </motion.div>
 
             <div className="min-w-0">
@@ -66,6 +80,17 @@ export default function DashboardHeader() {
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
+            <motion.button
+              onClick={handleGoHome}
+              aria-label="Go to home page"
+              className="p-2.5 sm:p-3 rounded-xl border border-neutral-200/80 dark:border-neutral-700 bg-neutral-50/80 dark:bg-neutral-800/80 text-neutral-700 dark:text-neutral-300 hover:border-primary-200 dark:hover:border-primary-800 hover:bg-primary-50/50 dark:hover:bg-primary-950/30 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-950"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              title="Go to Home"
+            >
+              <Home className="w-5 h-5" />
+            </motion.button>
+
             <motion.button
               onClick={handleSettings}
               aria-label="Go to settings"

@@ -104,12 +104,17 @@ export const useRegisterForm = () => {
    * Skip current step (only for optional steps 4 & 5)
    */
   const handleSkip = useCallback(() => {
-    if (step < 5) {
+    if (step === 4) {
+      // Skip step 4 (activity level) and go to step 5
+      setStep(5)
+      setStepErrors({})
+    } else if (step === 5) {
+      // Skip step 5 and complete registration with current data
+      handleSubmit(formData)
+    } else if (step < 5) {
+      // For any other step, just advance
       setStep(step + 1)
       setStepErrors({})
-    } else {
-      // On step 5, skip means complete registration with minimal data
-      handleSubmit(formData)
     }
   }, [step, formData])
 
@@ -182,8 +187,8 @@ export const useRegisterForm = () => {
               })
             )
 
-            // Auto-login user
-            login(registrationData.email, registrationData.fullName)
+            // Auto-login user with avatar
+            login(registrationData.email, registrationData.fullName, registrationData.avatar)
 
             // Clear registration form data from localStorage
             localStorage.removeItem(STORAGE_KEY)

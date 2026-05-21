@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Menu, X, Moon, Sun } from 'lucide-react'
+import { useState, useEffect, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Menu, X, Moon, Sun, LogOut, LayoutDashboard } from 'lucide-react'
 import { useTheme } from '../../hooks/useTheme'
+import { AuthContext } from '../../contexts/AuthContext'
 import Button from '../ui/Button'
 import MobileMenu from './MobileMenu'
 
@@ -11,11 +12,14 @@ import MobileMenu from './MobileMenu'
  * - Dark mode toggle
  * - Mobile hamburger menu
  * - Responsive design
+ * - Shows different buttons for logged-in vs logged-out users
  */
 export default function Navbar({ onMobileMenuToggle }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { isDark, toggleTheme } = useTheme()
+  const { user, logout } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +33,14 @@ export default function Navbar({ onMobileMenuToggle }) {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
     onMobileMenuToggle?.(!isMobileMenuOpen)
+  }
+
+  const handleLogout = () => {
+    const confirmed = window.confirm('Are you sure you want to logout?')
+    if (confirmed) {
+      logout()
+      navigate('/')
+    }
   }
 
   const navLinks = [
@@ -88,18 +100,35 @@ export default function Navbar({ onMobileMenuToggle }) {
               )}
             </button>
 
-            {/* Desktop Auth Buttons */}
+            {/* Desktop Auth Buttons - Different for logged in/out users */}
             <div className="hidden md:flex items-center gap-3">
-              <Link to="/login">
-                <Button variant="ghost" size="sm">
-                  Login
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button variant="primary" size="sm">
-                  Get Started
-                </Button>
-              </Link>
+              {user ? (
+                <>
+                  <Link to="/dashboard">
+                    <Button variant="ghost" size="sm">
+                      <LayoutDashboard className="w-4 h-4" />
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <Button variant="outline" size="sm" onClick={handleLogout}>
+                    <LogOut className="w-4 h-4" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="ghost" size="sm">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button variant="primary" size="sm">
+                      Get Started
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -118,7 +147,12 @@ export default function Navbar({ onMobileMenuToggle }) {
         </div>
 
         {/* Mobile Menu */}
-        <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+        <MobileMenu 
+          isOpen={isMobileMenuOpen} 
+          onClose={() => setIsMobileMenuOpen(false)} 
+          user={user}
+          onLogout={handleLogout}
+        />
       </div>
     </nav>
   )

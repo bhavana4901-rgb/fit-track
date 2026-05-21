@@ -71,7 +71,7 @@ export default function Login() {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(loginSchema),
-    mode: 'onBlur',
+    mode: 'onChange', // Real-time validation on every change
     defaultValues: {
       email: typeof window !== 'undefined' ? localStorage.getItem('rememberEmail') || '' : '',
       rememberMe: false,

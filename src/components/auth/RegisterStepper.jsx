@@ -4,13 +4,36 @@ import { viewTransitionFast } from '../landing/landingMotion'
 
 /**
  * Horizontal stepper for the register flow — circles, connectors, one active label.
+ * Now includes animated progress bar showing overall completion percentage.
  */
 export default function RegisterStepper({ currentStep = 1, steps = [] }) {
   const total = steps.length
   const active = steps[currentStep - 1]
+  const progressPercentage = Math.round((currentStep / total) * 100)
 
   return (
     <nav aria-label="Registration progress" className="w-full">
+      {/* Overall Progress Bar */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-400">
+            Overall Progress
+          </span>
+          <span className="text-xs font-bold text-primary-600 dark:text-primary-400">
+            {progressPercentage}%
+          </span>
+        </div>
+        <div className="w-full h-2.5 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${progressPercentage}%` }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+          />
+        </div>
+      </div>
+
+      {/* Step Circles */}
       <ol className="flex items-center w-full list-none m-0 p-0">
         {steps.map((step, index) => {
           const stepNumber = index + 1

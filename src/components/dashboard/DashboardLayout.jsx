@@ -112,8 +112,18 @@ export default function DashboardLayout({ children }) {
               whileHover={{ scale: 1.02 }}
               className={`flex items-center ${sidebarOpen ? 'gap-3 px-4' : 'justify-center px-0'} py-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700`}
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                {user?.name?.charAt(0) || 'U'}
+              <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden ring-2 ring-white/50 dark:ring-neutral-700/50">
+                {user?.avatar ? (
+                  <img 
+                    src={user.avatar} 
+                    alt={user.name || 'User'} 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-primary-400 to-secondary-400 flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">{user?.name?.charAt(0) || 'U'}</span>
+                  </div>
+                )}
               </div>
               <AnimatePresence>
                 {sidebarOpen && (

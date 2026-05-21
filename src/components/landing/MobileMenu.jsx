@@ -2,13 +2,15 @@ import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { LayoutDashboard, LogOut } from 'lucide-react'
 import Button from '../ui/Button'
 
 /**
  * Mobile menu drawer — portaled to document.body so it stacks above
  * all landing sections (features cards, pricing badges, etc.)
+ * Shows different buttons for logged-in vs logged-out users
  */
-export default function MobileMenu({ isOpen, onClose }) {
+export default function MobileMenu({ isOpen, onClose, user, onLogout }) {
   const navLinks = [
     { label: 'Features', href: '#features' },
     { label: 'Testimonials', href: '#testimonials' },
@@ -23,6 +25,11 @@ export default function MobileMenu({ isOpen, onClose }) {
       document.body.style.overflow = prev
     }
   }, [isOpen])
+
+  const handleLogout = () => {
+    onClose()
+    onLogout?.()
+  }
 
   return createPortal(
     <AnimatePresence>
@@ -72,29 +79,59 @@ export default function MobileMenu({ isOpen, onClose }) {
               </div>
 
               <div className="border-t border-neutral-200 dark:border-neutral-800 px-6 py-4 space-y-3">
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15, duration: 0.2 }}
-                >
-                  <Link to="/login" onClick={onClose} className="block">
-                    <Button variant="outline" size="md" className="w-full">
-                      Login
-                    </Button>
-                  </Link>
-                </motion.div>
+                {user ? (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15, duration: 0.2 }}
+                    >
+                      <Link to="/dashboard" onClick={onClose} className="block">
+                        <Button variant="primary" size="md" className="w-full">
+                          <LayoutDashboard className="w-4 h-4" />
+                          Dashboard
+                        </Button>
+                      </Link>
+                    </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.2 }}
-                >
-                  <Link to="/register" onClick={onClose} className="block">
-                    <Button variant="primary" size="md" className="w-full">
-                      Get Started
-                    </Button>
-                  </Link>
-                </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.2 }}
+                    >
+                      <Button variant="outline" size="md" className="w-full" onClick={handleLogout}>
+                        <LogOut className="w-4 h-4" />
+                        Logout
+                      </Button>
+                    </motion.div>
+                  </>
+                ) : (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15, duration: 0.2 }}
+                    >
+                      <Link to="/login" onClick={onClose} className="block">
+                        <Button variant="outline" size="md" className="w-full">
+                          Login
+                        </Button>
+                      </Link>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.2 }}
+                    >
+                      <Link to="/register" onClick={onClose} className="block">
+                        <Button variant="primary" size="md" className="w-full">
+                          Get Started
+                        </Button>
+                      </Link>
+                    </motion.div>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
