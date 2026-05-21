@@ -40,9 +40,9 @@ const features = [
     icon: Users,
     title: 'Community Support',
     description: 'Connect, compete, and celebrate wins with fitness enthusiasts worldwide.',
-    gradient: 'from-secondary-500 to-violet-600',
-    lightBg: 'from-secondary-50 to-violet-50 dark:from-secondary-950/40 dark:to-violet-950/30',
-    accent: 'border-secondary-400',
+    gradient: 'from-primary-500 to-secondary-500',
+    lightBg: 'from-primary-50/80 via-white to-secondary-50/80 dark:from-primary-950/30 dark:via-neutral-900 dark:to-secondary-950/30',
+    accent: 'border-primary-300',
     layout: 'stacked',
     stat: '50K+ members',
   },
@@ -119,7 +119,10 @@ function FeatureCard({ feature }) {
         >
           <Icon className="w-7 h-7 text-white" />
         </motion.div>
-        <div className={`relative h-full p-6 pt-12 rounded-3xl bg-gradient-to-br ${feature.lightBg} border-2 border-dashed border-success-300/50 dark:border-success-700/40 hover:border-solid transition-all`}>
+        <div className={`relative h-full p-6 pt-12 rounded-3xl bg-gradient-to-br ${feature.lightBg} border-2 border-dashed border-success-300/50 dark:border-success-700/40 hover:border-solid transition-all overflow-hidden`}>
+          <span className="absolute top-2 right-4 text-6xl font-black text-success-200/60 dark:text-success-900/40 leading-none select-none">
+            {num}
+          </span>
           <span className="text-xs font-bold text-success-600 dark:text-success-400 uppercase tracking-wider">{feature.stat}</span>
           <h3 className="text-xl font-bold text-neutral-900 dark:text-white mt-2 mb-2">{feature.title}</h3>
           <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{feature.description}</p>
@@ -136,20 +139,21 @@ function FeatureCard({ feature }) {
         className="group relative flex overflow-hidden rounded-3xl bg-white dark:bg-neutral-900 shadow-md hover:shadow-xl transition-shadow"
       >
         <div className={`w-2 flex-shrink-0 bg-gradient-to-b ${feature.gradient}`} />
-        <div className="flex-1 p-6 relative">
-          <div className="flex items-center gap-3 mb-3">
+        <div className="flex-1 p-6 relative min-h-[200px]">
+          <span className="absolute top-3 right-4 text-6xl md:text-7xl font-black text-accent-200/70 dark:text-accent-900/50 leading-none select-none">
+            {num}
+          </span>
+          <div className="flex items-center gap-3 mb-3 relative z-10">
             <div className={`p-2.5 rounded-lg bg-gradient-to-br ${feature.gradient}`}>
               <Icon className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xs font-mono text-neutral-400">{num}</span>
           </div>
-          <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-2">{feature.title}</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">{feature.description}</p>
-          <p className={`mt-4 text-sm font-bold bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent`}>
+          <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-2 relative z-10">{feature.title}</h3>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 relative z-10">{feature.description}</p>
+          <p className={`mt-4 text-sm font-bold bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent relative z-10`}>
             {feature.stat}
           </p>
-          {/* Sparkline */}
-          <svg className="absolute bottom-4 right-4 w-20 h-10 opacity-30 group-hover:opacity-60 transition-opacity" viewBox="0 0 80 40">
+          <svg className="absolute bottom-4 right-4 w-20 h-10 opacity-30 group-hover:opacity-60 transition-opacity" viewBox="0 0 80 40" aria-hidden="true">
             <path d="M0 35 L15 25 L30 30 L45 15 L60 20 L80 5" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent-500" />
           </svg>
         </div>
@@ -157,29 +161,47 @@ function FeatureCard({ feature }) {
     )
   }
 
-  // stacked — community (full-width banner)
+  // stacked — community (full-width, light card)
   return (
     <motion.article
       variants={cardVariants}
       whileHover={{ scale: 1.01 }}
-      className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-secondary-600 to-violet-700 p-6 md:p-8 text-white min-h-[180px] md:col-span-2 lg:col-span-3"
+      className="group relative overflow-hidden rounded-3xl min-h-[180px] md:col-span-2 lg:col-span-3 border border-neutral-200 dark:border-neutral-800 shadow-md hover:shadow-xl transition-shadow"
     >
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xNSkiLz48L3N2Zz+')] opacity-60" />
-      <div className="relative">
-        <Icon className="w-8 h-8 mb-4 opacity-90" />
-        <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-        <p className="text-sm text-white/80 leading-relaxed">{feature.description}</p>
-        <div className="flex items-center gap-2 mt-5">
-          {['A', 'B', 'C', 'D', '+'].map((letter, i) => (
-            <div
-              key={letter}
-              className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-xs font-bold"
-              style={{ marginLeft: i > 0 ? -10 : 0 }}
-            >
-              {letter}
-            </div>
-          ))}
-          <span className="text-xs text-white/70 ml-1">{feature.stat}</span>
+      <div className={`absolute inset-0 bg-gradient-to-br ${feature.lightBg}`} />
+      <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${feature.gradient}`} />
+      <div className="absolute -right-8 -top-8 w-48 h-48 bg-gradient-to-br from-primary-400/15 to-secondary-400/15 rounded-full blur-2xl" />
+      <div className="relative flex flex-col md:flex-row md:items-center gap-6 p-6 md:p-8">
+        <div className="flex-shrink-0 flex items-start gap-4">
+          <span className="text-7xl md:text-8xl font-black text-primary-200/70 dark:text-primary-800/50 leading-none">
+            {num}
+          </span>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className={`p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg shadow-primary-500/20`}
+          >
+            <Icon className="w-8 h-8 text-white" />
+          </motion.div>
+        </div>
+        <div className="flex-1 min-w-0">
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300 mb-2">
+            {feature.stat}
+          </span>
+          <h3 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-white mb-2">{feature.title}</h3>
+          <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+            {feature.description}
+          </p>
+          <div className="flex items-center gap-2 mt-5">
+            {['A', 'B', 'C', 'D', '+'].map((letter, i) => (
+              <div
+                key={letter}
+                className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white bg-gradient-to-br ${feature.gradient} border-2 border-white dark:border-neutral-800 shadow-sm`}
+                style={{ marginLeft: i > 0 ? -10 : 0 }}
+              >
+                {letter}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </motion.article>
@@ -240,14 +262,14 @@ export default function Features() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3.5 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold rounded-2xl shadow-lg shadow-primary-500/30"
+            className="px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold rounded-2xl shadow-lg shadow-primary-500/30"
           >
             Get Started Free
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3.5 rounded-2xl border-2 border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+            className="px-8 py-4 rounded-2xl border-2 border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
           >
             Learn More
           </motion.button>
