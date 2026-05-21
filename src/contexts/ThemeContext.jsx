@@ -1,37 +1,41 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useCallback } from 'react'
 import { storage } from '../utils/localStorage'
 
 export const ThemeContext = createContext(null)
 
-export function ThemeProvider({ children }) {
-  const [isDark, setIsDark] = useState(false)
-
-  useEffect(() => {
-    const savedTheme = storage.getItem('fittrack_theme')
-    if (savedTheme === 'dark') {
-      setIsDark(true)
-      document.documentElement.classList.add('dark')
-      document.documentElement.style.setProperty('color-scheme', 'dark')
-    } else {
-      setIsDark(false)
-      document.documentElement.classList.remove('dark')
-      document.documentElement.style.setProperty('color-scheme', 'light')
-    }
-  }, [])
-
-  const toggleTheme = () => {
-    const newTheme = !isDark
-    setIsDark(newTheme)
-
-    document.documentElement.style.setProperty('color-scheme', newTheme ? 'dark' : 'light')
-    if (newTheme) {
-      document.documentElement.classList.add('dark')
-      storage.setItem('fittrack_theme', 'dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      storage.setItem('fittrack_theme', 'light')
-    }
+function applyTheme(isDark) {
+  const root = document.documentElement
+  root.style.setProperty('color-scheme', isDark ? 'dark' : 'light')
+  if (isDark) {
+    root.classList.add('dark')
+  } else {
+    root.classList.remove('dark')
   }
+}
+
+function getSavedTheme() {
+  const saved = storage.getItem('fittrack_theme')
+  if (saved === 'dark') return true
+  if (saved === 'light') return false
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+export function ThemeProvider({ children }) {
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === 'undefined') return false
+    const dark = getSavedTheme()
+    applyTheme(dark)
+    return dark
+  })
+
+  const toggleTheme = useCallback(() => {
+    setIsDark((prev) => {
+      const next = !prev
+      applyTheme(next)
+      storage.setItem('fittrack_theme', next ? 'dark' : 'light')
+      return next
+    })
+  }, [])
 
   return (
     <ThemeContext.Provider value={{ isDark, toggleTheme }}>
