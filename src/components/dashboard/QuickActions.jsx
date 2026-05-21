@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Play, Apple, TrendingUp, Zap } from 'lucide-react'
+import { Play, Apple, TrendingUp, Zap, ArrowRight } from 'lucide-react'
 import { dashboardCard, dashboardCardPadding, dashboardSectionTitle, dashboardSectionSubtitle } from './dashboardStyles'
 import { dashboardItem } from './dashboardMotion'
 
@@ -13,6 +13,7 @@ const QuickActions = () => {
       color: 'primary',
       bgColor: 'primary',
       description: 'Begin today\'s workout',
+      gradient: 'from-primary-500 to-primary-600',
       onClick: () => console.log('Start Workout clicked'),
     },
     {
@@ -22,6 +23,7 @@ const QuickActions = () => {
       color: 'success',
       bgColor: 'success',
       description: 'Track nutrition intake',
+      gradient: 'from-success-500 to-success-600',
       onClick: () => console.log('Log Meal clicked'),
     },
     {
@@ -31,6 +33,7 @@ const QuickActions = () => {
       color: 'secondary',
       bgColor: 'secondary',
       description: 'Check your stats',
+      gradient: 'from-secondary-500 to-secondary-600',
       onClick: () => console.log('View Progress clicked'),
     },
   ]
@@ -53,7 +56,7 @@ const QuickActions = () => {
         border: 'border-primary-200/80 dark:border-primary-800/60',
         icon: 'text-primary-600 dark:text-primary-400',
         iconBg: 'bg-primary-100 dark:bg-primary-950/50',
-        hover: 'hover:border-primary-400 dark:hover:border-primary-600 hover:shadow-md hover:shadow-primary-500/10',
+        hover: 'hover:border-primary-400 dark:hover:border-primary-600 hover:shadow-lg hover:shadow-primary-500/20',
         focusRing: 'focus:ring-primary-500',
       },
       success: {
@@ -62,7 +65,7 @@ const QuickActions = () => {
         border: 'border-success-200/80 dark:border-success-800/60',
         icon: 'text-success-600 dark:text-success-400',
         iconBg: 'bg-success-100 dark:bg-success-950/50',
-        hover: 'hover:border-success-400 dark:hover:border-success-600 hover:shadow-md hover:shadow-success-500/10',
+        hover: 'hover:border-success-400 dark:hover:border-success-600 hover:shadow-lg hover:shadow-success-500/20',
         focusRing: 'focus:ring-success-500',
       },
       secondary: {
@@ -71,7 +74,7 @@ const QuickActions = () => {
         border: 'border-secondary-200/80 dark:border-secondary-800/60',
         icon: 'text-secondary-600 dark:text-secondary-400',
         iconBg: 'bg-secondary-100 dark:bg-secondary-950/50',
-        hover: 'hover:border-secondary-400 dark:hover:border-secondary-600 hover:shadow-md hover:shadow-secondary-500/10',
+        hover: 'hover:border-secondary-400 dark:hover:border-secondary-600 hover:shadow-lg hover:shadow-secondary-500/20',
         focusRing: 'focus:ring-secondary-500',
       },
     }
@@ -100,7 +103,7 @@ const QuickActions = () => {
       </div>
 
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 gap-4"
+        className="space-y-3"
         initial="hidden"
         animate="visible"
         variants={{
@@ -115,23 +118,35 @@ const QuickActions = () => {
             <motion.button
               key={action.id}
               variants={itemVariants}
-              whileHover={{ y: -3, scale: 1.02 }}
+              whileHover={{ x: 4, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
               onClick={action.onClick}
               aria-label={`${action.label}: ${action.description}`}
-              className={`p-5 sm:p-6 rounded-xl border-2 text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-neutral-900 ${colorClasses.focusRing} ${colorClasses.bg} ${colorClasses.border} ${colorClasses.hover}`}
+              className={`group w-full p-4 rounded-xl border-2 text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-neutral-900 ${colorClasses.focusRing} ${colorClasses.bg} ${colorClasses.border} ${colorClasses.hover} relative overflow-hidden`}
             >
-              <div className="flex flex-col items-center gap-3">
+              {/* Gradient overlay on hover */}
+              <div className={`absolute inset-0 bg-gradient-to-r ${action.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+              
+              <div className="relative flex items-center gap-4">
                 <motion.div
-                  className={`p-3.5 rounded-xl ${colorClasses.iconBg}`}
-                  whileHover={{ rotate: 6 }}
+                  className={`p-3 rounded-xl ${colorClasses.iconBg} shadow-sm`}
+                  whileHover={{ rotate: 8, scale: 1.1 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
                 >
-                  <Icon size={22} className={colorClasses.icon} />
+                  <Icon size={20} className={colorClasses.icon} />
                 </motion.div>
-                <div className="text-center">
-                  <p className={`font-semibold text-sm ${colorClasses.text}`}>{action.label}</p>
+                <div className="flex-1 min-w-0">
+                  <p className={`font-semibold text-base ${colorClasses.text}`}>{action.label}</p>
                   <p className="text-xs mt-0.5 text-neutral-500 dark:text-neutral-400">{action.description}</p>
                 </div>
+                <motion.div
+                  className={colorClasses.icon}
+                  initial={{ x: 0, opacity: 0.5 }}
+                  whileHover={{ x: 4, opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ArrowRight size={18} />
+                </motion.div>
               </div>
             </motion.button>
           )
