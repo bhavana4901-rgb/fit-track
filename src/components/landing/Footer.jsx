@@ -1,120 +1,154 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Share2, Heart, Globe, ArrowRight } from 'lucide-react'
+import { Mail, ArrowRight, Share2, Heart, Globe, Link2, Home } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const navigationLinks = {
   product: [
     { name: 'Features', href: '#features' },
     { name: 'Pricing', href: '#pricing' },
     { name: 'Security', href: '#' },
-    { name: 'Updates', href: '#' }
+    { name: 'Updates', href: '#' },
   ],
   company: [
     { name: 'About', href: '#' },
     { name: 'Blog', href: '#' },
     { name: 'Careers', href: '#' },
-    { name: 'Contact', href: '#' }
+    { name: 'Contact', href: '#' },
   ],
   resources: [
     { name: 'Documentation', href: '#' },
     { name: 'Help Center', href: '#' },
     { name: 'Community', href: '#' },
-    { name: 'API', href: '#' }
+    { name: 'API', href: '#' },
   ],
   legal: [
     { name: 'Privacy', href: '#' },
     { name: 'Terms', href: '#' },
     { name: 'Cookies', href: '#' },
-    { name: 'Compliance', href: '#' }
-  ]
+  ],
 }
 
 const socialLinks = [
-  { icon: Share2, label: 'Twitter', href: '#' },
-  { icon: Heart, label: 'Instagram', href: '#' },
-  { icon: Globe, label: 'Website', href: '#' },
-  { icon: Mail, label: 'Email', href: '#' }
+  { icon: Share2, label: 'Twitter', href: '#', color: 'hover:text-sky-400' },
+  { icon: Heart, label: 'Instagram', href: '#', color: 'hover:text-pink-400' },
+  { icon: Link2, label: 'LinkedIn', href: '#', color: 'hover:text-blue-400' },
+  { icon: Globe, label: 'Website', href: '#', color: 'hover:text-primary-400' },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
-  }
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' }
-  }
-}
-
-const linkHoverVariants = {
-  hover: { x: 4, transition: { duration: 0.2 } }
-}
-
-const iconHoverVariants = {
-  hover: { 
-    scale: 1.2, 
-    y: -4,
-    transition: { duration: 0.2 } 
-  }
+function FooterLinkColumn({ title, links }) {
+  return (
+    <div>
+      <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{title}</h3>
+      <ul className="space-y-2.5">
+        {links.map((link) => (
+          <li key={link.name}>
+            <a
+              href={link.href}
+              className="group text-sm text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-2"
+            >
+              <span className="w-0 group-hover:w-2 h-px bg-primary-400 transition-all duration-200" />
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
 
 export default function Footer() {
   const [email, setEmail] = useState('')
-  const [subscribeStatus, setSubscribeStatus] = useState('idle') // idle, loading, success, error
+  const [subscribeStatus, setSubscribeStatus] = useState('idle')
 
   const handleSubscribe = (e) => {
     e.preventDefault()
     if (!email) return
-
     setSubscribeStatus('loading')
     setTimeout(() => {
       setSubscribeStatus('success')
       setEmail('')
       setTimeout(() => setSubscribeStatus('idle'), 3000)
-    }, 1000)
+    }, 800)
   }
 
   return (
-    <footer className="bg-neutral-950 text-neutral-300 dark:bg-black dark:text-neutral-400 pt-20 pb-8 px-4 md:px-8 lg:px-16 border-t border-neutral-800">
-      <div className="max-w-7xl mx-auto">
-        {/* Main Footer Content */}
+    <footer className="relative bg-neutral-950 text-neutral-400 overflow-hidden">
+      {/* Top wave gradient */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/50 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-24 bg-gradient-to-b from-primary-500/5 to-transparent pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20 pb-8 relative z-10">
+        {/* Newsletter — elevated card */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-16"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
+          className="relative -mt-2 mb-16 md:mb-20"
         >
-          {/* Brand Section */}
-          <motion.div variants={itemVariants} className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-600 to-secondary-600 flex items-center justify-center text-white font-bold text-lg">
-                F
+          <div className="relative rounded-xl bg-neutral-900 border border-neutral-800 p-6 md:p-10 overflow-hidden shadow-sm">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-primary-500/5 rounded-full blur-2xl pointer-events-none" />
+            <div className="relative grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <p className="text-primary-400 text-sm font-semibold uppercase tracking-wider mb-2">Newsletter</p>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Stay in the loop</h3>
+                <p className="text-neutral-500 text-sm md:text-base">
+                  Weekly fitness tips, product updates, and exclusive offers.
+                </p>
               </div>
-              <span className="text-xl font-bold text-white">FitTrack</span>
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                <div className="flex-1 relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-neutral-950 border border-neutral-700 text-white placeholder-neutral-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
+                  />
+                </div>
+                <motion.button
+                  type="submit"
+                  disabled={subscribeStatus === 'loading'}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-3.5 rounded-lg bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 hover:opacity-95 transition-opacity"
+                >
+                  {subscribeStatus === 'loading' ? '...' : subscribeStatus === 'success' ? 'Subscribed!' : 'Subscribe'}
+                  {subscribeStatus === 'idle' && <ArrowRight className="w-4 h-4" />}
+                </motion.button>
+              </form>
             </div>
-            <p className="text-sm text-neutral-400 dark:text-neutral-500 mb-6 max-w-xs">
-              Transform your fitness journey with AI-powered analytics and community support.
+          </div>
+        </motion.div>
+
+        {/* Main grid */}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-10 md:gap-8 mb-14">
+          <motion.div
+            className="col-span-2"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
+              <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center group-hover:opacity-90 transition-opacity">
+                <Home className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-2xl font-bold text-white">FitTrack</span>
+            </Link>
+            <p className="text-sm text-neutral-500 max-w-xs leading-relaxed mb-6">
+              AI-powered fitness tracking and a community that keeps you accountable.
             </p>
-            <div className="flex gap-4">
-              {socialLinks.map(({ icon: Icon, label, href }) => (
+            <div className="flex gap-3">
+              {socialLinks.map(({ icon: Icon, label, href, color }) => (
                 <motion.a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg bg-neutral-800 dark:bg-neutral-900 flex items-center justify-center hover:bg-primary-600 transition-colors"
-                  whileHover="hover"
-                  variants={iconHoverVariants}
+                  whileHover={{ y: -3, scale: 1.08 }}
+                  className={`w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-500 ${color} transition-colors`}
                 >
                   <Icon className="w-4 h-4" />
                 </motion.a>
@@ -122,168 +156,37 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Product Links */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-white font-semibold mb-4">Product</h3>
-            <ul className="space-y-3">
-              {navigationLinks.product.map((link) => (
-                <li key={link.name}>
-                  <motion.a
-                    href={link.href}
-                    className="text-sm hover:text-white transition-colors flex items-center gap-2"
-                    whileHover="hover"
-                    variants={linkHoverVariants}
-                  >
-                    <span>{link.name}</span>
-                  </motion.a>
-                </li>
-              ))}
-            </ul>
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }}>
+            <FooterLinkColumn title="Product" links={navigationLinks.product} />
           </motion.div>
-
-          {/* Company Links */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-white font-semibold mb-4">Company</h3>
-            <ul className="space-y-3">
-              {navigationLinks.company.map((link) => (
-                <li key={link.name}>
-                  <motion.a
-                    href={link.href}
-                    className="text-sm hover:text-white transition-colors flex items-center gap-2"
-                    whileHover="hover"
-                    variants={linkHoverVariants}
-                  >
-                    <span>{link.name}</span>
-                  </motion.a>
-                </li>
-              ))}
-            </ul>
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+            <FooterLinkColumn title="Company" links={navigationLinks.company} />
           </motion.div>
-
-          {/* Resources Links */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-white font-semibold mb-4">Resources</h3>
-            <ul className="space-y-3">
-              {navigationLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <motion.a
-                    href={link.href}
-                    className="text-sm hover:text-white transition-colors flex items-center gap-2"
-                    whileHover="hover"
-                    variants={linkHoverVariants}
-                  >
-                    <span>{link.name}</span>
-                  </motion.a>
-                </li>
-              ))}
-            </ul>
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
+            <FooterLinkColumn title="Resources" links={navigationLinks.resources} />
           </motion.div>
-
-          {/* Legal Links */}
-          <motion.div variants={itemVariants} className="col-span-2 md:col-span-1">
-            <h3 className="text-white font-semibold mb-4">Legal</h3>
-            <ul className="space-y-3">
-              {navigationLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <motion.a
-                    href={link.href}
-                    className="text-sm hover:text-white transition-colors flex items-center gap-2"
-                    whileHover="hover"
-                    variants={linkHoverVariants}
-                  >
-                    <span>{link.name}</span>
-                  </motion.a>
-                </li>
-              ))}
-            </ul>
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+            <FooterLinkColumn title="Legal" links={navigationLinks.legal} />
           </motion.div>
-        </motion.div>
+        </div>
 
-        {/* Newsletter Section */}
-        <motion.div
-          className="bg-gradient-to-r from-neutral-900 to-neutral-800 dark:from-neutral-900 dark:to-black border border-neutral-800 rounded-xl p-8 md:p-12 mb-16"
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-white text-xl md:text-2xl font-bold mb-2">
-                Stay Updated
-              </h3>
-              <p className="text-neutral-400">
-                Get weekly tips, fitness insights, and exclusive offers delivered to your inbox.
-              </p>
-            </div>
-            <form onSubmit={handleSubscribe} className="flex gap-2">
-              <div className="flex-1 relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-neutral-800 dark:bg-neutral-900 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
-                />
-              </div>
-              <motion.button
-                type="submit"
-                disabled={subscribeStatus === 'loading'}
-                className="px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg font-semibold hover:from-primary-700 hover:to-secondary-700 disabled:opacity-50 transition-all flex items-center gap-2 whitespace-nowrap"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {subscribeStatus === 'loading' ? (
-                  'Subscribing...'
-                ) : subscribeStatus === 'success' ? (
-                  'Subscribed!'
-                ) : (
-                  <>
-                    Subscribe
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </motion.button>
-            </form>
-          </div>
-        </motion.div>
-
-        {/* Bottom Section */}
-        <motion.div
-          className="border-t border-neutral-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          <p className="text-sm text-neutral-500">
+        {/* Bottom bar */}
+        <div className="pt-8 border-t border-neutral-800/80 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-neutral-600">
             © {new Date().getFullYear()} FitTrack. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 text-sm">
-            <motion.a
-              href="#"
-              className="text-neutral-400 hover:text-neutral-200 transition-colors"
-              whileHover={{ x: 2 }}
-            >
-              Terms of Service
-            </motion.a>
-            <motion.a
-              href="#"
-              className="text-neutral-400 hover:text-neutral-200 transition-colors"
-              whileHover={{ x: 2 }}
-            >
-              Privacy Policy
-            </motion.a>
-            <motion.a
-              href="#"
-              className="text-neutral-400 hover:text-neutral-200 transition-colors"
-              whileHover={{ x: 2 }}
-            >
-              Cookie Settings
-            </motion.a>
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
+            {['Terms', 'Privacy', 'Cookies'].map((item) => (
+              <a key={item} href="#" className="text-neutral-500 hover:text-primary-400 transition-colors">
+                {item}
+              </a>
+            ))}
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-xs text-neutral-500">
+              <span className="w-1.5 h-1.5 rounded-full bg-success-500" />
+              All systems operational
+            </span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   )

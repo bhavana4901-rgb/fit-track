@@ -1,329 +1,261 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Check, ArrowRight } from 'lucide-react'
+import { Check, ArrowRight, Sparkles, Zap, Crown } from 'lucide-react'
 
 const pricingTiers = [
   {
     id: 'free',
     name: 'Free',
     price: 0,
-    period: 'Forever',
-    description: 'Perfect for getting started with fitness tracking',
-    color: 'neutral',
+    period: 'forever',
+    description: 'Perfect for getting started',
     gradient: 'from-neutral-500 to-neutral-600',
-    features: [
-      'Basic workout logging',
-      '30-day activity history',
-      'Simple progress tracking',
-      'Mobile app access',
-      'Community access',
-      'Weekly email summary'
-    ],
+    icon: Zap,
+    layout: 'minimal',
+    features: ['Basic workout logging', '30-day history', 'Progress tracking', 'Mobile app', 'Community access'],
     cta: 'Get Started Free',
-    highlighted: false
+    highlighted: false,
   },
   {
     id: 'pro',
     name: 'Pro',
     price: 9.99,
-    period: 'per month',
-    description: 'Best for dedicated fitness enthusiasts',
-    color: 'primary',
-    gradient: 'from-primary-500 to-primary-600',
+    period: '/month',
+    description: 'For dedicated enthusiasts',
+    gradient: 'from-primary-500 to-blue-600',
+    icon: Sparkles,
+    layout: 'featured',
     badge: 'Most Popular',
-    features: [
-      'Everything in Free',
-      'Unlimited workout history',
-      'Advanced analytics & insights',
-      'Personalized recommendations',
-      'Nutrition planning',
-      'Custom goals & tracking',
-      'Priority support',
-      '1-on-1 coaching (limited)'
-    ],
+    features: ['Everything in Free', 'Unlimited history', 'Advanced analytics', 'Nutrition planning', 'Custom goals', 'Priority support'],
     cta: 'Start Pro Trial',
-    highlighted: true
+    highlighted: true,
   },
   {
     id: 'elite',
     name: 'Elite',
     price: 19.99,
-    period: 'per month',
-    description: 'Complete fitness transformation package',
-    color: 'secondary',
-    gradient: 'from-secondary-500 to-secondary-600',
-    features: [
-      'Everything in Pro',
-      'Unlimited 1-on-1 coaching',
-      'Weekly check-ins with trainer',
-      'Meal plan creation',
-      'Advanced biomechanics analysis',
-      'Video form feedback',
-      'Premium content library',
-      'Early access to new features'
-    ],
+    period: '/month',
+    description: 'Full transformation package',
+    gradient: 'from-secondary-500 to-violet-600',
+    icon: Crown,
+    layout: 'premium',
+    features: ['Everything in Pro', '1-on-1 coaching', 'Weekly check-ins', 'Meal plans', 'Form feedback', 'Premium library'],
     cta: 'Start Elite Trial',
-    highlighted: false
-  }
+    highlighted: false,
+  },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2
-    }
-  }
-}
+function PricingCard({ tier, index }) {
+  const Icon = tier.icon
+  const isFeatured = tier.layout === 'featured'
+  const isPremium = tier.layout === 'premium'
+  const isMinimal = tier.layout === 'minimal'
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' }
-  }
-}
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.55, delay: index * 0.1 }}
+      whileHover={{ y: isFeatured ? -4 : -2 }}
+      className={`relative flex flex-col h-full ${
+        isFeatured ? 'md:-mt-4 md:mb-4 z-10' : ''
+      }`}
+    >
+      {tier.badge && (
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+          <span className={`px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r ${tier.gradient}`}>
+            {tier.badge}
+          </span>
+        </div>
+      )}
 
-const cardHoverVariants = {
-  hover: { 
-    y: -12, 
-    transition: { duration: 0.3 }
-  }
-}
+      {/* Featured — glowing spotlight */}
+      {isFeatured && (
+        <div className={`absolute -inset-px rounded-[1.75rem] bg-gradient-to-br ${tier.gradient} opacity-40`} />
+      )}
 
-const featureVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: (i) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.4,
-      delay: i * 0.05
-    }
-  })
+      {/* Premium — angled accent stripe */}
+      {isPremium && (
+        <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${tier.gradient} opacity-20 rounded-bl-[4rem]`} />
+      )}
+
+      <div
+        className={`relative flex flex-col flex-1 rounded-2xl overflow-hidden border transition-colors ${
+          isFeatured
+            ? 'bg-neutral-950 text-white border-primary-500/40 shadow-sm'
+            : isPremium
+              ? 'bg-gradient-to-br from-secondary-50/80 to-violet-50/80 dark:from-secondary-950/50 dark:to-violet-950/40 border border-secondary-200 dark:border-secondary-800/80 shadow-sm'
+              : 'bg-white dark:bg-neutral-900 border border-dashed border-neutral-200 dark:border-neutral-800 shadow-sm hover:border-neutral-300 dark:hover:border-neutral-700'
+        }`}
+      >
+        {/* Card header */}
+        <div className={`p-6 md:p-8 ${isFeatured ? 'bg-gradient-to-br from-primary-600/20 to-blue-600/10' : ''}`}>
+          <div className="flex items-start justify-between mb-6">
+            <div
+              className={`p-3 rounded-2xl ${
+                isFeatured
+                  ? `bg-gradient-to-br ${tier.gradient}`
+                  : isPremium
+                    ? `bg-gradient-to-br ${tier.gradient} text-white`
+                    : 'bg-neutral-100 dark:bg-neutral-800'
+              }`}
+            >
+              <Icon className={`w-6 h-6 ${isFeatured || isPremium ? 'text-white' : 'text-neutral-600 dark:text-neutral-400'}`} />
+            </div>
+            {isMinimal && (
+              <span className="text-xs font-semibold uppercase tracking-widest text-neutral-500">Starter</span>
+            )}
+            {isPremium && (
+              <span className="text-xs font-semibold uppercase tracking-widest text-secondary-600 dark:text-secondary-400">
+                Premium
+              </span>
+            )}
+          </div>
+
+          <h3 className={`text-2xl font-bold mb-1 ${isFeatured ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
+            {tier.name}
+          </h3>
+          <p className={`text-sm mb-6 ${isFeatured ? 'text-neutral-400' : 'text-neutral-600 dark:text-neutral-400'}`}>
+            {tier.description}
+          </p>
+
+          <div className="flex items-baseline gap-1 mb-6">
+            <span className={`text-5xl font-black tracking-tight ${isFeatured ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
+              ${tier.price}
+            </span>
+            <span className={`text-sm ${isFeatured ? 'text-neutral-400' : 'text-neutral-500'}`}>{tier.period}</span>
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className={`w-full py-3.5 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all ${
+              isFeatured
+                ? `bg-gradient-to-r ${tier.gradient} text-white`
+                : isPremium
+                  ? `bg-gradient-to-r ${tier.gradient} text-white`
+                  : 'border border-neutral-300 dark:border-neutral-600 text-neutral-900 dark:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800'
+            }`}
+          >
+            {tier.cta}
+            <ArrowRight className="w-4 h-4" />
+          </motion.button>
+        </div>
+
+        {/* Features */}
+        <div
+          className={`flex-1 p-6 md:px-8 md:pb-8 border-t ${
+            isFeatured ? 'border-white/10' : 'border-neutral-200/80 dark:border-neutral-700/80'
+          }`}
+        >
+          <ul className="space-y-3">
+            {tier.features.map((feature, i) => (
+              <motion.li
+                key={feature}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + i * 0.04 }}
+                className="flex items-start gap-3 text-sm"
+              >
+                <span
+                  className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+                    isFeatured || isPremium
+                      ? `bg-gradient-to-r ${tier.gradient}`
+                      : 'bg-neutral-200 dark:bg-neutral-700'
+                  }`}
+                >
+                  <Check className={`w-3 h-3 ${isFeatured || isPremium ? 'text-white' : 'text-neutral-600 dark:text-neutral-400'}`} strokeWidth={3} />
+                </span>
+                <span className={isFeatured ? 'text-neutral-300' : 'text-neutral-700 dark:text-neutral-300'}>
+                  {feature}
+                </span>
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </motion.article>
+  )
 }
 
 export default function Pricing() {
+  const [annual, setAnnual] = useState(false)
+
   return (
-    <section className="py-20 md:py-32 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-neutral-50/60 via-cyan-50/40 to-white dark:from-neutral-900/60 dark:via-cyan-950/20 dark:to-neutral-950 relative overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <motion.div 
-          animate={{ y: [0, 40, 0], x: [0, -20, 0] }}
-          transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-1/4 -left-32 w-80 h-80 bg-gradient-to-br from-cyan-200/20 to-primary-200/10 rounded-full blur-3xl dark:from-cyan-900/10 dark:to-primary-900/5"
-        />
-        <motion.div 
-          animate={{ y: [0, -40, 0], x: [0, 20, 0] }}
-          transition={{ duration: 12, repeat: Infinity }}
-          className="absolute bottom-1/4 -right-32 w-80 h-80 bg-gradient-to-tl from-blue-200/20 to-secondary-200/10 rounded-full blur-3xl dark:from-blue-900/10 dark:to-secondary-900/5"
-        />
-      </div>
+    <section id="pricing" className="py-20 md:py-28 px-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-cyan-50/30 to-primary-50/20 dark:from-neutral-950 dark:via-cyan-950/10 dark:to-neutral-950" />
+      <div className="absolute inset-0 opacity-40 bg-[radial-gradient(ellipse_at_30%_20%,rgba(6,182,212,0.15),transparent_50%),radial-gradient(ellipse_at_70%_80%,rgba(59,130,246,0.12),transparent_50%)]" />
+
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
         >
+          <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold text-cyan-700 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-950/50 rounded-full border border-cyan-200 dark:border-cyan-800">
+            Pricing
+          </span>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent">
-              Simple, Transparent Pricing
+            <span className="bg-gradient-to-r from-primary-600 via-cyan-600 to-secondary-600 bg-clip-text text-transparent">
+              Simple, transparent pricing
             </span>
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 text-lg max-w-2xl mx-auto">
-            Choose the perfect plan for your fitness journey. Upgrade or downgrade anytime with no commitment.
+          <p className="text-neutral-600 dark:text-neutral-400 text-lg max-w-2xl mx-auto mb-8">
+            Choose your plan. Upgrade or downgrade anytime — no commitment.
           </p>
-        </motion.div>
 
-        {/* Pricing Cards */}
-        <motion.div
-          className="grid md:grid-cols-3 gap-8 lg:gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {pricingTiers.map((tier) => (
-            <motion.div
-              key={tier.id}
-              variants={cardVariants}
-              whileHover={cardHoverVariants.hover}
-              className={`relative rounded-2xl transition-all duration-300 ${
-                tier.highlighted
-                  ? 'md:scale-105 bg-white dark:bg-neutral-800 shadow-2xl shadow-primary-500/20 dark:shadow-primary-900/30'
-                  : 'bg-white dark:bg-neutral-900 shadow-lg hover:shadow-xl'
-              } border ${
-                tier.highlighted
-                  ? `border-transparent bg-gradient-to-br ${tier.gradient} p-1`
-                  : 'border-neutral-200 dark:border-neutral-800'
+          {/* Billing toggle */}
+          <div className="inline-flex items-center gap-3 p-1.5 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800">
+            <button
+              type="button"
+              onClick={() => setAnnual(false)}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
+                !annual ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-sm' : 'text-neutral-500'
               }`}
             >
-              {/* Gradient border inner container for highlighted tier */}
-              {tier.highlighted && (
-                <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8 h-full">
-                  {/* Badge */}
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                    <div className={`bg-gradient-to-r ${tier.gradient} text-white px-4 py-1.5 rounded-full text-sm font-semibold`}>
-                      {tier.badge}
-                    </div>
-                  </div>
+              Monthly
+            </button>
+            <button
+              type="button"
+              onClick={() => setAnnual(true)}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${
+                annual ? 'bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-sm' : 'text-neutral-500'
+              }`}
+            >
+              Annual
+              <span className="text-xs px-2 py-0.5 rounded-full bg-success-100 dark:bg-success-950 text-success-700 dark:text-success-400 font-bold">
+                -20%
+              </span>
+            </button>
+          </div>
+        </motion.div>
 
-                  {/* Tier Info */}
-                  <div className="mb-8">
-                    <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                      {tier.name}
-                    </h3>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
-                      {tier.description}
-                    </p>
-
-                    {/* Price */}
-                    <div className="mb-8">
-                      <span className="text-5xl font-bold text-neutral-900 dark:text-white">
-                        ${tier.price}
-                      </span>
-                      <span className="text-neutral-600 dark:text-neutral-400 ml-2">
-                        {tier.period}
-                      </span>
-                    </div>
-
-                    {/* CTA Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`w-full bg-gradient-to-r ${tier.gradient} text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-all duration-300`}
-                    >
-                      {tier.cta}
-                      <ArrowRight className="w-4 h-4" />
-                    </motion.button>
-                  </div>
-
-                  {/* Features */}
-                  <div className="border-t border-neutral-200 dark:border-neutral-700 pt-8">
-                    <ul className="space-y-4">
-                      {tier.features.map((feature, i) => (
-                        <motion.li
-                          key={i}
-                          custom={i}
-                          variants={featureVariants}
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true, margin: '-50px' }}
-                          className="flex items-start gap-3"
-                        >
-                          <motion.div
-                            initial={{ scale: 0, rotate: -180 }}
-                            whileInView={{ scale: 1, rotate: 0 }}
-                            transition={{ duration: 0.4, delay: i * 0.05 }}
-                            viewport={{ once: true }}
-                            className={`mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-r ${tier.gradient} flex items-center justify-center`}
-                          >
-                            <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                          </motion.div>
-                          <span className="text-neutral-700 dark:text-neutral-300">
-                            {feature}
-                          </span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
-
-              {/* Non-highlighted tier content */}
-              {!tier.highlighted && (
-                <div className="p-8 h-full flex flex-col">
-                  {/* Tier Info */}
-                  <div className="mb-8">
-                    <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                      {tier.name}
-                    </h3>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
-                      {tier.description}
-                    </p>
-
-                    {/* Price */}
-                    <div className="mb-8">
-                      <span className="text-5xl font-bold text-neutral-900 dark:text-white">
-                        ${tier.price}
-                      </span>
-                      <span className="text-neutral-600 dark:text-neutral-400 ml-2">
-                        {tier.period}
-                      </span>
-                    </div>
-
-                    {/* CTA Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`w-full border-2 border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-300`}
-                    >
-                      {tier.cta}
-                      <ArrowRight className="w-4 h-4" />
-                    </motion.button>
-                  </div>
-
-                  {/* Features */}
-                  <div className="border-t border-neutral-200 dark:border-neutral-800 pt-8 flex-1">
-                    <ul className="space-y-4">
-                      {tier.features.map((feature, i) => (
-                        <motion.li
-                          key={i}
-                          custom={i}
-                          variants={featureVariants}
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true, margin: '-50px' }}
-                          className="flex items-start gap-3"
-                        >
-                          <motion.div
-                            initial={{ scale: 0, rotate: -180 }}
-                            whileInView={{ scale: 1, rotate: 0 }}
-                            transition={{ duration: 0.4, delay: i * 0.05 }}
-                            viewport={{ once: true }}
-                            className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-neutral-300 dark:bg-neutral-700 flex items-center justify-center"
-                          >
-                            <Check className="w-3 h-3 text-neutral-600 dark:text-neutral-400" strokeWidth={3} />
-                          </motion.div>
-                          <span className="text-neutral-700 dark:text-neutral-300">
-                            {feature}
-                          </span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
-            </motion.div>
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch mt-14">
+          {pricingTiers.map((tier, index) => (
+            <PricingCard
+              key={tier.id}
+              tier={{
+                ...tier,
+                price: annual && tier.price > 0 ? +(tier.price * 0.8).toFixed(2) : tier.price,
+                period: tier.price === 0 ? 'forever' : annual ? '/mo billed yearly' : '/month',
+              }}
+              index={index}
+            />
           ))}
-        </motion.div>
+        </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          className="text-center mt-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true, margin: '-100px' }}
+        <motion.p
+          className="text-center mt-12 text-neutral-500 dark:text-neutral-400 text-sm"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
         >
-          <p className="text-neutral-600 dark:text-neutral-400 mb-6">
-            All plans include a 14-day free trial. No credit card required.
-          </p>
-          <motion.a
-            href="#"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
-          >
-            View detailed feature comparison
-            <ArrowRight className="w-4 h-4" />
-          </motion.a>
-        </motion.div>
+          All paid plans include a <span className="font-semibold text-primary-600 dark:text-primary-400">14-day free trial</span> — no credit card required
+        </motion.p>
       </div>
     </section>
   )
