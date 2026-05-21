@@ -230,7 +230,7 @@ export default function RegisterStep1({ onNext, onPrevious, initialData = {} }) 
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="relative w-full max-w-md h-96">
+          <div className="relative w-full max-w-md h-140">
             {/* Illustration: Person with account creation theme */}
             <svg viewBox="0 0 300 400" className="w-full h-full">
               {/* Background circle glow */}

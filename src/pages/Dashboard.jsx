@@ -29,6 +29,8 @@ export default function Dashboard() {
   return (
     <DashboardLayout>
       <motion.div
+        role="main"
+        aria-label="Dashboard main content"
         className="p-6 space-y-6"
         initial="hidden"
         animate="visible"

@@ -11,16 +11,19 @@ export function ThemeProvider({ children }) {
     if (savedTheme === 'dark') {
       setIsDark(true)
       document.documentElement.classList.add('dark')
+      document.documentElement.style.setProperty('color-scheme', 'dark')
     } else {
       setIsDark(false)
       document.documentElement.classList.remove('dark')
+      document.documentElement.style.setProperty('color-scheme', 'light')
     }
   }, [])
 
   const toggleTheme = () => {
     const newTheme = !isDark
     setIsDark(newTheme)
-    
+
+    document.documentElement.style.setProperty('color-scheme', newTheme ? 'dark' : 'light')
     if (newTheme) {
       document.documentElement.classList.add('dark')
       storage.setItem('fittrack_theme', 'dark')

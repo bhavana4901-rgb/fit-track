@@ -30,9 +30,9 @@ export default function Button({
   }
 
   const sizes = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2.5 text-base',
-    lg: 'px-6 py-3.5 text-lg',
+    sm: 'px-3 py-2 text-sm',
+    md: 'px-4 py-3 text-base',
+    lg: 'px-6 py-4 text-lg',
   }
 
   const variantClass = variants[variant] || variants.primary

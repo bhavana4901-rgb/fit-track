@@ -72,6 +72,7 @@ const QuickActions = () => {
         border: 'border-primary-200 dark:border-primary-800',
         icon: 'text-primary-600 dark:text-primary-400',
         hover: 'hover:bg-primary-600',
+        focusRing: 'focus:ring-primary-500',
       },
       success: {
         bg: 'bg-success-100 dark:bg-success-950/30',
@@ -79,6 +80,7 @@ const QuickActions = () => {
         border: 'border-success-200 dark:border-success-800',
         icon: 'text-success-600 dark:text-success-400',
         hover: 'hover:bg-success-600',
+        focusRing: 'focus:ring-success-500',
       },
       secondary: {
         bg: 'bg-secondary-100 dark:bg-secondary-950/30',
@@ -86,6 +88,7 @@ const QuickActions = () => {
         border: 'border-secondary-200 dark:border-secondary-800',
         icon: 'text-secondary-600 dark:text-secondary-400',
         hover: 'hover:bg-secondary-600',
+        focusRing: 'focus:ring-secondary-500',
       },
     }
     return colors[colorType] || colors.primary
@@ -124,7 +127,8 @@ const QuickActions = () => {
               }}
               whileTap={{ scale: 0.95 }}
               onClick={action.onClick}
-              className={`relative overflow-hidden group p-6 rounded-lg border-2 transition-all duration-300 ${colorClasses.bg} ${colorClasses.border} ${colorClasses.text}`}
+              aria-label={`${action.label}: ${action.description}`}
+              className={`relative overflow-hidden group p-6 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-neutral-950 ${colorClasses.focusRing} ${colorClasses.bg} ${colorClasses.border} ${colorClasses.text}`}
             >
               {/* Background gradient on hover */}
               <motion.div

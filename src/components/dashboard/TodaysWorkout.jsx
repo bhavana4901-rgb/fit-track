@@ -92,7 +92,14 @@ export default function TodaysWorkout() {
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2 overflow-hidden">
+        <div
+          role="progressbar"
+          aria-valuenow={progressPercentage}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label="Workout completion progress"
+          className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2 overflow-hidden"
+        >
           <motion.div
             className="h-full bg-gradient-to-r from-primary-500 to-secondary-500"
             initial={{ width: 0 }}
@@ -112,14 +119,16 @@ export default function TodaysWorkout() {
       <motion.div variants={listVariants} className="space-y-2 mb-6">
         <AnimatePresence>
           {exercises.map((exercise) => (
-            <motion.div
+            <motion.button
               key={exercise.id}
               variants={itemVariants}
               initial="hidden"
               animate="visible"
               exit={{ opacity: 0, x: -10 }}
               onClick={() => toggleExercise(exercise.id)}
-              className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-200 ${
+              aria-label={`${exercise.name}: ${exercise.sets}x${exercise.reps}${exercise.completed ? ' - Completed' : ''}`}
+              aria-pressed={exercise.completed}
+              className={`w-full flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-950 ${
                 exercise.completed
                   ? 'bg-success-50 dark:bg-success-950/20'
                   : 'bg-neutral-50 dark:bg-neutral-700/50 hover:bg-neutral-100 dark:hover:bg-neutral-700'
@@ -177,7 +186,7 @@ export default function TodaysWorkout() {
               >
                 {exercise.sets}x{exercise.reps}
               </motion.div>
-            </motion.div>
+            </motion.button>
           ))}
         </AnimatePresence>
       </motion.div>
@@ -186,10 +195,11 @@ export default function TodaysWorkout() {
       <motion.button
         variants={itemVariants}
         onClick={handleStartWorkout}
-        className={`w-full py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-200 ${
+        aria-label={progressPercentage === 100 ? 'Workout complete' : 'Start workout'}
+        className={`w-full py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-neutral-950 ${
           progressPercentage === 100
-            ? 'bg-success-600 hover:bg-success-700 dark:bg-success-600 dark:hover:bg-success-700 text-white'
-            : 'bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 text-white'
+            ? 'bg-success-600 hover:bg-success-700 dark:bg-success-600 dark:hover:bg-success-700 text-white focus:ring-success-500'
+            : 'bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 text-white focus:ring-primary-500'
         }`}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}

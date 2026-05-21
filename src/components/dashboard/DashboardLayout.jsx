@@ -1,8 +1,9 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, LayoutDashboard, Dumbbell, Apple, TrendingUp, Settings, Home, LogOut, ChevronDown } from 'lucide-react'
+import { Menu, X, LayoutDashboard, Dumbbell, Apple, TrendingUp, Settings, Home, LogOut, ChevronDown, Moon, Sun } from 'lucide-react'
 import { AuthContext } from '../../contexts/AuthContext'
+import { useTheme } from '../../hooks/useTheme'
 
 const navigationItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
@@ -16,8 +17,19 @@ export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [profileMenuOpen, setProfileMenuOpen] = useState(false)
   const { user, logout } = useContext(AuthContext)
+  const { isDark, toggleTheme } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') setProfileMenuOpen(false)
+    }
+    if (profileMenuOpen) {
+      document.addEventListener('keydown', handleEscape)
+      return () => document.removeEventListener('keydown', handleEscape)
+    }
+  }, [profileMenuOpen])
 
   const handleLogout = () => {
     const confirmed = window.confirm('Are you sure you want to logout?')
@@ -33,6 +45,9 @@ export default function DashboardLayout({ children }) {
     <div className="flex h-screen bg-neutral-50 dark:bg-neutral-950">
       {/* Desktop Sidebar */}
       <motion.aside
+        id="main-sidebar"
+        role="navigation"
+        aria-label="Main navigation sidebar"
         initial={false}
         animate={{ width: sidebarOpen ? 256 : 80 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -75,7 +90,9 @@ export default function DashboardLayout({ children }) {
                 onClick={() => navigate(item.href)}
                 whileHover={{ x: 4 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                aria-label={`Navigate to ${item.label}`}
+                aria-current={active ? 'page' : undefined}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900 ${
                   active
                     ? 'bg-primary-100 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400'
                     : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
@@ -108,7 +125,9 @@ export default function DashboardLayout({ children }) {
               onClick={() => setProfileMenuOpen(!profileMenuOpen)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+              aria-label="User profile menu"
+              aria-expanded={profileMenuOpen}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
             >
               <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                 {user?.name?.charAt(0) || 'U'}
@@ -151,7 +170,8 @@ export default function DashboardLayout({ children }) {
                 >
                   <button
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-error-600 dark:text-error-400 hover:bg-error-50 dark:hover:bg-error-950/20 rounded-lg transition-colors"
+                    aria-label="Logout from your account"
+                    className="w-full flex items-center gap-3 px-4 py-3 text-error-600 dark:text-error-400 hover:bg-error-50 dark:hover:bg-error-950/20 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-error-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-800"
                   >
                     <LogOut className="w-4 h-4" />
                     <span className="text-sm font-medium">Logout</span>
@@ -166,7 +186,8 @@ export default function DashboardLayout({ children }) {
               onClick={handleLogout}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-error-50 dark:bg-error-950/20 text-error-600 dark:text-error-400 rounded-lg hover:bg-error-100 dark:hover:bg-error-950/40 transition-colors text-sm font-medium"
+              aria-label="Logout from your account"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-error-50 dark:bg-error-950/20 text-error-600 dark:text-error-400 rounded-lg hover:bg-error-100 dark:hover:bg-error-950/40 transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-error-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
             >
               <LogOut className="w-4 h-4" />
               <span>Logout</span>
@@ -174,13 +195,34 @@ export default function DashboardLayout({ children }) {
           )}
         </motion.div>
 
-        {/* Collapse Button */}
-        <motion.div className="p-4 border-t border-neutral-200 dark:border-neutral-800">
+        {/* Theme Toggle & Collapse */}
+        <motion.div className="p-4 border-t border-neutral-200 dark:border-neutral-800 space-y-2">
+          <motion.button
+            onClick={toggleTheme}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="w-full flex items-center justify-center gap-2 p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
+            title={isDark ? 'Light mode' : 'Dark mode'}
+          >
+            {isDark ? (
+              <Sun className="w-5 h-5 text-yellow-500" />
+            ) : (
+              <Moon className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
+            )}
+            {sidebarOpen && (
+              <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+                {isDark ? 'Light mode' : 'Dark mode'}
+              </span>
+            )}
+          </motion.button>
           <motion.button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full flex items-center justify-center p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+            aria-label={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+            aria-controls="main-sidebar"
+            className="w-full flex items-center justify-center p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
             title={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
           >
             {sidebarOpen ? (
@@ -195,18 +237,31 @@ export default function DashboardLayout({ children }) {
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Mobile Header with Sidebar Toggle */}
-        <motion.div className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-sm">
+        <motion.header className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-sm">
           <h1 className="font-bold text-lg text-neutral-900 dark:text-white">FitTrack</h1>
           <div className="flex items-center gap-2">
             <button
+              onClick={toggleTheme}
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
+              title={isDark ? 'Light mode' : 'Dark mode'}
+            >
+              {isDark ? (
+                <Sun className="w-5 h-5 text-yellow-500" />
+              ) : (
+                <Moon className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
+              )}
+            </button>
+            <button
               onClick={handleLogout}
-              className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+              aria-label="Logout from your account"
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-error-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
               title="Logout"
             >
               <LogOut className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
             </button>
           </div>
-        </motion.div>
+        </motion.header>
 
         {/* Content Scroll Area */}
         <div className="flex-1 overflow-y-auto">
@@ -214,7 +269,7 @@ export default function DashboardLayout({ children }) {
         </div>
 
         {/* Mobile Bottom Tab Bar */}
-        <motion.nav className="md:hidden flex items-center justify-around bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 shadow-lg">
+        <motion.nav role="navigation" aria-label="Mobile navigation" className="md:hidden flex items-center justify-around bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 shadow-lg">
           {navigationItems.map((item) => {
             const Icon = item.icon
             const active = isActive(item.href)
@@ -224,7 +279,9 @@ export default function DashboardLayout({ children }) {
                 onClick={() => navigate(item.href)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 transition-colors ${
+                aria-label={`Navigate to ${item.label}`}
+                aria-current={active ? 'page' : undefined}
+                className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset ${
                   active
                     ? 'text-primary-600 dark:text-primary-400'
                     : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200'

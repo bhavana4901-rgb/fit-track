@@ -78,7 +78,7 @@ const Input = forwardRef(({
           aria-describedby={error ? errorId : undefined}
           aria-required={required}
           className={`
-            w-full px-4 py-2.5 rounded-lg
+            w-full px-4 py-3 rounded-lg
             border border-neutral-200 dark:border-neutral-700
             bg-white dark:bg-neutral-900
             text-neutral-900 dark:text-white

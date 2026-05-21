@@ -105,7 +105,8 @@ export default function DashboardHeader() {
           {/* Settings Button */}
           <motion.button
             onClick={handleSettings}
-            className="p-3 rounded-lg bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 transition-colors duration-200"
+            aria-label="Go to settings"
+            className="p-3 rounded-lg bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-950"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Settings"
@@ -116,7 +117,8 @@ export default function DashboardHeader() {
           {/* Logout Button */}
           <motion.button
             onClick={handleLogout}
-            className="p-3 rounded-lg bg-error-100 hover:bg-error-200 dark:bg-error-950/30 dark:hover:bg-error-950/50 text-error-600 dark:text-error-400 transition-colors duration-200"
+            aria-label="Logout from your account"
+            className="p-3 rounded-lg bg-error-100 hover:bg-error-200 dark:bg-error-950/30 dark:hover:bg-error-950/50 text-error-600 dark:text-error-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-error-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-950"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Logout"

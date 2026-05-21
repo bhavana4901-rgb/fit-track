@@ -92,7 +92,7 @@ const WeeklyActivityChart = () => {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-xl font-bold text-neutral-900 dark:text-white">
+          <h3 id="weekly-activity-heading" className="text-xl font-bold text-neutral-900 dark:text-white">
             Weekly Activity
           </h3>
           <span className="text-xs font-medium px-3 py-1 bg-primary-100 dark:bg-primary-950/30 text-primary-700 dark:text-primary-400 rounded-full">
@@ -136,6 +136,9 @@ const WeeklyActivityChart = () => {
 
       {/* Chart container */}
       <motion.div
+        role="img"
+        aria-labelledby="weekly-activity-heading"
+        aria-label={`Bar chart showing workout minutes for the last 7 days. Total: ${totalMinutes} minutes, daily average: ${averageMinutes} minutes.`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}

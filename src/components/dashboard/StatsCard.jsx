@@ -110,6 +110,8 @@ export default function StatsCard({
 
   return (
     <motion.div
+      role="region"
+      aria-label={`${label}: ${displayValue}${unit} ${subtitle}`}
       variants={cardVariants}
       initial="hidden"
       animate="visible"

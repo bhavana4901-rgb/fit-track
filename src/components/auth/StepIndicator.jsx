@@ -189,28 +189,7 @@ export default function StepIndicator({
               })}
             </div>
 
-            {/* Connecting Lines (Desktop only) */}
-            <div className="hidden md:flex absolute inset-x-0 top-[48px] items-center justify-between pointer-events-none px-4">
-              {stepList.map((_, index) => {
-                if (index === stepList.length - 1) return null
-
-                const nextStepNumber = index + 2
-                const isComplete = isStepComplete(nextStepNumber)
-
-                return (
-                  <motion.div
-                    key={`line-${index}`}
-                    className="flex-1 h-1 bg-neutral-200 dark:bg-neutral-700 mx-2"
-                    animate={{
-                      backgroundColor: isComplete
-                        ? 'rgb(34, 197, 94)' // success-600
-                        : 'rgb(229, 231, 235)', // neutral-200
-                    }}
-                    transition={{ duration: 0.4 }}
-                  />
-                )
-              })}
-            </div>
+          
           </div>
         )}
 
@@ -253,26 +232,7 @@ export default function StepIndicator({
         )}
       </div>
 
-      {/* Additional Info (Optional) */}
-      <motion.div
-        className="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-700"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-      >
-        <p className="text-xs text-neutral-600 dark:text-neutral-400">
-          {currentStep === totalSteps ? (
-            <span className="flex items-center gap-2">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-success-600" />
-              Almost there! Finish setting up your profile.
-            </span>
-          ) : (
-            <span>
-              Continue to step {currentStep + 1} to proceed
-            </span>
-          )}
-        </p>
-      </motion.div>
+     
     </div>
   )
 }

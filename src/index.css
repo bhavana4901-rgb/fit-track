@@ -14,12 +14,28 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body,
+#root {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 body {
   font-family: 'Poppins', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(249 250 251);
   color: rgb(17 24 39);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  #root,
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
 
 body.dark {
